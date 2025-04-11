@@ -1,0 +1,64 @@
+.container {
+    width: 100vw;
+    height: 100vh; /* ocupa o restante da tela abaixo do menu */
+    /* background-image: url('../img/MEG.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+}
+
+#holder {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+
+.info-container {
+    width: 90%;
+    max-height: 80vh;
+    margin-top: 12vh; /* distância abaixo do menu fixo */
+    overflow-y: auto;
+    background-color: transparent; /* fundo azul translúcido */
+    border-radius: 1vw;
+    padding: 2vh 2vw;
+    display: flex;
+    flex-direction: column;
+    gap: 2vh;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+}
+.info-card {
+    background-color: rgba(255, 255, 255, 0.3);
+    padding: 1vh 1vw;
+    border-radius: 1vw;
+    color: #ffffff;
+    font-weight: 500;
+    box-shadow: 0 0 5px rgba(0,0,0,0.2);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: transform 0.2s ease;
+    z-index: 1000;  
+}
+
+
+.info-card:hover {
+    transform: scale(1.03);
+}
+
+.arrow-icon {
+    font-size: 1.5vw;
+    color: #ffffff;
+    opacity: 1;
+    transition: transform 0.2s ease;
+}
+
+    .info-card:hover .arrow-icon {
+    transform: translateX(5px); /* anima a seta no hover */
+}
