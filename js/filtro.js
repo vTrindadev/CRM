@@ -1,18 +1,17 @@
-    // Filtro de busca
-    document.getElementById('inputBusca').addEventListener('input', function() {
-        var filter = this.value.toLowerCase(); // Obtém o valor digitado no campo de busca
-        var cards = document.querySelectorAll('.info-card'); // Pega todos os cards
+document.addEventListener("DOMContentLoaded", function () {
+    const inputBusca = document.getElementById("inputBusca");
+    const cards = document.querySelectorAll(".info-card");
 
-        cards.forEach(function(card) {
-            // Pega o texto de "Código" e "Cliente"
-            var codigo = card.querySelector('.codigo').textContent.toLowerCase();
-            var cliente = card.querySelector('.cliente').textContent.toLowerCase();
+    inputBusca.addEventListener("input", function () {
+        const filtro = inputBusca.value.toLowerCase();
 
-            // Se o código ou o nome do cliente contiverem o valor digitado, exibe o card, caso contrário, oculta
-            if (codigo.includes(filter) || cliente.includes(filter)) {
-                card.style.display = '';
+        cards.forEach(card => {
+            const texto = card.getAttribute("data-busca");
+            if (texto.includes(filtro)) {
+                card.style.display = "flex"; // ou "block", dependendo do seu layout
             } else {
-                card.style.display = 'none';
+                card.style.display = "none";
             }
         });
     });
+});

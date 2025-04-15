@@ -10,8 +10,8 @@ if ($conn->connect_error) {
     die("Erro de conexão: " . $conn->connect_error);
 }
 
-// Consulta SQL para pegar os dados
-$sql = "SELECT * FROM clientes";  // Substitua 'teste' pelo nome correto da tabela
+// Consulta SQL para pegar os dados dos clientes
+$sql = "SELECT * FROM clientes";  // Substitua 'clientes' pelo nome correto da tabela
 $result = $conn->query($sql);
 ?>
 
@@ -64,11 +64,11 @@ $result = $conn->query($sql);
           while($row = $result->fetch_assoc()) {
               echo '<div class="info-card">';
               echo '<div>';
-              echo '<p><strong>Código:</strong> ' . $row["Código"] . '</p>';
-              echo '<p><strong>Cliente:</strong> ' . $row["Cliente"] . '</p>';
-              echo '<p><strong>CNPJ:</strong> ' . $row["CNPJ"] . '</p>';
-              echo '<p><strong>Cidade:</strong> ' . $row["Cidade"] . '</p>';
-              echo '<p><strong>Estado:</strong> ' . $row["Estado"] . '</p>';
+              echo '<p><strong>Código:</strong> ' . htmlspecialchars($row["Código"]) . '</p>';
+              echo '<p><strong>Cliente:</strong> ' . htmlspecialchars($row["Cliente"]) . '</p>';
+              echo '<p><strong>CNPJ:</strong> ' . htmlspecialchars($row["CNPJ"]) . '</p>';
+              echo '<p><strong>Cidade:</strong> ' . htmlspecialchars($row["Cidade"]) . '</p>';
+              echo '<p><strong>Estado:</strong> ' . htmlspecialchars($row["Estado"]) . '</p>';
               echo '</div>';
               echo '<div class="arrow-icon">➤</div>';
               echo '</div>';
@@ -87,5 +87,26 @@ $result = $conn->query($sql);
   <script src="js/loader.js"></script>
   <script src="js/wave.js"></script>
   <script src="js/crv.js"></script>
+  
+  <!-- Script de Filtro -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const inputBusca = document.getElementById("inputBusca");
+        const cards = document.querySelectorAll(".info-card");
+
+        inputBusca.addEventListener("input", function () {
+            const filtro = inputBusca.value.toLowerCase();
+
+            cards.forEach(card => {
+                const texto = card.textContent.toLowerCase(); // Filtrando pelo texto do card
+                if (texto.includes(filtro)) {
+                    card.style.display = "flex"; // ou "block", dependendo do seu layout
+                } else {
+                    card.style.display = "none";
+                }
+            });
+        });
+    });
+  </script>
 </body>
 </html>

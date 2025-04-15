@@ -11,7 +11,7 @@ if ($conn->connect_error) {
 }
 
 // Consulta SQL para pegar os dados
-$sql = "SELECT * FROM demandas";  // Substitua 'teste' pelo nome correto da tabela
+$sql = "SELECT * FROM demandas";
 $result = $conn->query($sql);
 ?>
 
@@ -35,8 +35,8 @@ $result = $conn->query($sql);
       <a href="home.php" class="btn-menu">
           <h3>Home</h3>
       </a>
-      <a href="CRV.php" class="btn-menu activo">
-          <h3>Aplicador de Implementação</h3>
+      <a href="Apl_Implementação.php" class="btn-menu activo">
+          <h3>Aplicador Implementação</h3>
       </a>
       <input type="text" id="inputBusca" placeholder="Buscar..." class="input-menu">
       <a href="BD_Cliente.php" class="btn-menu">
@@ -47,6 +47,9 @@ $result = $conn->query($sql);
       </a>
     </div>
     <div class="opt-menu">
+      <a href="add_crv.php" class="btn-menu">
+          <h3>Adicionar +</h3>
+      </a>
       <button id="logoutButton" class="btn-menu-sair">Sair</button>
     </div>
   </div>
@@ -55,18 +58,24 @@ $result = $conn->query($sql);
     <div id="holder"></div>
     <div class="info-container">
       <?php
-      // Verifica se há resultados na consulta
       if ($result->num_rows > 0) {
-          // Exibe cada card com os dados
           while($row = $result->fetch_assoc()) {
-              echo '<div class="info-card">';
+              $busca = strtolower(
+                  $row["Nota"] . ' ' .
+                  $row["Cotacao"] . ' ' .
+                  $row["Cliente"] . ' ' .
+                  $row["Escopo"] . ' ' .
+                  $row["TipoProposta"] . ' ' .
+                  $row["Status"]
+              );
+              echo '<div class="info-card" data-busca="' . htmlspecialchars($busca, ENT_QUOTES, 'UTF-8') . '">';
               echo '<div>';
-              echo '<p><strong>Nota:</strong> ' . $row["Nota"] . '</p>';
-              echo '<p><strong>Cotação:</strong> ' . $row["Cotacao"] . '</p>';
-              echo '<p><strong>Cliente:</strong> ' . $row["Cliente"] . '</p>';
-              echo '<p><strong>Escopo:</strong> ' . $row["Escopo"] . '</p>';
-              echo '<p><strong>Tipo Proposta:</strong> ' . $row["TipoProposta"] . '</p>';
-              echo '<p><strong>Status:</strong> ' . $row["Status"] . '</p>';
+              echo '<p><strong>Nota:</strong> ' . htmlspecialchars($row["Nota"]) . '</p>';
+              echo '<p><strong>Cotação:</strong> ' . htmlspecialchars($row["Cotacao"]) . '</p>';
+              echo '<p><strong>Cliente:</strong> ' . htmlspecialchars($row["Cliente"]) . '</p>';
+              echo '<p><strong>Escopo:</strong> ' . htmlspecialchars($row["Escopo"]) . '</p>';
+              echo '<p><strong>Tipo Proposta:</strong> ' . htmlspecialchars($row["TipoProposta"]) . '</p>';
+              echo '<p><strong>Status:</strong> ' . htmlspecialchars($row["Status"]) . '</p>';
               echo '</div>';
               echo '<div class="arrow-icon">➤</div>';
               echo '</div>';
@@ -74,8 +83,6 @@ $result = $conn->query($sql);
       } else {
           echo "<p>Nenhum resultado encontrado.</p>";
       }
-
-      // Fecha a conexão com o banco de dados
       $conn->close();
       ?>
     </div>
@@ -84,6 +91,7 @@ $result = $conn->query($sql);
   <script src="js/verificador.js"></script>
   <script src="js/loader.js"></script>
   <script src="js/wave.js"></script>
+  <script src="js/filtro.js"></script>
 
 </body>
 </html>

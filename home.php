@@ -17,11 +17,11 @@
     <div class="spinner"></div>
   </div>
   <div id="menu">
-    <a href="home.php">
+    <a href="home.html">
         <img id="Logo" src="img/weg branco.png" alt="Logo WEG">
     </a>
     <div class="opt-menu">  
-        <a href="home.php" class="btn-menu activo">
+        <a href="home.html" class="btn-menu activo">
             <h3>Home</h3>
         </a>
         <a href="CRV.php" class="btn-menu">

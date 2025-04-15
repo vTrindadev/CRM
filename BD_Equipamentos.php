@@ -10,8 +10,8 @@ if ($conn->connect_error) {
     die("Erro de conexão: " . $conn->connect_error);
 }
 
-// Consulta SQL para pegar os dados
-$sql = "SELECT * FROM equipamentos";  // Substitua 'teste' pelo nome correto da tabela
+// Consulta SQL para pegar os dados dos equipamentos
+$sql = "SELECT * FROM equipamentos";  // Substitua 'equipamentos' pelo nome correto da tabela
 $result = $conn->query($sql);
 ?>
 
@@ -64,11 +64,11 @@ $result = $conn->query($sql);
           while($row = $result->fetch_assoc()) {
               echo '<div class="info-card">';
               echo '<div>';
-              echo '<p><strong>Fabricante:</strong> ' . $row["Fabricante"] . '</p>';
-              echo '<p><strong>Título:</strong> ' . $row["Título"] . '</p>';
-              echo '<p><strong>MaterialSAP:</strong> ' . $row["MaterialSAP"] . '</p>';
-              echo '<p><strong>Linha Carcaça:</strong> ' . $row["LinhaCarcaca"] . '</p>';
-              echo '<p><strong>Descrição SAP:</strong> ' . $row["DescricaoSAP"] . '</p>';
+              echo '<p><strong>Fabricante:</strong> ' . htmlspecialchars($row["Fabricante"]) . '</p>';
+              echo '<p><strong>Título:</strong> ' . htmlspecialchars($row["Título"]) . '</p>';
+              echo '<p><strong>MaterialSAP:</strong> ' . htmlspecialchars($row["MaterialSAP"]) . '</p>';
+              echo '<p><strong>Linha Carcaça:</strong> ' . htmlspecialchars($row["LinhaCarcaca"]) . '</p>';
+              echo '<p><strong>Descrição SAP:</strong> ' . htmlspecialchars($row["DescricaoSAP"]) . '</p>';
               echo '</div>';
               echo '<div class="arrow-icon">➤</div>';
               echo '</div>';
@@ -82,10 +82,32 @@ $result = $conn->query($sql);
       ?>
     </div>
   </div>
+
   <script src="js/filtro.js"></script>
   <script src="js/verificador.js"></script>
   <script src="js/loader.js"></script>
   <script src="js/wave.js"></script>
   <script src="js/crv.js"></script>
+
+  <!-- Script de Filtro -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const inputBusca = document.getElementById("inputBusca");
+        const cards = document.querySelectorAll(".info-card");
+
+        inputBusca.addEventListener("input", function () {
+            const filtro = inputBusca.value.toLowerCase();
+
+            cards.forEach(card => {
+                const texto = card.textContent.toLowerCase(); // Filtrando pelo texto do card
+                if (texto.includes(filtro)) {
+                    card.style.display = "flex"; // ou "block", dependendo do seu layout
+                } else {
+                    card.style.display = "none";
+                }
+            });
+        });
+    });
+  </script>
 </body>
 </html>
