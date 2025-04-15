@@ -17,11 +17,11 @@
     <div class="spinner"></div>
   </div>
   <div id="menu">
-    <a href="home.html">
+    <a href="home.php">
         <img id="Logo" src="img/weg branco.png" alt="Logo WEG">
     </a>
     <div class="opt-menu">  
-        <a href="home.html" class="btn-menu activo">
+        <a href="home.php" class="btn-menu activo">
             <h3>Home</h3>
         </a>
         <a href="CRV.php" class="btn-menu">
@@ -40,7 +40,7 @@
   </div>
 
   <div class="container">
-    <h1>Welcome to <br> CRM MEG <br> <?php echo $_SESSION['user']?></h1>
+    <h1>Welcome to <br> CRM MEG</h1>
   </div>
     <script src="js/verificador.js"></script>
     <script src="js/loader.js"></script>
