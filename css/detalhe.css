@@ -96,21 +96,3 @@
         width: 100%;
     }
 }
-.form-group button {
-  width: 15vw;
-  height: 6vh;
-  background-color: #00579d;
-  border-radius: 1vw 0vw 1vw 0;
-  border: none;
-  font-size: 1.2vw;
-  font-weight: 600;
-  color: white;
-  box-shadow: 2px 2px 10px 5px #0000001f;
-  transition: all 0.3s ease;
-  cursor: pointer;
-}
-
-.form-group button:hover {
-  background-color: #0090c5;
-  font-size: 1.4vw;
-}
