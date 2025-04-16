@@ -61,15 +61,19 @@ $result = $conn->query($sql);
       if ($result->num_rows > 0) {
           while($row = $result->fetch_assoc()) {
               $busca = strtolower(
-                  $row["Nota"] . ' ' .
-                  $row["Cotacao"] . ' ' .
-                  $row["Cliente"] . ' ' .
-                  $row["Escopo"] . ' ' .
-                  $row["TipoProposta"] . ' ' .
+                  $row["Nota"] . ' ' . 
+                  $row["Cotacao"] . ' ' . 
+                  $row["Cliente"] . ' ' . 
+                  $row["Escopo"] . ' ' . 
+                  $row["TipoProposta"] . ' ' . 
+                  $row["id"] . ' ' .  
                   $row["Status"]
               );
+              // Criando a URL para direcionar para a página de detalhes
+              $url = "detalhes.php?id=" . $row["id"] . "&nota=" . urlencode($row["Nota"]) . "&cotacao=" . urlencode($row["Cotacao"]) . "&cliente=" . urlencode($row["Cliente"]) . "&escopo=" . urlencode($row["Escopo"]) . "&status=" . urlencode($row["Status"]);
               echo '<div class="info-card" data-busca="' . htmlspecialchars($busca, ENT_QUOTES, 'UTF-8') . '">';
               echo '<div>';
+              echo '<p><strong>ID:</strong> ' . htmlspecialchars($row["id"]) . '</p>';
               echo '<p><strong>Nota:</strong> ' . htmlspecialchars($row["Nota"]) . '</p>';
               echo '<p><strong>Cotação:</strong> ' . htmlspecialchars($row["Cotacao"]) . '</p>';
               echo '<p><strong>Cliente:</strong> ' . htmlspecialchars($row["Cliente"]) . '</p>';
@@ -77,7 +81,7 @@ $result = $conn->query($sql);
               echo '<p><strong>Tipo Proposta:</strong> ' . htmlspecialchars($row["TipoProposta"]) . '</p>';
               echo '<p><strong>Status:</strong> ' . htmlspecialchars($row["Status"]) . '</p>';
               echo '</div>';
-              echo '<div class="arrow-icon">➤</div>';
+              echo '<div class="arrow-icon"><a href="' . $url . '">➤</a></div>';
               echo '</div>';
           }
       } else {
