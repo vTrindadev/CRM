@@ -64,13 +64,12 @@ $conn->close();
     </a>
     <div class="opt-menu">
       <a href="CRV.php" class="btn-menu"><h3>CRV</h3></a>
-      <a href="detalhes.php" class="btn-menu"><h3>Demanda</h3></a>
+      <a href="detalhes.php" class="btn-menu activo"><h3>Adicionar</h3></a>
       <input type="text" id="inputBusca" placeholder="Buscar..." class="input-menu">
       <a href="BD_Cliente.php" class="btn-menu"><h3>Clientes</h3></a>
       <a href="BD_Equipamentos.php" class="btn-menu"><h3>Equipamentos</h3></a>
     </div>
     <div class="opt-menu">
-      <a href="add_crv.php" class="btn-menu"><h3>Adicionar +</h3></a>
       <button id="logoutButton" class="btn-menu-sair">Sair</button>
     </div>
   </div>

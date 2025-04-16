@@ -108,7 +108,6 @@ $conn->close();
       <a href="BD_Equipamentos.php" class="btn-menu"><h3>Equipamentos</h3></a>
     </div>
     <div class="opt-menu">
-      <a href="add_crv.php" class="btn-menu"><h3>Adicionar +</h3></a>
       <button id="logoutButton" class="btn-menu-sair">Sair</button>
     </div>
   </div>

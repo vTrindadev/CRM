@@ -33,7 +33,7 @@
 }
 
 .info-card {
-  background-color: rgba(255, 255, 255, 0.3);
+  background-color: rgba(255, 255, 255, 0.2);
   padding: 1.5vh 1vw;
   border-radius: 1vw;
   color: #ffffff;
@@ -45,6 +45,10 @@
   gap: 1vw;
   min-height: 120px;
   z-index: 100;
+}
+
+.info-card:hover {
+  transform: scale(1.02); /* aumenta suavemente */
 }
 
 .info-sections {
@@ -59,6 +63,7 @@
   flex-direction: column;
   gap: 0.3vh;
 }
+
 
 .info-row p {
   margin: 0;
@@ -82,6 +87,10 @@
   opacity: 1;
   transition: transform 0.2s ease;
   text-decoration: none;
+}
+
+.arrow-icon:hover{
+  transform: scale(1.2); /* aumenta suavemente */
 }
 
 .info-card:hover .arrow-icon a {
@@ -113,3 +122,4 @@
 .status-default {
   background-color: #95a5a6; /* cinza padrão */
 }
+

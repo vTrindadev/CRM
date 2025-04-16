@@ -26,7 +26,7 @@
     flex-direction: column;
     gap: 3vh;
     box-shadow: 0 0 10px rgba(0,0,0,0.3);
-    background-color: rgba(255, 255, 255, 0.3);
+    background-color: rgba(255, 255, 255, 0.2);
     padding: 2vh 2vw;
     color: #ffffff;
     font-weight: 500;
@@ -49,9 +49,9 @@
     width: 100%;
     font-size: 1.2rem;
     font-weight: bold;
-    color: #28b9da;
+    color: white;
     margin-bottom: 1vh;
-    text-decoration: underline #28b9da;
+    text-decoration: underline white;
 }
 
 .form-group {
@@ -74,15 +74,15 @@
     flex: 1;
     padding: 0.5rem 0.75rem;
     background-color: #2e2e2e;
-    border: 1px solid #444;
+    border: none;
     border-radius: 6px;
     color: #fff;
     font-size: 0.95rem;
-    background-color: rgba(0, 0, 0, 0.3);
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
 .form-group input[type="text"]:read-only {
-    background-color: rgba(0, 0, 0, 0.3);
+    background-color: rgba(0, 0, 0, 0.5);
     color: white;
     cursor: not-allowed;
 }
