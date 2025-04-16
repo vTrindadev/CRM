@@ -26,7 +26,7 @@
     flex-direction: column;
     gap: 3vh;
     box-shadow: 0 0 10px rgba(0,0,0,0.3);
-    background-color: rgba(255, 255, 255, 0.05);
+    background-color: rgba(255, 255, 255, 0.3);
     padding: 2vh 2vw;
     color: #ffffff;
     font-weight: 500;
@@ -51,6 +51,7 @@
     font-weight: bold;
     color: #28b9da;
     margin-bottom: 1vh;
+    text-decoration: underline #28b9da;
 }
 
 .form-group {
@@ -64,7 +65,7 @@
 .form-group label {
     font-weight: bold;
     font-size: 0.95rem;
-    color: #ccc;
+    color: white;
     white-space: nowrap;
     width: 40%;
 }
@@ -77,11 +78,11 @@
     border-radius: 6px;
     color: #fff;
     font-size: 0.95rem;
-    background-color: rgba(255, 255, 255, 0.3);
+    background-color: rgba(0, 0, 0, 0.3);
 }
 
 .form-group input[type="text"]:read-only {
-    background-color: rgba(255, 255, 255, 0.3);
+    background-color: rgba(0, 0, 0, 0.3);
     color: white;
     cursor: not-allowed;
 }

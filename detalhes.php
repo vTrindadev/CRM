@@ -46,8 +46,8 @@ $conn->close();
         <img id="Logo" src="img/weg branco.png" alt="Logo WEG">
     </a>
     <div class="opt-menu">
-      <a href="home.php" class="btn-menu"><h3>Home</h3></a>
-      <a href="CRV.php" class="btn-menu activo"><h3>CRV</h3></a>
+      <a href="CRV.php" class="btn-menu"><h3>CRV</h3></a>
+      <a href="detalhes.php" class="btn-menu activo"><h3>Demanda</h3></a>
       <input type="text" id="inputBusca" placeholder="Buscar..." class="input-menu">
       <a href="BD_Cliente.php" class="btn-menu"><h3>Clientes</h3></a>
       <a href="BD_Equipamentos.php" class="btn-menu"><h3>Equipamentos</h3></a>
