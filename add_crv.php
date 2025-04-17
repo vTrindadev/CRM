@@ -12,7 +12,6 @@ if ($conn->connect_error) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Receber os dados do formulário
     $nota = $_POST['nota'];
     $crv = $_POST['crv'];
     $cliente = $_POST['cliente'];
@@ -35,15 +34,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $equipamentos = $_POST['equipamentos'];
     $observacao = $_POST['observacao'];
 
-    // Inserir os dados no banco de dados
     $insertSql = "INSERT INTO demandas (Nota, crv, Cliente, CodigoCliente, NomeCliente, Cnpj, Cidade, Estado, Pais, Escopo, Status, Cotacao, PrazoProposta, Prioridade, TipoProposta, refCliente, EspecificacaoCliente, Emfabrica, QuantidadeEquip, Equipamentos, Observacao)
                   VALUES ('$nota', '$crv', '$cliente', '$codigoCliente', '$nomeCliente', '$cnpj', '$cidade', '$estado', '$pais', '$escopo', '$status', '$cotacao', '$prazoProposta', '$prioridade', '$tipoProposta', '$refCliente', '$especificacaoCliente', '$emFabrica', '$quantidadeEquip', '$equipamentos', '$observacao')";
 
-    if ($conn->query($insertSql) === TRUE) {
-        echo "Demanda criada com sucesso!";
-    } else {
-        echo "Erro ao criar a demanda: " . $conn->error;
-    }
+  if ($conn->query($insertSql) === TRUE) {
+    echo "<script>
+            alert('Demanda criada com sucesso!');
+            window.location.href = 'CRV.php';
+          </script>";
+  } else {
+    echo "Erro ao criar a demanda: " . $conn->error;
+  }
+
 }
 
 $conn->close();
@@ -85,13 +87,26 @@ $conn->close();
       <div class="form-section">
         <div class="form-section-title">Identificação</div>
         <div class="form-group"><label for="nota">Nota:</label><input type="text" id="nota" name="nota" required></div>
-        <div class="form-group"><label for="crv">CRV:</label><input type="text" id="crv" name="crv" required></div>
+        <div class="form-group">
+          <label for="crv">CRV:</label>
+          <select id="crv" name="crv" required>
+            <option value="">Selecione</option>
+            <option value="anan@weg.net">Ana Paula Nolasco</option>
+            <option value="abaptista@weg.net">Andre Luis Rosa Baptista</option>
+            <option value="diegolc@weg.net">Diego Lopes Caobianco</option>
+            <option value="guilhermehk@weg.net">Guilherme Henrique Khun</option>
+            <option value="freiriag@weg.net">Joao Pedro Freiria Schlichting</option>
+            <option value="mvitor@weg.net">Joao Vitor Machado Mariquito</option>
+            <option value="rsilva@weg.net">Ricardo Goncalves da Silva</option>
+            <option value="guareschi@weg.net">Rodrigo Guareschi</option>
+          </select>
+        </div>
       </div>
 
       <div class="form-section">
         <div class="form-section-title">Cliente</div>
         <div class="form-group"><label for="cliente">Cliente:</label><input type="text" id="cliente" name="cliente" required></div>
-        <div class="form-group"><label for="codigoCliente">Código Cliente:</label><input type="text" id="codigoCliente" name="codigoCliente" required></div>
+        <div class="form-group"><label for="codigoCliente">Código Cliente:</label><input type="text" id="codigoCliente" name="codigoCliente" required onblur="buscarCliente()"></div>
         <div class="form-group"><label for="nomeCliente">Nome Cliente:</label><input type="text" id="nomeCliente" name="nomeCliente" required></div>
         <div class="form-group"><label for="cnpj">CNPJ:</label><input type="text" id="cnpj" name="cnpj" required></div>
         <div class="form-group"><label for="cidade">Cidade:</label><input type="text" id="cidade" name="cidade" required></div>
@@ -105,15 +120,39 @@ $conn->close();
         <div class="form-group"><label for="status">Status:</label><input type="text" id="status" name="status" required></div>
         <div class="form-group"><label for="cotacao">Cotação:</label><input type="text" id="cotacao" name="cotacao" required></div>
         <div class="form-group"><label for="prazoProposta">Prazo Proposta:</label><input type="text" id="prazoProposta" name="prazoProposta" required></div>
-        <div class="form-group"><label for="prioridade">Prioridade:</label><input type="text" id="prioridade" name="prioridade" required></div>
-        <div class="form-group"><label for="tipoProposta">Tipo Proposta:</label><input type="text" id="tipoProposta" name="tipoProposta" required></div>
+        <div class="form-group">
+          <label for="prioridade">Prioridade:</label>
+          <select id="prioridade" name="prioridade" required>
+            <option value="">Selecione</option>
+            <option value="Máquina Parada">Máquina Parada</option>
+            <option value="Urgente">Urgente</option>
+            <option value="Normal">Normal</option>
+            <option value="Estimativa">Estimativa</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="tipoProposta">Tipo Proposta:</label>
+          <select id="tipoProposta" name="tipoProposta" required>
+            <option value="">Selecione</option>
+            <option value="Campo">Campo</option>
+            <option value="Fábrica">Fábrica</option>
+            <option value="Partes e Peças">Partes e Peças</option>
+          </select>
+        </div>
       </div>
 
       <div class="form-section">
         <div class="form-section-title">Comercial & Técnica</div>
         <div class="form-group"><label for="refCliente">Ref Cliente:</label><input type="text" id="refCliente" name="refCliente" required></div>
         <div class="form-group"><label for="especificacaoCliente">Especificação Cliente:</label><input type="text" id="especificacaoCliente" name="especificacaoCliente" required></div>
-        <div class="form-group"><label for="emFabrica">Em Fábrica:</label><input type="text" id="emFabrica" name="emFabrica" required></div>
+        <div class="form-group">
+          <label for="emFabrica">Em Fábrica:</label>
+          <select id="emFabrica" name="emFabrica" required>
+            <option value="">Selecione</option>
+            <option value="Sim">Sim</option>
+            <option value="Não">Não</option>
+          </select>
+        </div>
         <div class="form-group"><label for="quantidadeEquip">Quantidade Equip:</label><input type="text" id="quantidadeEquip" name="quantidadeEquip" required></div>
         <div class="form-group"><label for="equipamentos">Equipamentos:</label><input type="text" id="equipamentos" name="equipamentos" required></div>
         <div class="form-group" style="width: 100%;"><label for="observacao">Observação:</label><input type="text" id="observacao" name="observacao" required></div>
@@ -125,9 +164,34 @@ $conn->close();
     </form>
   </div>
 
-
   <script src="js/loader.js"></script>
   <script src="js/wave.js"></script>
+
+  <!-- Script para preencher cliente -->
+  <script>
+    function buscarCliente() {
+      const codigo = document.getElementById("codigoCliente").value;
+      if (codigo.trim() === "") return;
+
+      fetch(`get_cliente.php?codigo=${codigo}`)
+        .then(res => res.json())
+        .then(data => {
+          if (data.erro) {
+            alert("Cliente não encontrado!");
+            return;
+          }
+
+          document.getElementById("cliente").value = data.Cliente || "";
+          document.getElementById("nomeCliente").value = data.NomeCliente || "";
+          document.getElementById("cnpj").value = data.Cnpj || "";
+          document.getElementById("cidade").value = data.Cidade || "";
+          document.getElementById("estado").value = data.Estado || "";
+          document.getElementById("pais").value = data.Pais || "";
+        })
+        .catch(error => {
+          console.error("Erro ao buscar cliente:", error);
+        });
+    }
+  </script>
 </body>
 </html>
-

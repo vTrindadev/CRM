@@ -74,7 +74,10 @@ if (isset($_GET['id'])) {
             WHERE id = $id";
 
         if ($conn->query($updateSql) === TRUE) {
-            echo "Dados atualizados com sucesso!";
+          echo "<script>
+          alert('Demanda atualizada com sucesso!');
+          window.location.href = document.referrer; // Redireciona para a última página acessada
+          </script>";
         } else {
             echo "Erro ao atualizar os dados: " . $conn->error;
         }
@@ -124,7 +127,7 @@ $conn->close();
         <div class="form-section-title">Identificação</div>
         <div class="form-group"><label for="id">ID:</label><input type="text" id="id" name="id" value="<?= htmlspecialchars($row['id']) ?>" readonly></div>
         <div class="form-group"><label for="nota">Nota:</label><input type="text" id="nota" name="nota" value="<?= htmlspecialchars($row['Nota']) ?>"></div>
-        <div class="form-group"><label for="crv">CRV:</label><input type="text" id="crv" name="crv" value="<?= htmlspecialchars($row['crv']) ?>"></div>
+        <div class="form-group"><label for="crv">CRV:</label><input type="text" id="crv" name="crv" value="<?= htmlspecialchars($row['crv']) ?>"readonly></div>
       </div>
 
       <div class="form-section">
