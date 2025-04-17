@@ -1,4 +1,6 @@
 <?php
+include('protection.php');
+
 $host = "localhost";
 $user = "root";
 $pass = "";
@@ -50,7 +52,9 @@ $result = $conn->query($sql);
       <a href="add_bdcliente.php" class="btn-menu">
           <h3>Adicionar +</h3>
       </a>
-      <button id="logoutButton" class="btn-menu-sair">Sair</button>
+      <form action="logout.php" method="post">
+          <button type="submit" class="btn-menu-sair">Sair</button>
+      </form>
     </div>
   </div>
 

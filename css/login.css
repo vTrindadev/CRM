@@ -1,4 +1,3 @@
-
 #conteiner{
     width: 100vw;
     height: 100vh;
@@ -35,14 +34,6 @@
     color: white;
 }
 
-/* #titulo-form:hover{
-    font-size: 2.5vw;
-    color: white;
-    text-shadow: 0px 0px 10px 5px #fff;
-    size: 105%;
-}  */
-
-
 #box-form form{
     width: 100%;
     padding: 1vw;
@@ -67,7 +58,7 @@
 }
 #box-form form input::-webkit-input-placeholder {
     color: white;
- }
+}
 
 #box-form form button{
     margin-top: 2vh;
@@ -90,7 +81,6 @@
     font-size: 1.2vw;
     color: white;
     text-shadow: 0px 0px 10px 5px #fff;
-
 }
 
 #footer {
@@ -108,7 +98,6 @@
     display: flex;
     align-items: center;      /* Alinha verticalmente */
     justify-content: center;  /* Centraliza o texto */
-    position: absolute;
 }
 
 .footer-logo {
@@ -123,4 +112,16 @@
 .footer-text {
     font-size: 1vw;
     text-align: center;
+}
+
+/* NOVO: Estilo para mensagem de erro de login */
+.erro-login {
+    width: 100%;
+    color: red;
+    font-weight: bold;
+    text-align: center;
+    background-color: rgba(255, 0, 0, 0.1);
+    padding: 0.5vw;
+    border-radius: 0.5vw;
+    font-size: 1vw;
 }

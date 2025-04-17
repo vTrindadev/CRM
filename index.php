@@ -13,13 +13,16 @@ if ($mysqli->connect_error) {
     die("Erro de conexão: " . $mysqli->connect_error);
 }
 
+// Variável para armazenar erro de login
+$erro_login = "";
+
 // Verifica se o formulário foi enviado
 if (isset($_POST['email']) && isset($_POST['senha'])) {
 
     if (strlen($_POST['email']) == 0) {
-        echo "Preencha seu e-mail";
+        $erro_login = "<p class='erro-login'>Preencha seu e-mail</p>";
     } else if (strlen($_POST['senha']) == 0) {
-        echo "Preencha sua senha";
+        $erro_login = "<p class='erro-login'>Preencha sua senha</p>";
     } else {
 
         $email = $mysqli->real_escape_string($_POST['email']);
@@ -47,7 +50,7 @@ if (isset($_POST['email']) && isset($_POST['senha'])) {
             exit;
 
         } else {
-            echo "<p style='color: red;'>Falha ao logar! E-mail ou senha incorretos.</p>";
+            $erro_login = "<p class='erro-login'>Falha ao logar! E-mail ou senha incorretos.</p>";
         }
     }
 }
@@ -68,6 +71,9 @@ if (isset($_POST['email']) && isset($_POST['senha'])) {
         <div id="box-form">
             <img id="Logo" src="img/weg branco.png" alt="Logo WEG">
             <h2 id="titulo-form">Sign In</h2>
+
+            <!-- Mensagem de erro (se houver) -->
+            <?php if (!empty($erro_login)) echo $erro_login; ?>
 
             <!-- Formulário de login -->
             <form action="" method="POST" id="loginForm">

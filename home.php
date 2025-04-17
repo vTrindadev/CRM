@@ -1,14 +1,5 @@
 <?php
-
-if(!isset($_SESSION)) {
-    session_start();
-}
-
-if(!isset($_SESSION['email'])) {
-    die("Você não pode acessar esta página porque não está logado.<p><a href=\"index.php\">Entrar</a></p>");
-}
-
-
+include('protection.php');
 ?>
 
 <!DOCTYPE html>
@@ -31,6 +22,9 @@ if(!isset($_SESSION['email'])) {
         <a href="home.html" class="btn-menu activo">
             <h3>Home</h3>
         </a>
+        <a href="all.php" class="btn-menu">
+            <h3>All</h3>
+        </a>
         <a href="CRV.php" class="btn-menu">
             <h3>CRV</h3>
         </a>
@@ -42,8 +36,11 @@ if(!isset($_SESSION['email'])) {
         </a>
     </div>
     <div class="opt-menu">
-        <button id="logoutButton" class="btn-menu-sair">Sair</button>
+      <form action="logout.php" method="post">
+          <button type="submit" class="btn-menu-sair">Sair</button>
+      </form>
     </div>
+
   </div>
 
   <div class="container">

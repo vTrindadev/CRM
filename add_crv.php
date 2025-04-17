@@ -1,4 +1,6 @@
 <?php
+include('protection.php');
+
 $host = "localhost";
 $user = "root";
 $pass = "";
@@ -70,7 +72,9 @@ $conn->close();
       <a href="BD_Equipamentos.php" class="btn-menu"><h3>Equipamentos</h3></a>
     </div>
     <div class="opt-menu">
-      <button id="logoutButton" class="btn-menu-sair">Sair</button>
+      <form action="logout.php" method="post">
+          <button type="submit" class="btn-menu-sair">Sair</button>
+      </form>
     </div>
   </div>
 

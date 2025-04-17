@@ -1,4 +1,10 @@
 <?php
+include('protection.php');
+
+if (!isset($_SESSION)) {
+    session_start();
+}
+
 $host = "localhost";
 $user = "root";
 $pass = "";
@@ -10,8 +16,15 @@ if ($conn->connect_error) {
     die("Erro de conexão: " . $conn->connect_error);
 }
 
-$sql = "SELECT * FROM demandas";
-$result = $conn->query($sql);
+// Email do usuário logado
+$emailUsuario = $_SESSION['email'] ?? '';
+
+// Buscar apenas demandas vinculadas ao CRV (email)
+$sql = "SELECT * FROM demandas WHERE crv = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("s", $emailUsuario);
+$stmt->execute();
+$result = $stmt->get_result();
 ?>
 
 <!DOCTYPE html>
@@ -21,7 +34,7 @@ $result = $conn->query($sql);
   <title>CRM CRV</title>
   <link rel="stylesheet" href="css/padrao.css">
   <link rel="stylesheet" href="css/crv.css">
-  <link rel="stylesheet" href="css/styles.css"> <!-- Adicionando o novo arquivo CSS -->
+  <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
   <div id="loader">
@@ -38,7 +51,9 @@ $result = $conn->query($sql);
       <a href="BD_Equipamentos.php" class="btn-menu"><h3>Equipamentos</h3></a>
     </div>
     <div class="opt-menu">
-      <button id="logoutButton" class="btn-menu-sair">Sair</button>
+      <form action="logout.php" method="post">
+          <button type="submit" class="btn-menu-sair">Sair</button>
+      </form>
     </div>
   </div>
 
@@ -47,14 +62,14 @@ $result = $conn->query($sql);
     <div class="info-container">
       <?php
       if ($result->num_rows > 0) {
-          while($row = $result->fetch_assoc()) {
+          while ($row = $result->fetch_assoc()) {
               $busca = strtolower(
-                  $row["Nota"] . ' ' . 
-                  $row["Cotacao"] . ' ' . 
-                  $row["Cliente"] . ' ' . 
-                  $row["Escopo"] . ' ' . 
-                  $row["TipoProposta"] . ' ' . 
-                  $row["id"] . ' ' .  
+                  $row["Nota"] . ' ' .
+                  $row["Cotacao"] . ' ' .
+                  $row["Cliente"] . ' ' .
+                  $row["Escopo"] . ' ' .
+                  $row["TipoProposta"] . ' ' .
+                  $row["id"] . ' ' .
                   $row["Status"]
               );
 
@@ -97,13 +112,14 @@ $result = $conn->query($sql);
               echo '</div>';
           }
       } else {
-          echo "<p>Nenhum resultado encontrado.</p>";
+          echo "<p style='color: white;'>Nenhuma demanda encontrada para este usuário.</p>";
       }
+
+      $stmt->close();
       $conn->close();
       ?>
     </div>
   </div>
-
 
   <script src="js/loader.js"></script>
   <script src="js/wave.js"></script>

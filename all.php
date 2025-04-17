@@ -1,10 +1,6 @@
 <?php
 include('protection.php');
 
-if (!isset($_SESSION)) {
-    session_start();
-}
-
 $host = "localhost";
 $user = "root";
 $pass = "";
@@ -16,15 +12,8 @@ if ($conn->connect_error) {
     die("Erro de conexão: " . $conn->connect_error);
 }
 
-// Email do usuário logado
-$emailUsuario = $_SESSION['email'] ?? '';
-
-// Buscar apenas demandas vinculadas ao CRV (email)
-$sql = "SELECT * FROM demandas WHERE crv = ?";
-$stmt = $conn->prepare($sql);
-$stmt->bind_param("s", $emailUsuario);
-$stmt->execute();
-$result = $stmt->get_result();
+$sql = "SELECT * FROM demandas";
+$result = $conn->query($sql);
 ?>
 
 <!DOCTYPE html>
@@ -34,7 +23,7 @@ $result = $stmt->get_result();
   <title>CRM CRV</title>
   <link rel="stylesheet" href="css/padrao.css">
   <link rel="stylesheet" href="css/crv.css">
-  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/styles.css"> <!-- Adicionando o novo arquivo CSS -->
 </head>
 <body>
   <div id="loader">
@@ -45,7 +34,7 @@ $result = $stmt->get_result();
     <a href="home.php"><img id="Logo" src="img/weg branco.png" alt="Logo WEG"></a>
     <div class="opt-menu">
       <a href="home.php" class="btn-menu"><h3>Home</h3></a>
-      <a href="CRV.php" class="btn-menu activo"><h3>CRV</h3></a>
+      <a href="all.php" class="btn-menu activo"><h3>ALL</h3></a>
       <input type="text" id="inputBusca" placeholder="Buscar..." class="input-menu">
       <a href="BD_Cliente.php" class="btn-menu"><h3>Clientes</h3></a>
       <a href="BD_Equipamentos.php" class="btn-menu"><h3>Equipamentos</h3></a>
@@ -63,14 +52,14 @@ $result = $stmt->get_result();
     <div class="info-container">
       <?php
       if ($result->num_rows > 0) {
-          while ($row = $result->fetch_assoc()) {
+          while($row = $result->fetch_assoc()) {
               $busca = strtolower(
-                  $row["Nota"] . ' ' .
-                  $row["Cotacao"] . ' ' .
-                  $row["Cliente"] . ' ' .
-                  $row["Escopo"] . ' ' .
-                  $row["TipoProposta"] . ' ' .
-                  $row["id"] . ' ' .
+                  $row["Nota"] . ' ' . 
+                  $row["Cotacao"] . ' ' . 
+                  $row["Cliente"] . ' ' . 
+                  $row["Escopo"] . ' ' . 
+                  $row["TipoProposta"] . ' ' . 
+                  $row["id"] . ' ' .  
                   $row["Status"]
               );
 
@@ -113,14 +102,13 @@ $result = $stmt->get_result();
               echo '</div>';
           }
       } else {
-          echo "<p style='color: white;'>Nenhuma demanda encontrada para este usuário.</p>";
+          echo "<p>Nenhum resultado encontrado.</p>";
       }
-
-      $stmt->close();
       $conn->close();
       ?>
     </div>
   </div>
+
 
   <script src="js/loader.js"></script>
   <script src="js/wave.js"></script>

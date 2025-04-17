@@ -1,4 +1,6 @@
 <?php
+include('protection.php');
+
 $host = "localhost";
 $user = "root";
 $pass = "";
@@ -67,7 +69,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       <a href="add_bdequip.php" class="btn-menu activo">
           <h3>Adicionar +</h3>
       </a>
-      <button id="logoutButton" class="btn-menu-sair">Sair</button>
+      <form action="logout.php" method="post">
+          <button type="submit" class="btn-menu-sair">Sair</button>
+      </form>
     </div>
   </div>
 
