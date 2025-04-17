@@ -160,7 +160,7 @@ $conn->close();
     </form>
   </div>
 
-  <script src="js/verificador.js"></script>
+
   <script src="js/loader.js"></script>
   <script src="js/wave.js"></script>
 </body>

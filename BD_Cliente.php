@@ -88,7 +88,7 @@ $result = $conn->query($sql);
     </div>
   </div>
 
-  <script src="js/verificador.js"></script>
+
   <script src="js/loader.js"></script>
   <script src="js/wave.js"></script>
   <script src="js/crv.js"></script>

@@ -47,9 +47,9 @@ if(!isset($_SESSION['email'])) {
   </div>
 
   <div class="container">
-    <h1>Welcome to <br> CRM MEG</h1>
+    <h1>Welcome to <br> CRM MEG <br> <?php echo $_SESSION['user']; ?></h1>
   </div>
-    <script src="js/verificador.js"></script>
+  
     <script src="js/loader.js"></script>
     <script src="js/home.js"></script>
 </body>
