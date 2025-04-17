@@ -47,6 +47,7 @@ if (isset($_GET['id'])) {
         $quantidadeEquip = $_POST['quantidadeEquip'];
         $equipamentos = $_POST['equipamentos'];
         $observacao = $_POST['observacao'];
+        $valor = $_POST['valor'];
 
         // Atualizar os dados no banco de dados
         $updateSql = "UPDATE demandas SET 
@@ -71,6 +72,7 @@ if (isset($_GET['id'])) {
             QuantidadeEquip = '$quantidadeEquip',
             Equipamentos = '$equipamentos',
             Observacao = '$observacao'
+            valor = '$valor'
             WHERE id = $id";
 
         if ($conn->query($updateSql) === TRUE) {
@@ -126,26 +128,27 @@ $conn->close();
       <div class="form-section">
         <div class="form-section-title">Identificação</div>
         <div class="form-group"><label for="id">ID:</label><input type="text" id="id" name="id" value="<?= htmlspecialchars($row['id']) ?>" readonly></div>
+        <div class="form-group"><label for="cotacao">Cotação:</label><input type="text" id="cotacao" name="cotacao" value="<?= htmlspecialchars($row['Cotacao']) ?>"></div>
         <div class="form-group"><label for="nota">Nota:</label><input type="text" id="nota" name="nota" value="<?= htmlspecialchars($row['Nota']) ?>"></div>
         <div class="form-group"><label for="crv">CRV:</label><input type="text" id="crv" name="crv" value="<?= htmlspecialchars($row['crv']) ?>"readonly></div>
       </div>
 
       <div class="form-section">
         <div class="form-section-title">Cliente</div>
-        <div class="form-group"><label for="cliente">Cliente:</label><input type="text" id="cliente" name="cliente" value="<?= htmlspecialchars($row['Cliente']) ?>"></div>
-        <div class="form-group"><label for="codigoCliente">Código Cliente:</label><input type="text" id="codigoCliente" name="codigoCliente" value="<?= htmlspecialchars($row['CodigoCliente']) ?>"></div>
-        <div class="form-group"><label for="nomeCliente">Nome Cliente:</label><input type="text" id="nomeCliente" name="nomeCliente" value="<?= htmlspecialchars($row['NomeCliente']) ?>"></div>
-        <div class="form-group"><label for="cnpj">CNPJ:</label><input type="text" id="cnpj" name="cnpj" value="<?= htmlspecialchars($row['Cnpj']) ?>"></div>
-        <div class="form-group"><label for="cidade">Cidade:</label><input type="text" id="cidade" name="cidade" value="<?= htmlspecialchars($row['Cidade']) ?>"></div>
-        <div class="form-group"><label for="estado">Estado:</label><input type="text" id="estado" name="estado" value="<?= htmlspecialchars($row['Estado']) ?>"></div>
-        <div class="form-group"><label for="pais">País:</label><input type="text" id="pais" name="pais" value="<?= htmlspecialchars($row['Pais']) ?>"></div>
+        <div class="form-group"><label for="cliente">Cliente:</label><input type="text" id="cliente" name="cliente" value="<?= htmlspecialchars($row['Cliente']) ?>"readonly></div>
+        <div class="form-group"><label for="codigoCliente">Código Cliente:</label><input type="text" id="codigoCliente" name="codigoCliente" value="<?= htmlspecialchars($row['CodigoCliente']) ?>"readonly></div>
+        <div class="form-group"><label for="nomeCliente">Nome Cliente:</label><input type="text" id="nomeCliente" name="nomeCliente" value="<?= htmlspecialchars($row['NomeCliente']) ?>"readonly></div>
+        <div class="form-group"><label for="cnpj">CNPJ:</label><input type="text" id="cnpj" name="cnpj" value="<?= htmlspecialchars($row['Cnpj']) ?>"readonly></div>
+        <div class="form-group"><label for="cidade">Cidade:</label><input type="text" id="cidade" name="cidade" value="<?= htmlspecialchars($row['Cidade']) ?>"readonly></div>
+        <div class="form-group"><label for="estado">Estado:</label><input type="text" id="estado" name="estado" value="<?= htmlspecialchars($row['Estado']) ?>"readonly></div>
+        <div class="form-group"><label for="pais">País:</label><input type="text" id="pais" name="pais" value="<?= htmlspecialchars($row['Pais']) ?>"readonly></div>
       </div>
 
       <div class="form-section">
         <div class="form-section-title">Proposta</div>
         <div class="form-group"><label for="escopo">Escopo:</label><input type="text" id="escopo" name="escopo" value="<?= htmlspecialchars($row['Escopo']) ?>"></div>
         <div class="form-group"><label for="status">Status:</label><input type="text" id="status" name="status" value="<?= htmlspecialchars($row['Status']) ?>"></div>
-        <div class="form-group"><label for="cotacao">Cotação:</label><input type="text" id="cotacao" name="cotacao" value="<?= htmlspecialchars($row['Cotacao']) ?>"></div>
+        <div class="form-group"><label for="valor">Valor:</label><input type="text" id="valor" name="valor" value="<?= htmlspecialchars($row['valor']) ?>"></div>
         <div class="form-group"><label for="prazoProposta">Prazo Proposta:</label><input type="text" id="prazoProposta" name="prazoProposta" value="<?= htmlspecialchars($row['PrazoProposta']) ?>"></div>
         <div class="form-group"><label for="prioridade">Prioridade:</label><input type="text" id="prioridade" name="prioridade" value="<?= htmlspecialchars($row['Prioridade']) ?>"></div>
         <div class="form-group"><label for="tipoProposta">Tipo Proposta:</label><input type="text" id="tipoProposta" name="tipoProposta" value="<?= htmlspecialchars($row['TipoProposta']) ?>"></div>

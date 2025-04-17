@@ -33,9 +33,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $quantidadeEquip = $_POST['quantidadeEquip'];
     $equipamentos = $_POST['equipamentos'];
     $observacao = $_POST['observacao'];
+    $valor = $_POST['valor'];
 
-    $insertSql = "INSERT INTO demandas (Nota, crv, Cliente, CodigoCliente, NomeCliente, Cnpj, Cidade, Estado, Pais, Escopo, Status, Cotacao, PrazoProposta, Prioridade, TipoProposta, refCliente, EspecificacaoCliente, Emfabrica, QuantidadeEquip, Equipamentos, Observacao)
-                  VALUES ('$nota', '$crv', '$cliente', '$codigoCliente', '$nomeCliente', '$cnpj', '$cidade', '$estado', '$pais', '$escopo', '$status', '$cotacao', '$prazoProposta', '$prioridade', '$tipoProposta', '$refCliente', '$especificacaoCliente', '$emFabrica', '$quantidadeEquip', '$equipamentos', '$observacao')";
+    $insertSql = "INSERT INTO demandas (Nota, crv, Cliente, CodigoCliente, NomeCliente, Cnpj, Cidade, Estado, Pais, Escopo, Status, Cotacao, PrazoProposta, Prioridade, TipoProposta, refCliente, EspecificacaoCliente, Emfabrica, QuantidadeEquip, Equipamentos, Observacao, valor)
+                  VALUES ('$nota', '$crv', '$cliente', '$codigoCliente', '$nomeCliente', '$cnpj', '$cidade', '$estado', '$pais', '$escopo', '$status', '$cotacao', '$prazoProposta', '$prioridade', '$tipoProposta', '$refCliente', '$especificacaoCliente', '$emFabrica', '$quantidadeEquip', '$equipamentos', '$observacao', '$valor')";
 
   if ($conn->query($insertSql) === TRUE) {
     echo "<script>
@@ -87,6 +88,7 @@ $conn->close();
       <div class="form-section">
         <div class="form-section-title">Identificação</div>
         <div class="form-group"><label for="nota">Nota:</label><input type="text" id="nota" name="nota" required></div>
+        <div class="form-group"><label for="cotacao">Cotação:</label><input type="text" id="cotacao" name="cotacao" required></div>
         <div class="form-group">
           <label for="crv">CRV:</label>
           <select id="crv" name="crv" required>
@@ -118,8 +120,8 @@ $conn->close();
         <div class="form-section-title">Proposta</div>
         <div class="form-group"><label for="escopo">Escopo:</label><input type="text" id="escopo" name="escopo" required></div>
         <div class="form-group"><label for="status">Status:</label><input type="text" id="status" name="status" required></div>
-        <div class="form-group"><label for="cotacao">Cotação:</label><input type="text" id="cotacao" name="cotacao" required></div>
-        <div class="form-group"><label for="prazoProposta">Prazo Proposta:</label><input type="text" id="prazoProposta" name="prazoProposta" required></div>
+        <div class="form-group"><label for="valor">Valor:</label><input type="text" id="valor" name="valor" required></div>
+        <div class="form-group"><label for="prazoProposta">Prazo Proposta:</label><input type="date" id="prazoProposta" name="prazoProposta" required></div>
         <div class="form-group">
           <label for="prioridade">Prioridade:</label>
           <select id="prioridade" name="prioridade" required>

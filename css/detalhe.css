@@ -95,6 +95,20 @@
     height: 30vh;
 }
 
+.form-group input#prazoProposta{
+    width: 9vw;
+    height: 6vh;
+    background-color: #00579d;
+    border-radius: 1vw 0vw 1vw 0;
+    border: none;
+    font-size: 1vw;
+    font-weight: 600;
+    color: white;
+    box-shadow: 2px 2px 10px 5px #0000001f;
+    transition: all 0.3s ease;
+}
+
+
 .form-group button {
     width: 7vw;
     height: 6vh;
