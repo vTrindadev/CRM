@@ -44,9 +44,10 @@ include('protection.php');
   </div>
 
   <div class="container">
-    <h1>Welcome to <br> CRM MEG <br> <?php echo $_SESSION['user']; ?></h1>
-  </div>
-  
+    <h1>Welcome to <br> CRM MEG <br><span class="username"><?php echo $_SESSION['user']; ?></span></h1>
+</div>
+
+
     <script src="js/loader.js"></script>
     <script src="js/home.js"></script>
 </body>
