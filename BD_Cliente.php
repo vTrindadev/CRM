@@ -21,7 +21,7 @@ $result = $conn->query($sql);
   <meta charset="UTF-8">
   <title>CRM CRV</title>
   <link rel="stylesheet" href="css/padrao.css">
-  <link rel="stylesheet" href="css/crv.css">
+  <link rel="stylesheet" href="css/BDCliente.css">
 </head>
 <body>
   <div id="loader">
@@ -63,14 +63,19 @@ $result = $conn->query($sql);
           // Exibe cada card com os dados
           while($row = $result->fetch_assoc()) {
               echo '<div class="info-card">';
-              echo '<div>';
-              echo '<p><strong>Código:</strong> ' . htmlspecialchars($row["Código"]) . '</p>';
+              echo '<div class="card-content">';
+              echo '<div class="card-section">';
               echo '<p><strong>Cliente:</strong> ' . htmlspecialchars($row["Cliente"]) . '</p>';
-              echo '<p><strong>CNPJ:</strong> ' . htmlspecialchars($row["CNPJ"]) . '</p>';
+              echo '</div>';
+              echo '<div class="card-section">';
+              echo '<p><strong>Código:</strong> ' . htmlspecialchars($row["Código"]) . '</p>';
               echo '<p><strong>Cidade:</strong> ' . htmlspecialchars($row["Cidade"]) . '</p>';
+              echo '</div>';
+              echo '<div class="card-section">';
+              echo '<p><strong>CNPJ:</strong> ' . htmlspecialchars($row["CNPJ"]) . '</p>';
               echo '<p><strong>Estado:</strong> ' . htmlspecialchars($row["Estado"]) . '</p>';
               echo '</div>';
-              echo '<div class="arrow-icon">➤</div>';
+              echo '</div>';
               echo '</div>';
           }
       } else {
@@ -87,7 +92,7 @@ $result = $conn->query($sql);
   <script src="js/loader.js"></script>
   <script src="js/wave.js"></script>
   <script src="js/crv.js"></script>
-  
+
   <!-- Script de Filtro -->
   <script>
     document.addEventListener("DOMContentLoaded", function () {

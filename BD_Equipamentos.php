@@ -21,7 +21,7 @@ $result = $conn->query($sql);
   <meta charset="UTF-8">
   <title>CRM CRV</title>
   <link rel="stylesheet" href="css/padrao.css">
-  <link rel="stylesheet" href="css/crv.css">
+  <link rel="stylesheet" href="css/BDCliente.css">
 </head>
 <body>
   <div id="loader">
@@ -63,14 +63,19 @@ $result = $conn->query($sql);
           // Exibe cada card com os dados
           while($row = $result->fetch_assoc()) {
               echo '<div class="info-card">';
-              echo '<div>';
+              echo '<div class="card-content">';
+              echo '<div class="card-section">';
               echo '<p><strong>Fabricante:</strong> ' . htmlspecialchars($row["Fabricante"]) . '</p>';
               echo '<p><strong>Título:</strong> ' . htmlspecialchars($row["Título"]) . '</p>';
-              echo '<p><strong>MaterialSAP:</strong> ' . htmlspecialchars($row["MaterialSAP"]) . '</p>';
+              echo '</div>';
+              echo '<div class="card-section">';
+              echo '<p><strong>Material SAP:</strong> ' . htmlspecialchars($row["MaterialSAP"]) . '</p>';
               echo '<p><strong>Linha Carcaça:</strong> ' . htmlspecialchars($row["LinhaCarcaca"]) . '</p>';
+              echo '</div>';
+              echo '<div class="card-section">';
               echo '<p><strong>Descrição SAP:</strong> ' . htmlspecialchars($row["DescricaoSAP"]) . '</p>';
               echo '</div>';
-              echo '<div class="arrow-icon">➤</div>';
+              echo '</div>';
               echo '</div>';
           }
       } else {

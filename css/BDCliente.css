@@ -1,72 +1,84 @@
+/* Geral */
+
 .container {
-    width: 100vw;
-    height: 100vh; /* ocupa o restante da tela abaixo do menu */
-    /* background-image: url('../img/MEG.png');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat; */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: black;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
 }
 
 #holder {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-  }
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
 
-  .info-split-card {
-    background-color: rgba(255, 255, 255, 0.1);
-    padding: 1vh 1vw;
-    border-radius: 1vw;
-    color: #ffffff;
-    font-weight: 500;
-    box-shadow: 0 0 5px rgba(0,0,0,0.2);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    transition: transform 0.2s ease;
-    z-index: 1000;
-    height: 14vh;
-    overflow: hidden;
-  }
-  
-  .info-split-card:hover {
-    transform: scale(1.01);
-  }
-  
-  .info-left,
-  .info-right {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 0.3vh;
-    height: 100%;
-    padding: 0 1vw;
-  }
-  
-  /* Linha divisória entre as partes */
-  .info-left {
-    border-right: 1px solid rgba(255, 255, 255, 0.2);
-  }
-  
-  .info-right {
-    align-items: flex-end;
-    text-align: right;
-  }
-  
-  .arrow-icon {
-    font-size: 1.5vw;
-    color: #ffffff;
-    transition: transform 0.2s ease;
-  }
-  
-  .info-split-card:hover .arrow-icon {
-    transform: translateX(5px);
-  }
+.info-container {
+  width: 90%;
+  max-height: 80vh;
+  margin-top: 12vh;
+  overflow-y: auto;
+  background-color: transparent;
+  border-radius: 1vw;
+  padding: 2vh 2vw;
+  display: flex;
+  flex-wrap: wrap; /* Adicionado para quebrar linha */
+  gap: 2vh 2vw;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  justify-content: center; /* Centraliza os cards */
+}
+
+.info-card {
+  background-color: rgba(255, 255, 255, 0.2);
+  padding: 1.5vh 1vw;
+  border-radius: 1vw;
+  color: #ffffff;
+  font-weight: 500;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column; /* Flexbox para organização vertical */
+  justify-content: space-between;
+  gap: 1vh;
+  min-height: 120px;
+  width: calc(50% - 2vw); /* 2 cards por linha com gap */
+  box-sizing: border-box;
+  z-index: 100;
+}
+
+.info-card:hover {
+  transform: scale(1.02);
+}
+
+/* Organize the sections inside the card */
+.card-content {
+  display: flex;
+  flex-direction: column; /* Coloca os itens de cada seção em uma coluna */
+  gap: 1.5vh; /* Espaço entre as seções */
+}
+
+.card-section {
+  display: flex;
+  justify-content: space-between; /* Distribui as informações dentro da seção */
+  flex-wrap: wrap; /* Permite que os itens quebrem em linha */
+  gap: 1vw; /* Espaçamento entre os elementos dentro da seção */
+}
+
+.card-section p {
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 1.1em;
+}
+
+.card-section strong {
+  border-radius: 1vw;
+  color: white; /* Cor para os títulos das seções */
+  font-style: italic;
+  background-color: rgba(40, 185, 218, 0.5);
+}
