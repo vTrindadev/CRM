@@ -44,7 +44,7 @@ $result = $stmt->get_result();
     <a href="home.php"><img id="Logo" src="img/weg branco.png" alt="Logo WEG"></a>
     <div class="opt-menu">
       <a href="home.php" class="btn-menu"><h3>Home</h3></a>
-      <a href="Apl_Proposta.php" class="btn-menu activo"><h3>Aplicador Proposta</h3></a>
+      <a href="CRV.php" class="btn-menu activo"><h3>CRV</h3></a>
       <input type="text" id="inputBusca" placeholder="Buscar..." class="input-menu">
       <a href="BD_Cliente.php" class="btn-menu"><h3>Clientes</h3></a>
       <a href="BD_Equipamentos.php" class="btn-menu"><h3>Equipamentos</h3></a>
@@ -72,7 +72,7 @@ $result = $stmt->get_result();
                   $row["status_aplicador"]
               );
 
-              $url = "detalhes.php?id=" . $row["id"] . "&nota=" . urlencode($row["Nota"]) . "&cotacao=" . urlencode($row["Cotacao"]) . "&cliente=" . urlencode($row["Cliente"]) . "&escopo=" . urlencode($row["Escopo"]) . "&status=" . urlencode($row["status_aplicador"]);
+              $url = "detalhes_crv.php?id=" . $row["id"] . "&nota=" . urlencode($row["Nota"]) . "&cotacao=" . urlencode($row["Cotacao"]) . "&cliente=" . urlencode($row["Cliente"]) . "&escopo=" . urlencode($row["Escopo"]) . "&status=" . urlencode($row["status_aplicador"]);
 
               $status = strtolower($row["status_aplicador"]);
               $statusClass = '';
