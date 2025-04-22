@@ -22,7 +22,8 @@ $result = $conn->query($sql);
   <meta charset="UTF-8">
   <title>CRM CRV</title>
   <link rel="stylesheet" href="css/padrao.css">
-  <link rel="stylesheet" href="css/detalhe.css">
+  <link rel="stylesheet" href="css/crv.css">
+  <link rel="stylesheet" href="css/styles.css"> <!-- Adicionando o novo arquivo CSS -->
 </head>
 <body>
   <div id="loader">
@@ -67,14 +68,14 @@ $result = $conn->query($sql);
               $statusClass = '';
 
               switch ($status) {
-                  case 'concluído':
-                      $statusClass = 'status-concluído';
+                  case 'proposta em elaboração':
+                      $statusClass = 'status-elaboracao';
                       break;
-                  case 'em andamento':
-                      $statusClass = 'status-andamento';
+                  case 'em peritagem':
+                      $statusClass = 'status-peritagem';
                       break;
-                  case 'pendente':
-                      $statusClass = 'status-pendente';
+                  case 'perdido':
+                      $statusClass = 'status-perdido';
                       break;
                   default:
                       $statusClass = 'status-default';

@@ -43,9 +43,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <link rel="stylesheet" href="css/addbdequip.css">
 </head>
 <body>
+
   <div id="loader">
-      <div class="spinner"></div>
+    <div class="spinner"></div>
   </div>
+
   <div id="menu">
     <a href="home.php">
         <img id="Logo" src="img/weg branco.png" alt="Logo WEG">
@@ -78,34 +80,34 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <div class="container">
     <div id="holder"></div>
     <div class="info-container">
-    <form method="POST" action="">
-            <label>Código:</label>
-            <input type="text" name="Código" required placeholder="Digite...">
+      <form method="POST" action="">
+        <label>Código:</label>
+        <input type="text" name="Código" required placeholder="Digite...">
 
-            <label>CNPJ:</label>
-            <input type="text" name="CNPJ" required placeholder="Digite...">
+        <label>CNPJ:</label>
+        <input type="text" name="CNPJ" required placeholder="Digite...">
 
-            <label>Cliente:</label>
-            <input type="text" name="Cliente" required placeholder="Digite...">
+        <label>Cliente:</label>
+        <input type="text" name="Cliente" required placeholder="Digite...">
 
-            <label>Cidade:</label>
-            <input type="text" name="Cidade" required placeholder="Digite...">
+        <label>Cidade:</label>
+        <input type="text" name="Cidade" required placeholder="Digite...">
 
-            <label>Estado:</label>
-            <input type="text" name="Estado" required placeholder="Digite...">
+        <label>Estado:</label>
+        <input type="text" name="Estado" required placeholder="Digite...">
 
-            
-            <label>País:</label>
-            <input type="text" name="País" required placeholder="Digite...">
+        <label>País:</label>
+        <input type="text" name="País" required placeholder="Digite...">
 
-            <button type="submit">Salvar</button>
-        </form>
+        <button type="submit">Salvar</button>
+      </form>
     </div>
   </div>
-  <script src="js/filtro.js"></script>
 
+  <script src="js/filtro.js"></script>
   <script src="js/loader.js"></script>
   <script src="js/wave.js"></script>
   <script src="js/crv.js"></script>
+
 </body>
 </html>

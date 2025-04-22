@@ -107,16 +107,20 @@
 }
 
 /* Estilos para os status */
-.status-concluído {
-  background-color: #2ecc71; /* verde */
+.status-elaboracao {
+  background-color: #00579d; /* verde */
 }
 
-.status-andamento {
+.status-peritagem {
   background-color: #f1c40f; /* amarelo */
 }
 
-.status-pendente {
+.status-perdido {
   background-color: #e74c3c; /* vermelho */
+}
+
+.status-distribuir {
+  background-color: #8862A2; /* vermelho */
 }
 
 .status-default {

@@ -35,9 +35,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $observacao = $_POST['observacao'];
     $valor = $_POST['valor'];
     $frete = isset($_POST['frete']) ? $_POST['frete'] : null;
+    $statusAplicador = $_POST['status_aplicador']; 
+    $aplicador = $_POST['aplicador']; 
 
-    $insertSql = "INSERT INTO demandas (Nota, crv, Cliente, CodigoCliente, NomeCliente, Cnpj, Cidade, Estado, Pais, Escopo, Status, Cotacao, PrazoProposta, Prioridade, TipoProposta, refCliente, EspecificacaoCliente, Emfabrica, QuantidadeEquip, Equipamentos, Observacao, valor, frete)
-                  VALUES ('$nota', '$crv', '$cliente', '$codigoCliente', '$nomeCliente', '$cnpj', '$cidade', '$estado', '$pais', '$escopo', '$status', '$cotacao', '$prazoProposta', '$prioridade', '$tipoProposta', '$refCliente', '$especificacaoCliente', '$emFabrica', '$quantidadeEquip', '$equipamentos', '$observacao', '$valor', '$frete')";
+    $insertSql = "INSERT INTO demandas (Nota, crv, Cliente, CodigoCliente, NomeCliente, Cnpj, Cidade, Estado, Pais, Escopo, Status, Cotacao, PrazoProposta, Prioridade, TipoProposta, refCliente, EspecificacaoCliente, Emfabrica, QuantidadeEquip, Equipamentos, Observacao, valor, frete, status_aplicador, aplicador)
+                  VALUES ('$nota', '$crv', '$cliente', '$codigoCliente', '$nomeCliente', '$cnpj', '$cidade', '$estado', '$pais', '$escopo', '$status', '$cotacao', '$prazoProposta', '$prioridade', '$tipoProposta', '$refCliente', '$especificacaoCliente', '$emFabrica', '$quantidadeEquip', '$equipamentos', '$observacao', '$valor', '$frete', '$statusAplicador', '$aplicador')";
 
     if ($conn->query($insertSql) === TRUE) {
         echo "<script>
@@ -85,10 +87,11 @@ $conn->close();
     <div id="holder"></div>
     <form id="detalhesForm" method="POST">
 
+      <!-- Identificação -->
       <div class="form-section">
         <div class="form-section-title">Identificação</div>
-        <div class="form-group"><label for="nota">Nota:</label><input type="text" id="nota" name="nota" required></div>
-        <div class="form-group"><label for="cotacao">Cotação:</label><input type="text" id="cotacao" name="cotacao" required></div>
+        <div class="form-group"><label for="nota">Nota:</label><input type="text" id="nota" name="nota"></div>
+        <div class="form-group"><label for="cotacao">Cotação:</label><input type="text" id="cotacao" name="cotacao"></div>
         <div class="form-group">
           <label for="crv">CRV:</label>
           <select id="crv" name="crv" required>
@@ -105,6 +108,7 @@ $conn->close();
         </div>
       </div>
 
+      <!-- Cliente -->
       <div class="form-section">
         <div class="form-section-title">Cliente</div>
         <div class="form-group"><label for="cliente">Cliente:</label><input type="text" id="cliente" name="cliente" required></div>
@@ -116,10 +120,22 @@ $conn->close();
         <div class="form-group"><label for="pais">País:</label><input type="text" id="pais" name="pais" required></div>
       </div>
 
+      <!-- Proposta -->
       <div class="form-section">
         <div class="form-section-title">Proposta</div>
-        <div class="form-group"><label for="status">Status:</label><input type="text" id="status" name="status" required></div>
-        <div class="form-group"><label for="valor">Valor:</label><input type="text" id="valor" name="valor" required></div>
+        <div class="form-group">
+          <label for="status">Status:</label>
+          <select id="status" name="status" required>
+            <option value="Proposta em Elaboração">Proposta em Elaboração</option>
+            <option value="Em Peritagem">Em Peritagem</option>
+            <option value="Perdido">Perdido</option>
+          </select>
+        </div>
+        <div class="form-group"><label for="aplicador">Aplicador:</label><input type="text" id="aplicador" name="aplicador"></div>
+        <div class="form-group">
+          <input type="hidden" id="status_aplicador" name="status_aplicador" value="Distribuir">
+        </div>
+        <div class="form-group"><label for="valor">Valor:</label><input type="text" id="valor" name="valor"></div>
         <div class="form-group"><label for="prazoProposta">Prazo Proposta:</label><input type="date" id="prazoProposta" name="prazoProposta" required></div>
         <div class="form-group">
           <label for="prioridade">Prioridade:</label>
@@ -141,10 +157,9 @@ $conn->close();
           </select>
         </div>
         <div class="form-group">
-            <label for="escopo">Escopo:</label>
-            <textarea id="escopo" name="escopo" required></textarea>
+          <label for="escopo">Escopo:</label>
+          <textarea id="escopo" name="escopo" required></textarea>
         </div>
-
 
         <div class="form-group" id="freteContainer" style="display: none;">
           <label for="frete">Frete:</label>
@@ -156,6 +171,7 @@ $conn->close();
         </div>
       </div>
 
+      <!-- Comercial & Técnica -->
       <div class="form-section">
         <div class="form-section-title">Comercial & Técnica</div>
         <div class="form-group"><label for="refCliente">Ref Cliente:</label><input type="text" id="refCliente" name="refCliente" required></div>
@@ -163,16 +179,15 @@ $conn->close();
         <div class="form-group">
           <label for="emFabrica">Em Fábrica:</label>
           <select id="emFabrica" name="emFabrica" required>
-            <option value="">Selecione</option>
-            <option value="Sim">Sim</option>
             <option value="Não">Não</option>
+            <option value="Sim">Sim</option>
           </select>
         </div>
         <div class="form-group"><label for="quantidadeEquip">Quantidade Equip:</label><input type="text" id="quantidadeEquip" name="quantidadeEquip" required></div>
         <div class="form-group"><label for="equipamentos">Equipamentos:</label><input type="text" id="equipamentos" name="equipamentos" required></div>
         <div class="form-group">
-            <label for="observacao">Observação:</label>
-            <textarea id="observacao" name="observacao" required></textarea>
+          <label for="observacao">Observação:</label>
+          <textarea id="observacao" name="observacao" required></textarea>
         </div>
       </div>
 
@@ -186,6 +201,35 @@ $conn->close();
   <script src="js/wave.js"></script>
   <script src="js/frete.js"></script>
 
+  <script>
+    document.getElementById('status').addEventListener('change', function() {
+      var status = this.value;
+      var statusAplicador = document.getElementById('status_aplicador');
+
+      if (status === 'Proposta em Elaboração') {
+        statusAplicador.value = 'Distribuir';
+      } else if (status === 'Em Peritagem') {
+        statusAplicador.value = 'Em Peritagem';
+      } else if (status === 'Perdido') {
+        statusAplicador.value = 'Perdido';
+      }
+    });
+  </script>
+
+<script>
+    document.getElementById('tipoProposta').addEventListener('change', function() {
+      var status = this.value;
+      var statusAplicador = document.getElementById('aplicador');
+
+      if (status === 'Campo') {
+        aplicador.value = 'victorcp@weg.net';
+      } else if (status === 'Fábrica') {
+        aplicador.value = 'victorcp@weg.net';
+      } else if (status === 'Partes e Peças') {
+        aplicador.value = 'victorcp@weg.net';
+      }
+    });
+  </script>
 
 </body>
 </html>

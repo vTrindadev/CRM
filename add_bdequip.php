@@ -42,9 +42,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <link rel="stylesheet" href="css/addbdequip.css">
 </head>
 <body>
+
   <div id="loader">
-      <div class="spinner"></div>
+    <div class="spinner"></div>
   </div>
+
   <div id="menu">
     <a href="home.php">
         <img id="Logo" src="img/weg branco.png" alt="Logo WEG">
@@ -77,30 +79,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <div class="container">
     <div id="holder"></div>
     <div class="info-container">
-    <form method="POST" action="">
-            <label>Fabricante:</label>
-            <input type="text" name="fabricante" required placeholder="Digite...">
+      <form method="POST" action="">
+        <label>Fabricante:</label>
+        <input type="text" name="fabricante" required placeholder="Digite...">
 
-            <label>Título:</label>
-            <input type="text" name="titulo" required placeholder="Digite...">
+        <label>Título:</label>
+        <input type="text" name="titulo" required placeholder="Digite...">
 
-            <label>Material SAP:</label>
-            <input type="text" name="materialSAP" required placeholder="Digite...">
+        <label>Material SAP:</label>
+        <input type="text" name="materialSAP" required placeholder="Digite...">
 
-            <label>Linha Carcaça:</label>
-            <input type="text" name="linhaCarcaca" required placeholder="Digite...">
+        <label>Linha Carcaça:</label>
+        <input type="text" name="linhaCarcaca" required placeholder="Digite...">
 
-            <label>Descrição SAP:</label>
-            <input type="text" name="descricaoSAP" required placeholder="Digite...">
+        <label>Descrição SAP:</label>
+        <input type="text" name="descricaoSAP" required placeholder="Digite...">
 
-            <button type="submit">Salvar</button>
-        </form>
+        <button type="submit">Salvar</button>
+      </form>
     </div>
   </div>
-  <script src="js/filtro.js"></script>
 
+  <script src="js/filtro.js"></script>
   <script src="js/loader.js"></script>
   <script src="js/wave.js"></script>
   <script src="js/crv.js"></script>
+
 </body>
 </html>

@@ -19,12 +19,16 @@ if ($conn->connect_error) {
 // Email do usuário logado
 $emailUsuario = $_SESSION['email'] ?? '';
 
-// Buscar apenas demandas vinculadas ao CRV (email)
-$sql = "SELECT * FROM demandas WHERE crv = ?";
+// Buscar apenas demandas vinculadas ao aplicador (email)
+$sql = "SELECT * FROM demandas WHERE aplicador LIKE ?";
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("s", $emailUsuario);
+
+$likeEmail = "%$emailUsuario%";
+$stmt->bind_param("s", $likeEmail);
+
 $stmt->execute();
 $result = $stmt->get_result();
+
 ?>
 
 <!DOCTYPE html>
@@ -34,7 +38,6 @@ $result = $stmt->get_result();
   <title>CRM CRV</title>
   <link rel="stylesheet" href="css/padrao.css">
   <link rel="stylesheet" href="css/crv.css">
-  <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
   <div id="loader">
@@ -70,23 +73,26 @@ $result = $stmt->get_result();
                   $row["Escopo"] . ' ' .
                   $row["TipoProposta"] . ' ' .
                   $row["id"] . ' ' .
-                  $row["Status"]
+                  $row["status_aplicador"]
               );
 
-              $url = "detalhes.php?id=" . $row["id"] . "&nota=" . urlencode($row["Nota"]) . "&cotacao=" . urlencode($row["Cotacao"]) . "&cliente=" . urlencode($row["Cliente"]) . "&escopo=" . urlencode($row["Escopo"]) . "&status=" . urlencode($row["Status"]);
+              $url = "detalhes.php?id=" . $row["id"] . "&nota=" . urlencode($row["Nota"]) . "&cotacao=" . urlencode($row["Cotacao"]) . "&cliente=" . urlencode($row["Cliente"]) . "&escopo=" . urlencode($row["Escopo"]) . "&status=" . urlencode($row["status_aplicador"]);
 
-              $status = strtolower($row["Status"]);
+              $status = strtolower($row["status_aplicador"]);
               $statusClass = '';
 
               switch ($status) {
-                  case 'concluído':
-                      $statusClass = 'status-concluído';
+                  case 'proposta em elaboração':
+                      $statusClass = 'status-elaboracao';
                       break;
-                  case 'em andamento':
-                      $statusClass = 'status-andamento';
+                  case 'em peritagem':
+                      $statusClass = 'status-peritagem';
                       break;
-                  case 'pendente':
-                      $statusClass = 'status-pendente';
+                  case 'perdido':
+                      $statusClass = 'status-perdido';
+                      break;
+                  case 'distribuir':
+                      $statusClass = 'status-distribuir';
                       break;
                   default:
                       $statusClass = 'status-default';
@@ -106,7 +112,7 @@ $result = $stmt->get_result();
               echo '</div>';
               echo '</div>';
               echo '<div class="card-end">';
-              echo '<div class="status-badge ' . $statusClass . '">' . htmlspecialchars($row["Status"]) . '</div>';
+              echo '<div class="status-badge ' . $statusClass . '">' . htmlspecialchars($row["status_aplicador"]) . '</div>';
               echo '<div class="arrow-icon"><a href="' . $url . '">➤</a></div>';
               echo '</div>';
               echo '</div>';

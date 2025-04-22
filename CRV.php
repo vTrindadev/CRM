@@ -34,7 +34,6 @@ $result = $stmt->get_result();
   <title>CRM CRV</title>
   <link rel="stylesheet" href="css/padrao.css">
   <link rel="stylesheet" href="css/crv.css">
-  <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
   <div id="loader">
@@ -74,20 +73,20 @@ $result = $stmt->get_result();
                   $row["Status"]
               );
 
-              $url = "detalhes.php?id=" . $row["id"] . "&nota=" . urlencode($row["Nota"]) . "&cotacao=" . urlencode($row["Cotacao"]) . "&cliente=" . urlencode($row["Cliente"]) . "&escopo=" . urlencode($row["Escopo"]) . "&status=" . urlencode($row["Status"]);
+              $url = "detalhes_crv.php?id=" . $row["id"] . "&nota=" . urlencode($row["Nota"]) . "&cotacao=" . urlencode($row["Cotacao"]) . "&cliente=" . urlencode($row["Cliente"]) . "&escopo=" . urlencode($row["Escopo"]) . "&status=" . urlencode($row["Status"]);
 
               $status = strtolower($row["Status"]);
               $statusClass = '';
 
               switch ($status) {
-                  case 'concluído':
-                      $statusClass = 'status-concluído';
+                  case 'proposta em elaboração':
+                      $statusClass = 'status-elaboracao';
                       break;
-                  case 'em andamento':
-                      $statusClass = 'status-andamento';
+                  case 'em peritagem':
+                      $statusClass = 'status-peritagem';
                       break;
-                  case 'pendente':
-                      $statusClass = 'status-pendente';
+                  case 'perdido':
+                      $statusClass = 'status-perdido';
                       break;
                   default:
                       $statusClass = 'status-default';
