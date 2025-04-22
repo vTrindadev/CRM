@@ -127,3 +127,32 @@
   background-color: #95a5a6; /* cinza padrão */
 }
 
+.prioridade-badge {
+  padding: 0.4em 1em;
+  border-radius: 20px;
+  font-weight: bold;
+  white-space: nowrap;
+  font-size: 0.9em;
+  align-self: flex-start;
+}
+
+.prioridade-urgente {
+  background-color: #e53935; /* Vermelho forte */
+}
+
+.prioridade-maquina {
+  background-color: #fb8c00; /* Laranja */
+}
+
+.prioridade-normal {
+  background-color: #fdd835; /* Amarelo */
+  color: #333;
+}
+
+.prioridade-estimativa {
+  background-color: #43a047; /* Verde */
+}
+
+.prioridade-default {
+  background-color: #757575; /* Cinza */
+}

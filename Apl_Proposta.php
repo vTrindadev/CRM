@@ -109,10 +109,30 @@ $result = $stmt->get_result();
               echo '<p><strong>Cliente:</strong> ' . htmlspecialchars($row["Cliente"]) . '</p>';
               echo '<p><strong>Escopo:</strong> ' . htmlspecialchars($row["Escopo"]) . '</p>';
               echo '<p><strong>Tipo Proposta:</strong> ' . htmlspecialchars($row["TipoProposta"]) . '</p>';
+              $prioridade = strtolower($row["Prioridade"]);
+              $prioridadeClass = '';
+              
+              switch ($prioridade) {
+                  case 'urgente':
+                      $prioridadeClass = 'prioridade-urgente';
+                      break;
+                  case 'máquina parada':
+                      $prioridadeClass = 'prioridade-maquina';
+                      break;
+                  case 'Normal':
+                      $prioridadeClass = 'prioridade-normal';
+                      break;
+                  case 'estimativa':
+                      $prioridadeClass = 'prioridade-estimativa';
+                      break;
+                  default:
+                      $prioridadeClass = 'prioridade-default';
+              }              
               echo '</div>';
               echo '</div>';
               echo '<div class="card-end">';
               echo '<div class="status-badge ' . $statusClass . '">' . htmlspecialchars($row["status_aplicador"]) . '</div>';
+              echo '<p class="prioridade-badge ' . $prioridadeClass . '"><strong>Prioridade:</strong> ' . htmlspecialchars($row["Prioridade"]) . '</p>';
               echo '<div class="arrow-icon"><a href="' . $url . '">➤</a></div>';
               echo '</div>';
               echo '</div>';
