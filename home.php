@@ -15,11 +15,11 @@ include('protection.php');
     <div class="spinner"></div>
   </div>
   <div id="menu">
-    <a href="home.html">
+    <a href="home.php">
         <img id="Logo" src="img/weg branco.png" alt="Logo WEG">
     </a>
     <div class="opt-menu">  
-        <a href="home.html" class="btn-menu activo">
+        <a href="home.php" class="btn-menu activo">
             <h3>Home</h3>
         </a>
         <a href="all.php" class="btn-menu">
