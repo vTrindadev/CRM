@@ -34,19 +34,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $equipamentos = $_POST['equipamentos'];
     $observacao = $_POST['observacao'];
     $valor = $_POST['valor'];
+    $frete = isset($_POST['frete']) ? $_POST['frete'] : null;
 
-    $insertSql = "INSERT INTO demandas (Nota, crv, Cliente, CodigoCliente, NomeCliente, Cnpj, Cidade, Estado, Pais, Escopo, Status, Cotacao, PrazoProposta, Prioridade, TipoProposta, refCliente, EspecificacaoCliente, Emfabrica, QuantidadeEquip, Equipamentos, Observacao, valor)
-                  VALUES ('$nota', '$crv', '$cliente', '$codigoCliente', '$nomeCliente', '$cnpj', '$cidade', '$estado', '$pais', '$escopo', '$status', '$cotacao', '$prazoProposta', '$prioridade', '$tipoProposta', '$refCliente', '$especificacaoCliente', '$emFabrica', '$quantidadeEquip', '$equipamentos', '$observacao', '$valor')";
+    $insertSql = "INSERT INTO demandas (Nota, crv, Cliente, CodigoCliente, NomeCliente, Cnpj, Cidade, Estado, Pais, Escopo, Status, Cotacao, PrazoProposta, Prioridade, TipoProposta, refCliente, EspecificacaoCliente, Emfabrica, QuantidadeEquip, Equipamentos, Observacao, valor, frete)
+                  VALUES ('$nota', '$crv', '$cliente', '$codigoCliente', '$nomeCliente', '$cnpj', '$cidade', '$estado', '$pais', '$escopo', '$status', '$cotacao', '$prazoProposta', '$prioridade', '$tipoProposta', '$refCliente', '$especificacaoCliente', '$emFabrica', '$quantidadeEquip', '$equipamentos', '$observacao', '$valor', '$frete')";
 
-  if ($conn->query($insertSql) === TRUE) {
-    echo "<script>
-            alert('Demanda criada com sucesso!');
-            window.location.href = 'CRV.php';
-          </script>";
-  } else {
-    echo "Erro ao criar a demanda: " . $conn->error;
-  }
-
+    if ($conn->query($insertSql) === TRUE) {
+        echo "<script>
+                alert('Demanda criada com sucesso!');
+                window.location.href = 'CRV.php';
+              </script>";
+    } else {
+        echo "Erro ao criar a demanda: " . $conn->error;
+    }
 }
 
 $conn->close();
@@ -118,7 +118,6 @@ $conn->close();
 
       <div class="form-section">
         <div class="form-section-title">Proposta</div>
-        <div class="form-group"><label for="escopo">Escopo:</label><input type="text" id="escopo" name="escopo" required></div>
         <div class="form-group"><label for="status">Status:</label><input type="text" id="status" name="status" required></div>
         <div class="form-group"><label for="valor">Valor:</label><input type="text" id="valor" name="valor" required></div>
         <div class="form-group"><label for="prazoProposta">Prazo Proposta:</label><input type="date" id="prazoProposta" name="prazoProposta" required></div>
@@ -141,6 +140,20 @@ $conn->close();
             <option value="Partes e Peças">Partes e Peças</option>
           </select>
         </div>
+        <div class="form-group">
+            <label for="escopo">Escopo:</label>
+            <textarea id="escopo" name="escopo" required></textarea>
+        </div>
+
+
+        <div class="form-group" id="freteContainer" style="display: none;">
+          <label for="frete">Frete:</label>
+          <select id="frete" name="frete">
+            <option value="">Selecione</option>
+            <option value="Por conta do Cliente">Por conta do Cliente</option>
+            <option value="Por conta da WEG">Por conta da WEG</option>
+          </select>
+        </div>
       </div>
 
       <div class="form-section">
@@ -157,7 +170,10 @@ $conn->close();
         </div>
         <div class="form-group"><label for="quantidadeEquip">Quantidade Equip:</label><input type="text" id="quantidadeEquip" name="quantidadeEquip" required></div>
         <div class="form-group"><label for="equipamentos">Equipamentos:</label><input type="text" id="equipamentos" name="equipamentos" required></div>
-        <div class="form-group" style="width: 100%;"><label for="observacao">Observação:</label><input type="text" id="observacao" name="observacao" required></div>
+        <div class="form-group">
+            <label for="observacao">Observação:</label>
+            <textarea id="observacao" name="observacao" required></textarea>
+        </div>
       </div>
 
       <div class="form-group">
@@ -168,32 +184,8 @@ $conn->close();
 
   <script src="js/loader.js"></script>
   <script src="js/wave.js"></script>
+  <script src="js/frete.js"></script>
 
-  <!-- Script para preencher cliente -->
-  <script>
-    function buscarCliente() {
-      const codigo = document.getElementById("codigoCliente").value;
-      if (codigo.trim() === "") return;
 
-      fetch(`get_cliente.php?codigo=${codigo}`)
-        .then(res => res.json())
-        .then(data => {
-          if (data.erro) {
-            alert("Cliente não encontrado!");
-            return;
-          }
-
-          document.getElementById("cliente").value = data.Cliente || "";
-          document.getElementById("nomeCliente").value = data.NomeCliente || "";
-          document.getElementById("cnpj").value = data.Cnpj || "";
-          document.getElementById("cidade").value = data.Cidade || "";
-          document.getElementById("estado").value = data.Estado || "";
-          document.getElementById("pais").value = data.Pais || "";
-        })
-        .catch(error => {
-          console.error("Erro ao buscar cliente:", error);
-        });
-    }
-  </script>
 </body>
 </html>

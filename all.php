@@ -22,8 +22,7 @@ $result = $conn->query($sql);
   <meta charset="UTF-8">
   <title>CRM CRV</title>
   <link rel="stylesheet" href="css/padrao.css">
-  <link rel="stylesheet" href="css/crv.css">
-  <link rel="stylesheet" href="css/styles.css"> <!-- Adicionando o novo arquivo CSS -->
+  <link rel="stylesheet" href="css/detalhe.css">
 </head>
 <body>
   <div id="loader">
@@ -40,7 +39,6 @@ $result = $conn->query($sql);
       <a href="BD_Equipamentos.php" class="btn-menu"><h3>Equipamentos</h3></a>
     </div>
     <div class="opt-menu">
-      <a href="add_crv.php" class="btn-menu"><h3>Adicionar +</h3></a>
       <form action="logout.php" method="post">
           <button type="submit" class="btn-menu-sair">Sair</button>
       </form>

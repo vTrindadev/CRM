@@ -95,6 +95,40 @@
     height: 30vh;
 }
 
+.form-group input#escopo[type="text"] {
+    height: 30vh;
+    padding-top: 0;  /* Remove qualquer espaçamento superior */
+    vertical-align: top;  /* Alinha o conteúdo do campo ao topo */
+}
+
+.form-group textarea#escopo {
+    height: 20vh;
+    width: 20vw;
+    padding-top: 0;
+    vertical-align: top;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    font-size: 1.3em;
+}
+
+.form-group input#observacao[type="text"] {
+    height: 30vh;
+    padding-top: 0;  /* Remove qualquer espaçamento superior */
+    vertical-align: top;  /* Alinha o conteúdo do campo ao topo */
+}
+
+.form-group textarea#observacao {
+    height: 20vh;
+    width: 20vw;
+    padding-top: 0;
+    vertical-align: top;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    font-size: 1.3em;
+}
+
 .form-group input#prazoProposta{
     width: 9vw;
     height: 6vh;

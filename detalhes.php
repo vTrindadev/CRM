@@ -48,6 +48,7 @@ if (isset($_GET['id'])) {
         $equipamentos = $_POST['equipamentos'];
         $observacao = $_POST['observacao'];
         $valor = $_POST['valor'];
+        $frete = $_POST['frete'];
 
         // Atualizar os dados no banco de dados
         $updateSql = "UPDATE demandas SET 
@@ -73,6 +74,7 @@ if (isset($_GET['id'])) {
             Equipamentos = '$equipamentos',
             Observacao = '$observacao'
             valor = '$valor'
+            frete = '$frete'
             WHERE id = $id";
 
         if ($conn->query($updateSql) === TRUE) {
@@ -151,7 +153,8 @@ $conn->close();
         <div class="form-group"><label for="valor">Valor:</label><input type="text" id="valor" name="valor" value="<?= htmlspecialchars($row['valor']) ?>"></div>
         <div class="form-group"><label for="prazoProposta">Prazo Proposta:</label><input type="text" id="prazoProposta" name="prazoProposta" value="<?= htmlspecialchars($row['PrazoProposta']) ?>"></div>
         <div class="form-group"><label for="prioridade">Prioridade:</label><input type="text" id="prioridade" name="prioridade" value="<?= htmlspecialchars($row['Prioridade']) ?>"></div>
-        <div class="form-group"><label for="tipoProposta">Tipo Proposta:</label><input type="text" id="tipoProposta" name="tipoProposta" value="<?= htmlspecialchars($row['TipoProposta']) ?>"></div>
+        <div class="form-group"><label for="tipoProposta">Tipo Proposta:</label><input type="text" id="tipoProposta" name="tipoProposta" value="<?= htmlspecialchars($row['TipoProposta']) ?>"readonly></div>
+        <div class="form-group"><label for="frete">Frete:</label><input type="text" id="frete" name="fret" value="<?= htmlspecialchars($row['frete']) ?>"readonly></div>
       </div>
 
       <div class="form-section">
