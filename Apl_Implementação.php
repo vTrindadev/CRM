@@ -34,7 +34,6 @@ $result = $stmt->get_result();
   <title>CRM CRV</title>
   <link rel="stylesheet" href="css/padrao.css">
   <link rel="stylesheet" href="css/crv.css">
-  <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
   <div id="loader">

@@ -1,0 +1,33 @@
+.chart-container {
+    display: flex;
+    justify-content: center; /* Centraliza cada gráfico dentro de seu container */
+    align-items: center;
+    position: relative;
+    height: 50vh;
+    width: 30vw; /* Ajuste para garantir que os gráficos caibam na tela */
+    z-index: 100;
+}
+
+@media screen and (max-width: 768px) {
+    .chart-container {
+        width: 90vw; /* Ajusta a largura para telas menores */
+    }
+}
+
+.container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+  }
+  
+  #holder {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }

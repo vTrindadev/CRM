@@ -28,6 +28,12 @@ if (!isset($_SESSION['acesso'])) {
             <h3>Home</h3>
         </a>
         <?php if ($_SESSION['acesso'] === 'Admin') : ?>
+            <a href="relatorio.php" class="btn-menu">
+                <h3>Relatório</h3>
+            </a>
+        <?php endif; ?>
+
+        <?php if ($_SESSION['acesso'] === 'Admin') : ?>
             <a href="all.php" class="btn-menu">
                 <h3>All</h3>
             </a>

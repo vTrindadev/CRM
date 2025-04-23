@@ -21,7 +21,7 @@ if (isset($_GET['id'])) {
     if ($resultado->num_rows > 0) {
         $dados = $resultado->fetch_assoc();
     } else {
-        echo "<script>alert('Demanda não encontrada.'); window.location.href = 'CRV.php';</script>";
+        echo "<script>alert('Demanda não encontrada.'); window.location.href = 'Apl_Proposta.php';</script>";
         exit;
     }
 }
@@ -52,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                       VALUES ('$nota', '$crv', '$cliente', '$codigoCliente', '$nomeCliente', '$cnpj', '$cidade', '$estado', '$pais', '$escopo', '$Status', '$cotacao', '$prazoProposta', '$prioridade', '$tipoProposta', '$refCliente', '$especificacaoCliente', '$emFabrica', '$quantidadeEquip', '$equipamentos', '$observacao', '$valor', '$frete', '$status_aplicador', '$aplicador')";
 
         if ($conn->query($insertSql) === TRUE) {
-            echo "<script>alert('Demanda criada com sucesso!'); window.location.href = 'CRV.php';</script>";
+            echo "<script>alert('Demanda criada com sucesso!'); window.location.href = 'Apl_Proposta.php';</script>";
         } else {
             echo "Erro ao criar a demanda: " . $conn->error;
         }
@@ -77,7 +77,9 @@ $conn->close();
         <img id="Logo" src="img/weg branco.png" alt="Logo WEG">
     </a>
     <div class="opt-menu">
-      <a href="CRV.php" class="btn-menu"><h3>CRV</h3></a>
+        <a href="javascript:history.back()" class="btn-menu">
+            <h3>Voltar</h3>
+        </a>
       <a href="detalhes.php" class="btn-menu activo"><h3><?= $edicao ? 'Editar' : 'Adicionar' ?></h3></a>
       <input type="text" id="inputBusca" placeholder="Buscar..." class="input-menu">
       <a href="BD_Cliente.php" class="btn-menu"><h3>Clientes</h3></a>
