@@ -49,7 +49,6 @@ $result = $conn->query($sql);
       <a href="BD_Equipamentos.php" class="btn-menu"><h3>Equipamentos</h3></a>
     </div>
     <div class="opt-menu">
-        <a href="add_crv.php" class="btn-menu"><h3>Adicionar +</h3></a>
       <form action="logout.php" method="post">
           <button type="submit" class="btn-menu-sair">Sair</button>
       </form>
@@ -73,7 +72,7 @@ $result = $conn->query($sql);
                   $row["Status"]
               );
 
-              $url = "detalhes_crv.php?id=" . $row["id"] . "&nota=" . urlencode($row["Nota"]) . "&cotacao=" . urlencode($row["Cotacao"]) . "&cliente=" . urlencode($row["Cliente"]) . "&escopo=" . urlencode($row["Escopo"]) . "&Status=" . urlencode($row["Status"]) . "&status_aplicador=" . urlencode($row["status_aplicador"]);
+              $url = "detalhes.php?id=" . $row["id"] . "&nota=" . urlencode($row["Nota"]) . "&cotacao=" . urlencode($row["Cotacao"]) . "&cliente=" . urlencode($row["Cliente"]) . "&escopo=" . urlencode($row["Escopo"]) . "&Status=" . urlencode($row["Status"]) . "&status_aplicador=" . urlencode($row["status_aplicador"]);
 
               $Status = strtolower($row["Status"]);
               $StatusClass = '';
