@@ -73,29 +73,32 @@ $result = $stmt->get_result();
                   $row["Escopo"] . ' ' .
                   $row["TipoProposta"] . ' ' .
                   $row["id"] . ' ' .
-                  $row["Status_aplicador"]
+                  $row["status_aplicador"]
               );
 
-              $url = "detalhes.php?id=" . $row["id"] . "&nota=" . urlencode($row["Nota"]) . "&cotacao=" . urlencode($row["Cotacao"]) . "&cliente=" . urlencode($row["Cliente"]) . "&escopo=" . urlencode($row["Escopo"]) . "&Status=" . urlencode($row["Status_aplicador"]);
+              $url = "detalhes.php?id=" . $row["id"] . "&nota=" . urlencode($row["Nota"]) . "&cotacao=" . urlencode($row["Cotacao"]) . "&cliente=" . urlencode($row["Cliente"]) . "&escopo=" . urlencode($row["Escopo"]) . "&Status=" . urlencode($row["status_aplicador"]);
 
-              $Status = strtolower($row["Status_aplicador"]);
+              $Status = strtolower($row["status_aplicador"]);
               $StatusClass = '';
 
               switch ($Status) {
-                  case 'proposta em elaboração':
-                      $StatusClass = 'Status-elaboracao';
-                      break;
-                  case 'em peritagem':
-                      $StatusClass = 'Status-peritagem';
-                      break;
-                  case 'perdido':
-                      $StatusClass = 'Status-perdido';
-                      break;
-                  case 'distribuir':
-                      $StatusClass = 'Status-distribuir';
-                      break;
-                  default:
-                      $StatusClass = 'Status-default';
+                case 'proposta em elaboração':
+                    $StatusClass = 'Status-elaboracao';
+                    break;
+                case 'em peritagem':
+                    $StatusClass = 'Status-peritagem';
+                    break;
+                case 'perdido':
+                    $StatusClass = 'Status-perdido';
+                    break;
+                case 'distribuir':
+                    $StatusClass = 'Status-distribuir';
+                    break;
+                case 'concluído':
+                    $StatusClass = 'Status-concluído';
+                break;
+                default:
+                    $StatusClass = 'Status-default';
               }
 
               echo '<div class="info-card" data-busca="' . htmlspecialchars($busca, ENT_QUOTES, 'UTF-8') . '">';
@@ -127,11 +130,11 @@ $result = $stmt->get_result();
                       break;
                   default:
                       $prioridadeClass = 'prioridade-default';
-              }              
+              }      
               echo '</div>';
               echo '</div>';
               echo '<div class="card-end">';
-              echo '<div class="Status-badge ' . $StatusClass . '">' . htmlspecialchars($row["Status_aplicador"]) . '</div>';
+              echo '<div class="Status-badge ' . $StatusClass . '">' . htmlspecialchars($row["status_aplicador"]) . '</div>';
               echo '<p class="prioridade-badge ' . $prioridadeClass . '"><strong>Prioridade:</strong> ' . htmlspecialchars($row["Prioridade"]) . '</p>';
               echo '<div class="arrow-icon"><a href="' . $url . '">➤</a></div>';
               echo '</div>';

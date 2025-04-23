@@ -27,7 +27,7 @@ if (isset($_GET['id'])) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $campos = ['nota','crv','cliente','codigoCliente','nomeCliente','cnpj','cidade','estado','pais','escopo','Status','cotacao','prazoProposta','prioridade','tipoProposta','refCliente','especificacaoCliente','emFabrica','quantidadeEquip','equipamentos','observacao','valor','frete','Status_aplicador','aplicador'];
+    $campos = ['nota','crv','cliente','codigoCliente','nomeCliente','cnpj','cidade','estado','pais','escopo','Status','cotacao','prazoProposta','prioridade','tipoProposta','refCliente','especificacaoCliente','emFabrica','quantidadeEquip','equipamentos','observacao','valor','frete','status_aplicador','aplicador'];
     foreach ($campos as $campo) {
         $$campo = isset($_POST[$campo]) ? $conn->real_escape_string($_POST[$campo]) : null;
     }
@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             Cotacao='$cotacao', PrazoProposta='$prazoProposta', Prioridade='$prioridade', TipoProposta='$tipoProposta', 
             refCliente='$refCliente', EspecificacaoCliente='$especificacaoCliente', Emfabrica='$emFabrica', 
             QuantidadeEquip='$quantidadeEquip', Equipamentos='$equipamentos', Observacao='$observacao', 
-            valor='$valor', frete='$frete', Status_aplicador='$Status_aplicador', aplicador='$aplicador'
+            valor='$valor', frete='$frete', status_aplicador='$status_aplicador', aplicador='$aplicador'
             WHERE id=$id";
 
         if ($conn->query($updateSql) === TRUE) {
@@ -48,8 +48,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             echo "Erro ao atualizar a demanda: " . $conn->error;
         }
     } else {
-        $insertSql = "INSERT INTO demandas (Nota, crv, Cliente, CodigoCliente, NomeCliente, Cnpj, Cidade, Estado, Pais, Escopo, Status, Cotacao, PrazoProposta, Prioridade, TipoProposta, refCliente, EspecificacaoCliente, Emfabrica, QuantidadeEquip, Equipamentos, Observacao, valor, frete, Status_aplicador, aplicador)
-                      VALUES ('$nota', '$crv', '$cliente', '$codigoCliente', '$nomeCliente', '$cnpj', '$cidade', '$estado', '$pais', '$escopo', '$Status', '$cotacao', '$prazoProposta', '$prioridade', '$tipoProposta', '$refCliente', '$especificacaoCliente', '$emFabrica', '$quantidadeEquip', '$equipamentos', '$observacao', '$valor', '$frete', '$Status_aplicador', '$aplicador')";
+        $insertSql = "INSERT INTO demandas (Nota, crv, Cliente, CodigoCliente, NomeCliente, Cnpj, Cidade, Estado, Pais, Escopo, Status, Cotacao, PrazoProposta, Prioridade, TipoProposta, refCliente, EspecificacaoCliente, Emfabrica, QuantidadeEquip, Equipamentos, Observacao, valor, frete, status_aplicador, aplicador)
+                      VALUES ('$nota', '$crv', '$cliente', '$codigoCliente', '$nomeCliente', '$cnpj', '$cidade', '$estado', '$pais', '$escopo', '$Status', '$cotacao', '$prazoProposta', '$prioridade', '$tipoProposta', '$refCliente', '$especificacaoCliente', '$emFabrica', '$quantidadeEquip', '$equipamentos', '$observacao', '$valor', '$frete', '$status_aplicador', '$aplicador')";
 
         if ($conn->query($insertSql) === TRUE) {
             echo "<script>alert('Demanda criada com sucesso!'); window.location.href = 'CRV.php';</script>";
@@ -143,8 +143,8 @@ $conn->close();
       <div class="form-section">
         <div class="form-section-title">Proposta</div>
         <div class="form-group">
-          <label for="Status_aplicador">Status Aplicador:</label>
-          <select id="Status_aplicador" name="Status_aplicador" required>
+          <label for="status_aplicador">Status Aplicador:</label>
+          <select id="status_aplicador" name="status_aplicador" required>
             <?php
               $StatusAplicadorList = [
                 'Distribuir',
@@ -156,7 +156,7 @@ $conn->close();
                 'Em Consulta'
               ];
               foreach ($StatusAplicadorList as $Status) {
-                $selected = valor('Status_aplicador', $dados) == $Status ? 'selected' : '';
+                $selected = valor('status_aplicador', $dados) == $Status ? 'selected' : '';
                 echo "<option value='$Status' $selected>$Status</option>";
               }
             ?>
@@ -230,7 +230,7 @@ $conn->close();
   <script src="js/wave.js"></script>
   <script src="js/frete.js"></script>
   <script>
-    document.getElementById('Status_aplicador')?.addEventListener('change', function () {
+    document.getElementById('status_aplicador')?.addEventListener('change', function () {
       const Status = document.getElementById('Status');
       if (!Status) return;
 

@@ -79,20 +79,23 @@ $result = $stmt->get_result();
               $StatusClass = '';
 
               switch ($Status) {
-                  case 'proposta em elaboração':
-                      $StatusClass = 'Status-elaboracao';
-                      break;
-                  case 'em peritagem':
-                      $StatusClass = 'Status-peritagem';
-                      break;
-                  case 'perdido':
-                      $StatusClass = 'Status-perdido';
-                      break;
-                  case 'distribuir':
-                      $StatusClass = 'Status-distribuir';
-                      break;
-                  default:
-                      $StatusClass = 'Status-default';
+                case 'proposta em elaboração':
+                    $StatusClass = 'Status-elaboracao';
+                    break;
+                case 'em peritagem':
+                    $StatusClass = 'Status-peritagem';
+                    break;
+                case 'perdido':
+                    $StatusClass = 'Status-perdido';
+                    break;
+                case 'distribuir':
+                    $StatusClass = 'Status-distribuir';
+                    break;
+                case 'concluído':
+                    $StatusClass = 'Status-concluído';
+                break;
+                default:
+                    $StatusClass = 'Status-default';
               }
 
               echo '<div class="info-card" data-busca="' . htmlspecialchars($busca, ENT_QUOTES, 'UTF-8') . '">';

@@ -27,7 +27,7 @@ if (isset($_GET['id'])) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $campos = ['nota','crv','cliente','codigoCliente','nomeCliente','cnpj','cidade','estado','pais','escopo','Status','cotacao','prazoProposta','prioridade','tipoProposta','refCliente','especificacaoCliente','emFabrica','quantidadeEquip','equipamentos','observacao','valor','frete','Status_aplicador','aplicador'];
+    $campos = ['nota','crv','cliente','codigoCliente','nomeCliente','cnpj','cidade','estado','pais','escopo','Status','cotacao','prazoProposta','prioridade','tipoProposta','refCliente','especificacaoCliente','emFabrica','quantidadeEquip','equipamentos','observacao','valor','frete','status_aplicador','aplicador'];
     foreach ($campos as $campo) {
         $$campo = isset($_POST[$campo]) ? $conn->real_escape_string($_POST[$campo]) : null;
     }
@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             Cotacao='$cotacao', PrazoProposta='$prazoProposta', Prioridade='$prioridade', TipoProposta='$tipoProposta', 
             refCliente='$refCliente', EspecificacaoCliente='$especificacaoCliente', Emfabrica='$emFabrica', 
             QuantidadeEquip='$quantidadeEquip', Equipamentos='$equipamentos', Observacao='$observacao', 
-            valor='$valor', frete='$frete', Status_aplicador='$Status_aplicador', aplicador='$aplicador'
+            valor='$valor', frete='$frete', status_aplicador='$status_aplicador', aplicador='$aplicador'
             WHERE id=$id";
 
         if ($conn->query($updateSql) === TRUE) {
@@ -48,8 +48,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             echo "Erro ao atualizar a demanda: " . $conn->error;
         }
     } else {
-        $insertSql = "INSERT INTO demandas (Nota, crv, Cliente, CodigoCliente, NomeCliente, Cnpj, Cidade, Estado, Pais, Escopo, Status, Cotacao, PrazoProposta, Prioridade, TipoProposta, refCliente, EspecificacaoCliente, Emfabrica, QuantidadeEquip, Equipamentos, Observacao, valor, frete, Status_aplicador, aplicador)
-                      VALUES ('$nota', '$crv', '$cliente', '$codigoCliente', '$nomeCliente', '$cnpj', '$cidade', '$estado', '$pais', '$escopo', '$Status', '$cotacao', '$prazoProposta', '$prioridade', '$tipoProposta', '$refCliente', '$especificacaoCliente', '$emFabrica', '$quantidadeEquip', '$equipamentos', '$observacao', '$valor', '$frete', '$Status_aplicador', '$aplicador')";
+        $insertSql = "INSERT INTO demandas (Nota, crv, Cliente, CodigoCliente, NomeCliente, Cnpj, Cidade, Estado, Pais, Escopo, Status, Cotacao, PrazoProposta, Prioridade, TipoProposta, refCliente, EspecificacaoCliente, Emfabrica, QuantidadeEquip, Equipamentos, Observacao, valor, frete, status_aplicador, aplicador)
+                      VALUES ('$nota', '$crv', '$cliente', '$codigoCliente', '$nomeCliente', '$cnpj', '$cidade', '$estado', '$pais', '$escopo', '$Status', '$cotacao', '$prazoProposta', '$prioridade', '$tipoProposta', '$refCliente', '$especificacaoCliente', '$emFabrica', '$quantidadeEquip', '$equipamentos', '$observacao', '$valor', '$frete', '$status_aplicador', '$aplicador')";
 
         if ($conn->query($insertSql) === TRUE) {
             echo "<script>alert('Demanda criada com sucesso!'); window.location.href = 'CRV.php';</script>";
@@ -143,7 +143,7 @@ $conn->close();
           <label for="Status">Status:</label>
           <select id="Status" name="Status" required>
             <?php
-              $StatusList = ["Proposta em Elaboração", "Em Peritagem", "Perdido"];
+              $StatusList = ["Proposta em Elaboração", "Em Peritagem", "Perdido", "Concluído"];
               foreach ($StatusList as $st) {
                 $selected = valor('Status', $dados) == $st ? 'selected' : '';
                 echo "<option value='$st' $selected>$st</option>";
@@ -151,8 +151,8 @@ $conn->close();
             ?>
           </select>
         </div>
+        <div class="form-group"><label for="status_aplicador">status_aplicador:</label><input type="text" id="status_aplicador" name="status_aplicador" value="<?= valor('status_aplicador', $dados) ?>" readonly></div>
         <div class="form-group"><label for="aplicador">Aplicador:</label><input type="text" id="aplicador" name="aplicador" value="<?= valor('aplicador', $dados) ?>"></div>
-        <input type="hidden" id="Status_aplicador" name="Status_aplicador" value="<?= valor('Status_aplicador', $dados) ?>">
         <div class="form-group"><label for="valor">Valor:</label><input type="text" id="valor" name="valor" value="<?= valor('valor', $dados) ?>"></div>
         <div class="form-group"><label for="prazoProposta">Prazo Proposta:</label><input type="date" id="prazoProposta" name="prazoProposta" value="<?= valor('PrazoProposta', $dados) ?>" required></div>
         <div class="form-group">
@@ -218,15 +218,22 @@ $conn->close();
   <script src="js/frete.js"></script>
   <script>
     document.getElementById('Status')?.addEventListener('change', function () {
-      const StatusAplicador = document.getElementById('Status_aplicador');
-      if (!StatusAplicador) return;
+      const status_aplicador = document.getElementById('status_aplicador');
+      if (!status_aplicador) return;
 
-      if (this.value === 'Proposta em Elaboração') {
-        StatusAplicador.value = 'Distribuir'; // Atualiza a opção do select para 'Distribuir'
-      } else if (this.value === 'Em Peritagem') {
-        StatusAplicador.value = 'Em peritagem'; // Atualiza para 'Em peritagem'
-      } else if (this.value === 'Perdido') {
-        StatusAplicador.value = 'Perdido'; // Atualiza para 'Perdido'
+      const aplicadorValue = this.value;
+
+      // Define as regras de correspondência
+      if (aplicadorValue === 'Concluído') {
+        status_aplicador.value = 'Concluído';
+      } else if (aplicadorValue === 'Proposta em Elaboração') {
+        status_aplicador.value = 'Distribuir';
+      } else if (aplicadorValue === 'Perdido') {
+        status_aplicador.value = 'Perdido';
+      } else if (aplicadorValue === 'Em Peritagem') {
+        status_aplicador.value = 'Em Peritagem';
+      } else {
+        Status.value = ''; // ou mantenha o valor atual se quiser evitar alteração
       }
     });
 

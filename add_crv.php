@@ -35,10 +35,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $observacao = $_POST['observacao'];
     $valor = $_POST['valor'];
     $frete = isset($_POST['frete']) ? $_POST['frete'] : null;
-    $StatusAplicador = $_POST['Status_aplicador']; 
+    $StatusAplicador = $_POST['status_aplicador']; 
     $aplicador = $_POST['aplicador']; 
 
-    $insertSql = "INSERT INTO demandas (Nota, crv, Cliente, CodigoCliente, NomeCliente, Cnpj, Cidade, Estado, Pais, Escopo, Status, Cotacao, PrazoProposta, Prioridade, TipoProposta, refCliente, EspecificacaoCliente, Emfabrica, QuantidadeEquip, Equipamentos, Observacao, valor, frete, Status_aplicador, aplicador)
+    $insertSql = "INSERT INTO demandas (Nota, crv, Cliente, CodigoCliente, NomeCliente, Cnpj, Cidade, Estado, Pais, Escopo, Status, Cotacao, PrazoProposta, Prioridade, TipoProposta, refCliente, EspecificacaoCliente, Emfabrica, QuantidadeEquip, Equipamentos, Observacao, valor, frete, status_aplicador, aplicador)
                   VALUES ('$nota', '$crv', '$cliente', '$codigoCliente', '$nomeCliente', '$cnpj', '$cidade', '$estado', '$pais', '$escopo', '$Status', '$cotacao', '$prazoProposta', '$prioridade', '$tipoProposta', '$refCliente', '$especificacaoCliente', '$emFabrica', '$quantidadeEquip', '$equipamentos', '$observacao', '$valor', '$frete', '$StatusAplicador', '$aplicador')";
 
     if ($conn->query($insertSql) === TRUE) {
@@ -133,7 +133,7 @@ $conn->close();
         </div>
         <div class="form-group"><label for="aplicador">Aplicador:</label><input type="text" id="aplicador" name="aplicador"></div>
         <div class="form-group">
-          <input type="hidden" id="Status_aplicador" name="Status_aplicador" value="Distribuir">
+          <input type="hidden" id="status_aplicador" name="status_aplicador" value="Distribuir">
         </div>
         <div class="form-group"><label for="valor">Valor:</label><input type="text" id="valor" name="valor"></div>
         <div class="form-group"><label for="prazoProposta">Prazo Proposta:</label><input type="date" id="prazoProposta" name="prazoProposta" required></div>
@@ -204,7 +204,7 @@ $conn->close();
   <script>
     document.getElementById('Status').addEventListener('change', function() {
       var Status = this.value;
-      var StatusAplicador = document.getElementById('Status_aplicador');
+      var StatusAplicador = document.getElementById('status_aplicador');
 
       if (Status === 'Proposta em Elaboração') {
         StatusAplicador.value = 'Distribuir';

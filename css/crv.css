@@ -43,7 +43,7 @@
   justify-content: space-between;
   align-items: stretch;
   gap: 1vw;
-  min-height: 120px;
+  min-height: 150px;
   z-index: 100;
 }
 
@@ -118,19 +118,23 @@
 
 
 .Status-elaboracao {
-  background-color: #00579d; /* verde */
+  background-color: #0090C5; /* verde */
 }
 
 .Status-peritagem {
-  background-color: #f1c40f; /* amarelo */
+  background-color: #EF8300; /* amarelo */
 }
 
 .Status-perdido {
-  background-color: #e74c3c; /* vermelho */
+  background-color: #e53935; /* vermelho */
 }
 
 .Status-distribuir {
   background-color: #8862A2; /* vermelho */
+}
+
+.Status-concluído {
+  background-color: #00693C; /* vermelho */
 }
 
 .Status-default {
@@ -151,16 +155,16 @@
 }
 
 .prioridade-maquina {
-  background-color: #fb8c00; /* Laranja */
+  background-color: #EF8300; /* Laranja */
 }
 
 .prioridade-normal {
-  background-color: #fdd835; /* Amarelo */
+  background-color: #00693C; /* Amarelo */
   color: #333;
 }
 
 .prioridade-estimativa {
-  background-color: #43a047; /* Verde */
+  background-color: #0D273E; /* Verde */
 }
 
 .prioridade-default {
