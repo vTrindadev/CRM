@@ -43,7 +43,7 @@ $result = $conn->query($sql);
   <div id="menu">
     <a href="home.php"><img id="Logo" src="img/weg branco.png" alt="Logo WEG"></a>
     <div class="opt-menu">
-      <a href="campo.php" class="btn-menu activo"><h3> Campo</h3></a>
+      <a href="fabrica.php" class="btn-menu activo"><h3>Fábrica</h3></a>
       <input type="text" id="inputBusca" placeholder="Buscar..." class="input-menu">
       <a href="BD_Cliente.php" class="btn-menu"><h3>Clientes</h3></a>
       <a href="BD_Equipamentos.php" class="btn-menu"><h3>Equipamentos</h3></a>
@@ -125,6 +125,7 @@ $result = $conn->query($sql);
               echo '<p><strong>Cliente:</strong> ' . htmlspecialchars($row["Cliente"]) . '</p>';
               echo '<p><strong>Escopo:</strong> ' . htmlspecialchars($row["Escopo"]) . '</p>';
               echo '<p><strong>Tipo Proposta:</strong> ' . htmlspecialchars($row["TipoProposta"]) . '</p>';
+              echo '<p><strong>Aplicador:</strong> ' . htmlspecialchars($row["aplicador"]) . '</p>';
               $prioridade = strtolower($row["Prioridade"]);
               $prioridadeClass = '';
               

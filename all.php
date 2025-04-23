@@ -70,6 +70,7 @@ $result = $conn->query($sql);
                   $row["TipoProposta"] . ' ' . 
                   $row["id"] . ' ' .  
                   $row["status_aplicador"] . ' ' .  
+                  $row["aplicador"] . ' ' . 
                   $row["Status"]
               );
 
@@ -126,6 +127,7 @@ $result = $conn->query($sql);
               echo '<p><strong>Cliente:</strong> ' . htmlspecialchars($row["Cliente"]) . '</p>';
               echo '<p><strong>Escopo:</strong> ' . htmlspecialchars($row["Escopo"]) . '</p>';
               echo '<p><strong>Tipo Proposta:</strong> ' . htmlspecialchars($row["TipoProposta"]) . '</p>';
+              echo '<p><strong>Aplicador:</strong> ' . htmlspecialchars($row["aplicador"]) . '</p>';
               $prioridade = strtolower($row["Prioridade"]);
               $prioridadeClass = '';
               
