@@ -1,15 +1,15 @@
 <?php
 include('protection.php');
 
-if (!isset($_SESSION['acesso'])) {
-    echo "Sessão não iniciada ou variável 'acesso' não definida.";
-    exit();
-}
+// if (!isset($_SESSION['acesso'])) {
+//     echo "Sessão não iniciada ou variável 'acesso' não definida.";
+//     exit();
+// }
 
-if ($_SESSION['acesso'] !== 'Admin' && $_SESSION['acesso'] !== 'CRV') {
-    echo "Acesso negado. Você não tem permissão para acessar esta página.";
-    exit();
-}
+// if ($_SESSION['acesso'] !== 'Admin' && $_SESSION['acesso'] !== 'CRV') {
+//     echo "Acesso negado. Você não tem permissão para acessar esta página.";
+//     exit();
+// }
 
 if (!isset($_SESSION)) {
     session_start();
