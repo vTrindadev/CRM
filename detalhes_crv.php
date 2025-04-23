@@ -27,7 +27,7 @@ if (isset($_GET['id'])) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $campos = ['nota','crv','cliente','codigoCliente','nomeCliente','cnpj','cidade','estado','pais','escopo','status','cotacao','prazoProposta','prioridade','tipoProposta','refCliente','especificacaoCliente','emFabrica','quantidadeEquip','equipamentos','observacao','valor','frete','status_aplicador','aplicador'];
+    $campos = ['nota','crv','cliente','codigoCliente','nomeCliente','cnpj','cidade','estado','pais','escopo','Status','cotacao','prazoProposta','prioridade','tipoProposta','refCliente','especificacaoCliente','emFabrica','quantidadeEquip','equipamentos','observacao','valor','frete','Status_aplicador','aplicador'];
     foreach ($campos as $campo) {
         $$campo = isset($_POST[$campo]) ? $conn->real_escape_string($_POST[$campo]) : null;
     }
@@ -35,11 +35,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($edicao) {
         $updateSql = "UPDATE demandas SET 
             Nota='$nota', crv='$crv', Cliente='$cliente', CodigoCliente='$codigoCliente', NomeCliente='$nomeCliente', 
-            Cnpj='$cnpj', Cidade='$cidade', Estado='$estado', Pais='$pais', Escopo='$escopo', Status='$status', 
+            Cnpj='$cnpj', Cidade='$cidade', Estado='$estado', Pais='$pais', Escopo='$escopo', Status='$Status', 
             Cotacao='$cotacao', PrazoProposta='$prazoProposta', Prioridade='$prioridade', TipoProposta='$tipoProposta', 
             refCliente='$refCliente', EspecificacaoCliente='$especificacaoCliente', Emfabrica='$emFabrica', 
             QuantidadeEquip='$quantidadeEquip', Equipamentos='$equipamentos', Observacao='$observacao', 
-            valor='$valor', frete='$frete', status_aplicador='$status_aplicador', aplicador='$aplicador'
+            valor='$valor', frete='$frete', Status_aplicador='$Status_aplicador', aplicador='$aplicador'
             WHERE id=$id";
 
         if ($conn->query($updateSql) === TRUE) {
@@ -48,8 +48,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             echo "Erro ao atualizar a demanda: " . $conn->error;
         }
     } else {
-        $insertSql = "INSERT INTO demandas (Nota, crv, Cliente, CodigoCliente, NomeCliente, Cnpj, Cidade, Estado, Pais, Escopo, Status, Cotacao, PrazoProposta, Prioridade, TipoProposta, refCliente, EspecificacaoCliente, Emfabrica, QuantidadeEquip, Equipamentos, Observacao, valor, frete, status_aplicador, aplicador)
-                      VALUES ('$nota', '$crv', '$cliente', '$codigoCliente', '$nomeCliente', '$cnpj', '$cidade', '$estado', '$pais', '$escopo', '$status', '$cotacao', '$prazoProposta', '$prioridade', '$tipoProposta', '$refCliente', '$especificacaoCliente', '$emFabrica', '$quantidadeEquip', '$equipamentos', '$observacao', '$valor', '$frete', '$status_aplicador', '$aplicador')";
+        $insertSql = "INSERT INTO demandas (Nota, crv, Cliente, CodigoCliente, NomeCliente, Cnpj, Cidade, Estado, Pais, Escopo, Status, Cotacao, PrazoProposta, Prioridade, TipoProposta, refCliente, EspecificacaoCliente, Emfabrica, QuantidadeEquip, Equipamentos, Observacao, valor, frete, Status_aplicador, aplicador)
+                      VALUES ('$nota', '$crv', '$cliente', '$codigoCliente', '$nomeCliente', '$cnpj', '$cidade', '$estado', '$pais', '$escopo', '$Status', '$cotacao', '$prazoProposta', '$prioridade', '$tipoProposta', '$refCliente', '$especificacaoCliente', '$emFabrica', '$quantidadeEquip', '$equipamentos', '$observacao', '$valor', '$frete', '$Status_aplicador', '$aplicador')";
 
         if ($conn->query($insertSql) === TRUE) {
             echo "<script>alert('Demanda criada com sucesso!'); window.location.href = 'CRV.php';</script>";
@@ -140,11 +140,11 @@ $conn->close();
       <div class="form-section">
         <div class="form-section-title">Proposta</div>
         <div class="form-group">
-          <label for="status">Status:</label>
-          <select id="status" name="status" required>
+          <label for="Status">Status:</label>
+          <select id="Status" name="Status" required>
             <?php
-              $statusList = ["Proposta em Elaboração", "Em Peritagem", "Perdido"];
-              foreach ($statusList as $st) {
+              $StatusList = ["Proposta em Elaboração", "Em Peritagem", "Perdido"];
+              foreach ($StatusList as $st) {
                 $selected = valor('Status', $dados) == $st ? 'selected' : '';
                 echo "<option value='$st' $selected>$st</option>";
               }
@@ -152,7 +152,7 @@ $conn->close();
           </select>
         </div>
         <div class="form-group"><label for="aplicador">Aplicador:</label><input type="text" id="aplicador" name="aplicador" value="<?= valor('aplicador', $dados) ?>"></div>
-        <input type="hidden" id="status_aplicador" name="status_aplicador" value="<?= valor('status_aplicador', $dados) ?>">
+        <input type="hidden" id="Status_aplicador" name="Status_aplicador" value="<?= valor('Status_aplicador', $dados) ?>">
         <div class="form-group"><label for="valor">Valor:</label><input type="text" id="valor" name="valor" value="<?= valor('valor', $dados) ?>"></div>
         <div class="form-group"><label for="prazoProposta">Prazo Proposta:</label><input type="date" id="prazoProposta" name="prazoProposta" value="<?= valor('PrazoProposta', $dados) ?>" required></div>
         <div class="form-group">
@@ -217,16 +217,16 @@ $conn->close();
   <script src="js/wave.js"></script>
   <script src="js/frete.js"></script>
   <script>
-    document.getElementById('status')?.addEventListener('change', function () {
-      const statusAplicador = document.getElementById('status_aplicador');
-      if (!statusAplicador) return;
+    document.getElementById('Status')?.addEventListener('change', function () {
+      const StatusAplicador = document.getElementById('Status_aplicador');
+      if (!StatusAplicador) return;
 
       if (this.value === 'Proposta em Elaboração') {
-        statusAplicador.value = 'Distribuir'; // Atualiza a opção do select para 'Distribuir'
+        StatusAplicador.value = 'Distribuir'; // Atualiza a opção do select para 'Distribuir'
       } else if (this.value === 'Em Peritagem') {
-        statusAplicador.value = 'Em peritagem'; // Atualiza para 'Em peritagem'
+        StatusAplicador.value = 'Em peritagem'; // Atualiza para 'Em peritagem'
       } else if (this.value === 'Perdido') {
-        statusAplicador.value = 'Perdido'; // Atualiza para 'Perdido'
+        StatusAplicador.value = 'Perdido'; // Atualiza para 'Perdido'
       }
     });
 

@@ -27,7 +27,7 @@ if (isset($_GET['id'])) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $campos = ['nota','crv','cliente','codigoCliente','nomeCliente','cnpj','cidade','estado','pais','escopo','status','cotacao','prazoProposta','prioridade','tipoProposta','refCliente','especificacaoCliente','emFabrica','quantidadeEquip','equipamentos','observacao','valor','frete','status_aplicador','aplicador'];
+    $campos = ['nota','crv','cliente','codigoCliente','nomeCliente','cnpj','cidade','estado','pais','escopo','Status','cotacao','prazoProposta','prioridade','tipoProposta','refCliente','especificacaoCliente','emFabrica','quantidadeEquip','equipamentos','observacao','valor','frete','Status_aplicador','aplicador'];
     foreach ($campos as $campo) {
         $$campo = isset($_POST[$campo]) ? $conn->real_escape_string($_POST[$campo]) : null;
     }
@@ -35,11 +35,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($edicao) {
         $updateSql = "UPDATE demandas SET 
             Nota='$nota', crv='$crv', Cliente='$cliente', CodigoCliente='$codigoCliente', NomeCliente='$nomeCliente', 
-            Cnpj='$cnpj', Cidade='$cidade', Estado='$estado', Pais='$pais', Escopo='$escopo', Status='$status', 
+            Cnpj='$cnpj', Cidade='$cidade', Estado='$estado', Pais='$pais', Escopo='$escopo', Status='$Status', 
             Cotacao='$cotacao', PrazoProposta='$prazoProposta', Prioridade='$prioridade', TipoProposta='$tipoProposta', 
             refCliente='$refCliente', EspecificacaoCliente='$especificacaoCliente', Emfabrica='$emFabrica', 
             QuantidadeEquip='$quantidadeEquip', Equipamentos='$equipamentos', Observacao='$observacao', 
-            valor='$valor', frete='$frete', status_aplicador='$status_aplicador', aplicador='$aplicador'
+            valor='$valor', frete='$frete', Status_aplicador='$Status_aplicador', aplicador='$aplicador'
             WHERE id=$id";
 
         if ($conn->query($updateSql) === TRUE) {
@@ -48,8 +48,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             echo "Erro ao atualizar a demanda: " . $conn->error;
         }
     } else {
-        $insertSql = "INSERT INTO demandas (Nota, crv, Cliente, CodigoCliente, NomeCliente, Cnpj, Cidade, Estado, Pais, Escopo, Status, Cotacao, PrazoProposta, Prioridade, TipoProposta, refCliente, EspecificacaoCliente, Emfabrica, QuantidadeEquip, Equipamentos, Observacao, valor, frete, status_aplicador, aplicador)
-                      VALUES ('$nota', '$crv', '$cliente', '$codigoCliente', '$nomeCliente', '$cnpj', '$cidade', '$estado', '$pais', '$escopo', '$status', '$cotacao', '$prazoProposta', '$prioridade', '$tipoProposta', '$refCliente', '$especificacaoCliente', '$emFabrica', '$quantidadeEquip', '$equipamentos', '$observacao', '$valor', '$frete', '$status_aplicador', '$aplicador')";
+        $insertSql = "INSERT INTO demandas (Nota, crv, Cliente, CodigoCliente, NomeCliente, Cnpj, Cidade, Estado, Pais, Escopo, Status, Cotacao, PrazoProposta, Prioridade, TipoProposta, refCliente, EspecificacaoCliente, Emfabrica, QuantidadeEquip, Equipamentos, Observacao, valor, frete, Status_aplicador, aplicador)
+                      VALUES ('$nota', '$crv', '$cliente', '$codigoCliente', '$nomeCliente', '$cnpj', '$cidade', '$estado', '$pais', '$escopo', '$Status', '$cotacao', '$prazoProposta', '$prioridade', '$tipoProposta', '$refCliente', '$especificacaoCliente', '$emFabrica', '$quantidadeEquip', '$equipamentos', '$observacao', '$valor', '$frete', '$Status_aplicador', '$aplicador')";
 
         if ($conn->query($insertSql) === TRUE) {
             echo "<script>alert('Demanda criada com sucesso!'); window.location.href = 'CRV.php';</script>";
@@ -143,21 +143,21 @@ $conn->close();
       <div class="form-section">
         <div class="form-section-title">Proposta</div>
         <div class="form-group">
-          <label for="status_aplicador">Status:</label>
-          <select id="status_aplicador" name="status_aplicador" required>
+          <label for="Status_aplicador">Status Aplicador:</label>
+          <select id="Status_aplicador" name="Status_aplicador" required>
             <?php
-              $statusAplicadorList = [
+              $StatusAplicadorList = [
                 'Distribuir',
-                'Nova solicitação',
-                'Em peritagem',
+                'Nova Solicitação',
+                'Em Peritagem',
                 'Concluído',
-                'Informação pendente',
+                'Informação Pendente',
                 'Perdido',
-                'Em consulta'
+                'Em Consulta'
               ];
-              foreach ($statusAplicadorList as $status) {
-                $selected = valor('status_aplicador', $dados) == $status ? 'selected' : '';
-                echo "<option value='$status' $selected>$status</option>";
+              foreach ($StatusAplicadorList as $Status) {
+                $selected = valor('Status_aplicador', $dados) == $Status ? 'selected' : '';
+                echo "<option value='$Status' $selected>$Status</option>";
               }
             ?>
           </select>
@@ -165,7 +165,7 @@ $conn->close();
 
 
         <div class="form-group"><label for="aplicador">Aplicador:</label><input type="text" id="aplicador" name="aplicador" value="<?= valor('aplicador', $dados) ?>"></div>
-        <input type="hidden" id="status_aplicador" name="status_aplicador" value="<?= valor('status_aplicador', $dados) ?>">
+        <div class="form-group"><label for="Status">Status:</label><input type="text" id="Status" name="Status" value="<?= valor('Status', $dados) ?>" readonly></div>
         <div class="form-group"><label for="valor">Valor:</label><input type="text" id="valor" name="valor" value="<?= valor('valor', $dados) ?>"></div>
         <div class="form-group"><label for="prazoProposta">Prazo Proposta:</label><input type="date" id="prazoProposta" name="prazoProposta" value="<?= valor('PrazoProposta', $dados) ?>" required></div>
         <div class="form-group">
@@ -230,21 +230,29 @@ $conn->close();
   <script src="js/wave.js"></script>
   <script src="js/frete.js"></script>
   <script>
-    document.getElementById('status_aplicador')?.addEventListener('change', function () {
-      const status = document.getElementById('status');
-      if (!status) return;
+    document.getElementById('Status_aplicador')?.addEventListener('change', function () {
+      const Status = document.getElementById('Status');
+      if (!Status) return;
 
       const aplicadorValue = this.value;
 
       // Define as regras de correspondência
       if (aplicadorValue === 'Concluído') {
-        status.value = 'Concluído';
+        Status.value = 'Concluído';
       } else if (aplicadorValue === 'Informação Pendente') {
-        status.value = 'Informação Pendente';
+        Status.value = 'Informação Pendente';
       } else if (aplicadorValue === 'Perdido') {
-        status.value = 'Perdido';
+        Status.value = 'Perdido';
+      } else if (aplicadorValue === 'Distribuir') {
+        Status.value = 'Proposta em Elaboração';
+      } else if (aplicadorValue === 'Nova Solicitação') {
+        Status.value = 'Proposta em Elaboração';
+      } else if (aplicadorValue === 'Em Peritagem') {
+        Status.value = 'Proposta em Elaboração';
+      } else if (aplicadorValue === 'Em Consulta') {
+        Status.value = 'Proposta em Elaboração';
       } else {
-        status.value = ''; // ou mantenha o valor atual se quiser evitar alteração
+        Status.value = ''; // ou mantenha o valor atual se quiser evitar alteração
       }
     });
 

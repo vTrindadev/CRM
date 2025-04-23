@@ -50,6 +50,7 @@ $result = $stmt->get_result();
       <a href="BD_Equipamentos.php" class="btn-menu"><h3>Equipamentos</h3></a>
     </div>
     <div class="opt-menu">
+        <a href="add_crv.php" class="btn-menu"><h3>Adicionar +</h3></a>
       <form action="logout.php" method="post">
           <button type="submit" class="btn-menu-sair">Sair</button>
       </form>
@@ -75,23 +76,23 @@ $result = $stmt->get_result();
               $url = "detalhes_crv.php?id=" . $row["id"] . "&nota=" . urlencode($row["Nota"]) . "&cotacao=" . urlencode($row["Cotacao"]) . "&cliente=" . urlencode($row["Cliente"]) . "&escopo=" . urlencode($row["Escopo"]) . "&Status=" . urlencode($row["Status"]);
 
               $Status = strtolower($row["Status"]);
-              $statusClass = '';
+              $StatusClass = '';
 
               switch ($Status) {
                   case 'proposta em elaboração':
-                      $statusClass = 'status-elaboracao';
+                      $StatusClass = 'Status-elaboracao';
                       break;
                   case 'em peritagem':
-                      $statusClass = 'status-peritagem';
+                      $StatusClass = 'Status-peritagem';
                       break;
                   case 'perdido':
-                      $statusClass = 'status-perdido';
+                      $StatusClass = 'Status-perdido';
                       break;
                   case 'distribuir':
-                      $statusClass = 'status-distribuir';
+                      $StatusClass = 'Status-distribuir';
                       break;
                   default:
-                      $statusClass = 'status-default';
+                      $StatusClass = 'Status-default';
               }
 
               echo '<div class="info-card" data-busca="' . htmlspecialchars($busca, ENT_QUOTES, 'UTF-8') . '">';
@@ -127,8 +128,8 @@ $result = $stmt->get_result();
               echo '</div>';
               echo '</div>';
               echo '<div class="card-end">';
-              // Modificação: mostrando o campo status
-              echo '<div class="status-badge ' . $statusClass . '">' . htmlspecialchars($row["Status"]) . '</div>';
+              // Modificação: mostrando o campo Status
+              echo '<div class="Status-badge ' . $StatusClass . '">' . htmlspecialchars($row["Status"]) . '</div>';
               echo '<p class="prioridade-badge ' . $prioridadeClass . '"><strong>Prioridade:</strong> ' . htmlspecialchars($row["Prioridade"]) . '</p>';
               echo '<div class="arrow-icon"><a href="' . $url . '">➤</a></div>';
               echo '</div>';

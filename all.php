@@ -62,23 +62,23 @@ $result = $conn->query($sql);
                   $row["Status"]
               );
 
-              $url = "detalhes.php?id=" . $row["id"] . "&nota=" . urlencode($row["Nota"]) . "&cotacao=" . urlencode($row["Cotacao"]) . "&cliente=" . urlencode($row["Cliente"]) . "&escopo=" . urlencode($row["Escopo"]) . "&status=" . urlencode($row["Status"]);
+              $url = "detalhes.php?id=" . $row["id"] . "&nota=" . urlencode($row["Nota"]) . "&cotacao=" . urlencode($row["Cotacao"]) . "&cliente=" . urlencode($row["Cliente"]) . "&escopo=" . urlencode($row["Escopo"]) . "&Status=" . urlencode($row["Status"]);
 
-              $status = strtolower($row["Status"]);
-              $statusClass = '';
+              $Status = strtolower($row["Status"]);
+              $StatusClass = '';
 
-              switch ($status) {
+              switch ($Status) {
                   case 'proposta em elaboração':
-                      $statusClass = 'status-elaboracao';
+                      $StatusClass = 'Status-elaboracao';
                       break;
                   case 'em peritagem':
-                      $statusClass = 'status-peritagem';
+                      $StatusClass = 'Status-peritagem';
                       break;
                   case 'perdido':
-                      $statusClass = 'status-perdido';
+                      $StatusClass = 'Status-perdido';
                       break;
                   default:
-                      $statusClass = 'status-default';
+                      $StatusClass = 'Status-default';
               }
 
               echo '<div class="info-card" data-busca="' . htmlspecialchars($busca, ENT_QUOTES, 'UTF-8') . '">';
@@ -95,7 +95,7 @@ $result = $conn->query($sql);
               echo '</div>';
               echo '</div>';
               echo '<div class="card-end">';
-              echo '<div class="status-badge ' . $statusClass . '">' . htmlspecialchars($row["Status"]) . '</div>';
+              echo '<div class="Status-badge ' . $StatusClass . '">' . htmlspecialchars($row["Status"]) . '</div>';
               echo '<div class="arrow-icon"><a href="' . $url . '">➤</a></div>';
               echo '</div>';
               echo '</div>';

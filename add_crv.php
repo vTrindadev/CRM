@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $estado = $_POST['estado'];
     $pais = $_POST['pais'];
     $escopo = $_POST['escopo'];
-    $status = $_POST['status'];
+    $Status = $_POST['Status'];
     $cotacao = $_POST['cotacao'];
     $prazoProposta = $_POST['prazoProposta'];
     $prioridade = $_POST['prioridade'];
@@ -35,11 +35,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $observacao = $_POST['observacao'];
     $valor = $_POST['valor'];
     $frete = isset($_POST['frete']) ? $_POST['frete'] : null;
-    $statusAplicador = $_POST['status_aplicador']; 
+    $StatusAplicador = $_POST['Status_aplicador']; 
     $aplicador = $_POST['aplicador']; 
 
-    $insertSql = "INSERT INTO demandas (Nota, crv, Cliente, CodigoCliente, NomeCliente, Cnpj, Cidade, Estado, Pais, Escopo, Status, Cotacao, PrazoProposta, Prioridade, TipoProposta, refCliente, EspecificacaoCliente, Emfabrica, QuantidadeEquip, Equipamentos, Observacao, valor, frete, status_aplicador, aplicador)
-                  VALUES ('$nota', '$crv', '$cliente', '$codigoCliente', '$nomeCliente', '$cnpj', '$cidade', '$estado', '$pais', '$escopo', '$status', '$cotacao', '$prazoProposta', '$prioridade', '$tipoProposta', '$refCliente', '$especificacaoCliente', '$emFabrica', '$quantidadeEquip', '$equipamentos', '$observacao', '$valor', '$frete', '$statusAplicador', '$aplicador')";
+    $insertSql = "INSERT INTO demandas (Nota, crv, Cliente, CodigoCliente, NomeCliente, Cnpj, Cidade, Estado, Pais, Escopo, Status, Cotacao, PrazoProposta, Prioridade, TipoProposta, refCliente, EspecificacaoCliente, Emfabrica, QuantidadeEquip, Equipamentos, Observacao, valor, frete, Status_aplicador, aplicador)
+                  VALUES ('$nota', '$crv', '$cliente', '$codigoCliente', '$nomeCliente', '$cnpj', '$cidade', '$estado', '$pais', '$escopo', '$Status', '$cotacao', '$prazoProposta', '$prioridade', '$tipoProposta', '$refCliente', '$especificacaoCliente', '$emFabrica', '$quantidadeEquip', '$equipamentos', '$observacao', '$valor', '$frete', '$StatusAplicador', '$aplicador')";
 
     if ($conn->query($insertSql) === TRUE) {
         echo "<script>
@@ -124,8 +124,8 @@ $conn->close();
       <div class="form-section">
         <div class="form-section-title">Proposta</div>
         <div class="form-group">
-          <label for="status">Status:</label>
-          <select id="status" name="status" required>
+          <label for="Status">Status:</label>
+          <select id="Status" name="Status" required>
             <option value="Proposta em Elaboração">Proposta em Elaboração</option>
             <option value="Em Peritagem">Em Peritagem</option>
             <option value="Perdido">Perdido</option>
@@ -133,7 +133,7 @@ $conn->close();
         </div>
         <div class="form-group"><label for="aplicador">Aplicador:</label><input type="text" id="aplicador" name="aplicador"></div>
         <div class="form-group">
-          <input type="hidden" id="status_aplicador" name="status_aplicador" value="Distribuir">
+          <input type="hidden" id="Status_aplicador" name="Status_aplicador" value="Distribuir">
         </div>
         <div class="form-group"><label for="valor">Valor:</label><input type="text" id="valor" name="valor"></div>
         <div class="form-group"><label for="prazoProposta">Prazo Proposta:</label><input type="date" id="prazoProposta" name="prazoProposta" required></div>
@@ -202,30 +202,30 @@ $conn->close();
   <script src="js/frete.js"></script>
 
   <script>
-    document.getElementById('status').addEventListener('change', function() {
-      var status = this.value;
-      var statusAplicador = document.getElementById('status_aplicador');
+    document.getElementById('Status').addEventListener('change', function() {
+      var Status = this.value;
+      var StatusAplicador = document.getElementById('Status_aplicador');
 
-      if (status === 'Proposta em Elaboração') {
-        statusAplicador.value = 'Distribuir';
-      } else if (status === 'Em Peritagem') {
-        statusAplicador.value = 'Em Peritagem';
-      } else if (status === 'Perdido') {
-        statusAplicador.value = 'Perdido';
+      if (Status === 'Proposta em Elaboração') {
+        StatusAplicador.value = 'Distribuir';
+      } else if (Status === 'Em Peritagem') {
+        StatusAplicador.value = 'Em Peritagem';
+      } else if (Status === 'Perdido') {
+        StatusAplicador.value = 'Perdido';
       }
     });
   </script>
 
 <script>
     document.getElementById('tipoProposta').addEventListener('change', function() {
-      var status = this.value;
-      var statusAplicador = document.getElementById('aplicador');
+      var Status = this.value;
+      var StatusAplicador = document.getElementById('aplicador');
 
-      if (status === 'Campo') {
+      if (Status === 'Campo') {
         aplicador.value = 'victorcp@weg.net';
-      } else if (status === 'Fábrica') {
+      } else if (Status === 'Fábrica') {
         aplicador.value = 'victorcp@weg.net';
-      } else if (status === 'Partes e Peças') {
+      } else if (Status === 'Partes e Peças') {
         aplicador.value = 'victorcp@weg.net';
       }
     });
