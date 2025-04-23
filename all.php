@@ -1,6 +1,17 @@
 <?php
 include('protection.php');
 
+if (!isset($_SESSION['acesso'])) {
+  echo "Sessão não iniciada ou variável 'acesso' não definida.";
+  exit();
+}
+
+if ($_SESSION['acesso'] !== 'Admin') {
+  echo "Acesso negado. Você não tem permissão para acessar esta página.";
+  exit();
+}
+
+
 $host = "localhost";
 $user = "root";
 $pass = "";

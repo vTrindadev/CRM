@@ -1,5 +1,10 @@
 <?php
 include('protection.php');
+if (!isset($_SESSION['acesso'])) {
+  echo "Sessão não iniciada ou variável 'acesso' não definida.";
+  exit();
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -22,9 +27,30 @@ include('protection.php');
         <a href="home.php" class="btn-menu activo">
             <h3>Home</h3>
         </a>
-        <a href="all.php" class="btn-menu">
-            <h3>All</h3>
-        </a>
+        <?php if ($_SESSION['acesso'] === 'Admin') : ?>
+            <a href="all.php" class="btn-menu">
+                <h3>All</h3>
+            </a>
+        <?php endif; ?>
+
+        <?php if ($_SESSION['acesso'] === 'Campo') : ?>
+            <a href="campo.php" class="btn-menu">
+                <h3>Campo</h3>
+            </a>
+        <?php endif; ?>
+
+        <?php if ($_SESSION['acesso'] === 'Fábrica') : ?>
+            <a href="fabrica.php" class="btn-menu">
+                <h3>Fábrica</h3>
+            </a>
+        <?php endif; ?>
+
+        <?php if ($_SESSION['acesso'] === 'Partes e Peças') : ?>
+            <a href="partesepecas.php" class="btn-menu">
+                <h3>Partes e Peças</h3>
+            </a>
+        <?php endif; ?>
+
         <a href="CRV.php" class="btn-menu">
             <h3>CRV</h3>
         </a>

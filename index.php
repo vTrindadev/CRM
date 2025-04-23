@@ -44,6 +44,8 @@ if (isset($_POST['email']) && isset($_POST['senha'])) {
 
             $_SESSION['email'] = $usuario['email'];
             $_SESSION['user'] = $usuario['user'];
+            $_SESSION['acesso'] = $usuario['acesso'];  // onde 'acesso' é o campo que define o nível de acesso do usuário
+
 
             // Redireciona para a página inicial
             header("Location: home.php");

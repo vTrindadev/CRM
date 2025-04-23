@@ -2,17 +2,13 @@
 include('protection.php');
 
 if (!isset($_SESSION['acesso'])) {
-    echo "Sessão não iniciada ou variável 'acesso' não definida.";
-    exit();
+  echo "Sessão não iniciada ou variável 'acesso' não definida.";
+  exit();
 }
 
-if ($_SESSION['acesso'] !== 'Admin' && $_SESSION['acesso'] !== 'CRV') {
-    echo "Acesso negado. Você não tem permissão para acessar esta página.";
-    exit();
-}
-
-if (!isset($_SESSION)) {
-    session_start();
+if ($_SESSION['acesso'] !== 'Campo') {
+  echo "Acesso negado. Você não tem permissão para acessar esta página.";
+  exit();
 }
 
 $host = "localhost";
@@ -26,15 +22,9 @@ if ($conn->connect_error) {
     die("Erro de conexão: " . $conn->connect_error);
 }
 
-// Email do usuário logado
-$emailUsuario = $_SESSION['email'] ?? '';
-
-// Buscar apenas demandas vinculadas ao CRV (email)
-$sql = "SELECT * FROM demandas WHERE crv = ?";
-$stmt = $conn->prepare($sql);
-$stmt->bind_param("s", $emailUsuario);
-$stmt->execute();
-$result = $stmt->get_result();
+// Ajustando a consulta para filtrar apenas as demandas do tipo 'Campo'
+$sql = "SELECT * FROM demandas WHERE TipoProposta = 'Campo'";
+$result = $conn->query($sql);
 ?>
 
 <!DOCTYPE html>
@@ -53,7 +43,7 @@ $result = $stmt->get_result();
   <div id="menu">
     <a href="home.php"><img id="Logo" src="img/weg branco.png" alt="Logo WEG"></a>
     <div class="opt-menu">
-      <a href="CRV.php" class="btn-menu activo"><h3>CRV</h3></a>
+      <a href="campo.php" class="btn-menu activo"><h3> Campo</h3></a>
       <input type="text" id="inputBusca" placeholder="Buscar..." class="input-menu">
       <a href="BD_Cliente.php" class="btn-menu"><h3>Clientes</h3></a>
       <a href="BD_Equipamentos.php" class="btn-menu"><h3>Equipamentos</h3></a>
@@ -71,20 +61,38 @@ $result = $stmt->get_result();
     <div class="info-container">
       <?php
       if ($result->num_rows > 0) {
-          while ($row = $result->fetch_assoc()) {
+          while($row = $result->fetch_assoc()) {
               $busca = strtolower(
                   $row["Nota"] . ' ' . 
                   $row["Cotacao"] . ' ' . 
                   $row["Cliente"] . ' ' . 
                   $row["Escopo"] . ' ' . 
                   $row["TipoProposta"] . ' ' . 
-                  $row["id"] . ' ' . 
+                  $row["id"] . ' ' .  
+                  $row["status_aplicador"] . ' ' .  
                   $row["Status"]
               );
 
-              $url = "detalhes_crv.php?id=" . $row["id"] . "&nota=" . urlencode($row["Nota"]) . "&cotacao=" . urlencode($row["Cotacao"]) . "&cliente=" . urlencode($row["Cliente"]) . "&escopo=" . urlencode($row["Escopo"]) . "&Status=" . urlencode($row["Status"]);
+              $url = "detalhes_crv.php?id=" . $row["id"] . "&nota=" . urlencode($row["Nota"]) . "&cotacao=" . urlencode($row["Cotacao"]) . "&cliente=" . urlencode($row["Cliente"]) . "&escopo=" . urlencode($row["Escopo"]) . "&Status=" . urlencode($row["Status"]) . "&status_aplicador=" . urlencode($row["status_aplicador"]);
 
               $Status = strtolower($row["Status"]);
+              $StatusClass = '';
+
+              switch ($Status) {
+                  case 'proposta em elaboração':
+                      $StatusClass = 'Status-elaboracao';
+                      break;
+                  case 'em peritagem':
+                      $StatusClass = 'Status-peritagem';
+                      break;
+                  case 'perdido':
+                      $StatusClass = 'Status-perdido';
+                      break;
+                  default:
+                      $StatusClass = 'Status-default';
+              }
+
+              $Status = strtolower($row["status_aplicador"]);
               $StatusClass = '';
 
               switch ($Status) {
@@ -120,7 +128,7 @@ $result = $stmt->get_result();
               echo '<p><strong>Tipo Proposta:</strong> ' . htmlspecialchars($row["TipoProposta"]) . '</p>';
               $prioridade = strtolower($row["Prioridade"]);
               $prioridadeClass = '';
-
+              
               switch ($prioridade) {
                   case 'urgente':
                       $prioridadeClass = 'prioridade-urgente';
@@ -136,22 +144,20 @@ $result = $stmt->get_result();
                       break;
                   default:
                       $prioridadeClass = 'prioridade-default';
-              }
+              }      
               echo '</div>';
               echo '</div>';
               echo '<div class="card-end">';
-              // Modificação: mostrando o campo Status
               echo '<div class="Status-badge ' . $StatusClass . '">' . htmlspecialchars($row["Status"]) . '</div>';
+              echo '<div class="Status-badge ' . $StatusClass . '">' . htmlspecialchars($row["status_aplicador"]) . '</div>';
               echo '<p class="prioridade-badge ' . $prioridadeClass . '"><strong>Prioridade:</strong> ' . htmlspecialchars($row["Prioridade"]) . '</p>';
               echo '<div class="arrow-icon"><a href="' . $url . '">➤</a></div>';
               echo '</div>';
               echo '</div>';
           }
       } else {
-          echo "<p style='color: white;'>Nenhuma demanda encontrada para este usuário.</p>";
+          echo "<p>Nenhuma demanda de tipo 'Campo' encontrada.</p>";
       }
-
-      $stmt->close();
       $conn->close();
       ?>
     </div>
