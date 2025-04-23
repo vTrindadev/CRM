@@ -63,21 +63,21 @@ $result = $stmt->get_result();
       if ($result->num_rows > 0) {
           while ($row = $result->fetch_assoc()) {
               $busca = strtolower(
-                  $row["Nota"] . ' ' .
-                  $row["Cotacao"] . ' ' .
-                  $row["Cliente"] . ' ' .
-                  $row["Escopo"] . ' ' .
-                  $row["TipoProposta"] . ' ' .
-                  $row["id"] . ' ' .
-                  $row["status_aplicador"]
+                  $row["Nota"] . ' ' . 
+                  $row["Cotacao"] . ' ' . 
+                  $row["Cliente"] . ' ' . 
+                  $row["Escopo"] . ' ' . 
+                  $row["TipoProposta"] . ' ' . 
+                  $row["id"] . ' ' . 
+                  $row["Status"]
               );
 
-              $url = "detalhes_crv.php?id=" . $row["id"] . "&nota=" . urlencode($row["Nota"]) . "&cotacao=" . urlencode($row["Cotacao"]) . "&cliente=" . urlencode($row["Cliente"]) . "&escopo=" . urlencode($row["Escopo"]) . "&status=" . urlencode($row["status_aplicador"]);
+              $url = "detalhes_crv.php?id=" . $row["id"] . "&nota=" . urlencode($row["Nota"]) . "&cotacao=" . urlencode($row["Cotacao"]) . "&cliente=" . urlencode($row["Cliente"]) . "&escopo=" . urlencode($row["Escopo"]) . "&Status=" . urlencode($row["Status"]);
 
-              $status = strtolower($row["status_aplicador"]);
+              $Status = strtolower($row["Status"]);
               $statusClass = '';
 
-              switch ($status) {
+              switch ($Status) {
                   case 'proposta em elaboração':
                       $statusClass = 'status-elaboracao';
                       break;
@@ -107,7 +107,7 @@ $result = $stmt->get_result();
               echo '<p><strong>Tipo Proposta:</strong> ' . htmlspecialchars($row["TipoProposta"]) . '</p>';
               $prioridade = strtolower($row["Prioridade"]);
               $prioridadeClass = '';
-              
+
               switch ($prioridade) {
                   case 'urgente':
                       $prioridadeClass = 'prioridade-urgente';
@@ -123,11 +123,12 @@ $result = $stmt->get_result();
                       break;
                   default:
                       $prioridadeClass = 'prioridade-default';
-              }              
+              }
               echo '</div>';
               echo '</div>';
               echo '<div class="card-end">';
-              echo '<div class="status-badge ' . $statusClass . '">' . htmlspecialchars($row["status_aplicador"]) . '</div>';
+              // Modificação: mostrando o campo status
+              echo '<div class="status-badge ' . $statusClass . '">' . htmlspecialchars($row["Status"]) . '</div>';
               echo '<p class="prioridade-badge ' . $prioridadeClass . '"><strong>Prioridade:</strong> ' . htmlspecialchars($row["Prioridade"]) . '</p>';
               echo '<div class="arrow-icon"><a href="' . $url . '">➤</a></div>';
               echo '</div>';

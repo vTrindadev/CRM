@@ -143,17 +143,27 @@ $conn->close();
       <div class="form-section">
         <div class="form-section-title">Proposta</div>
         <div class="form-group">
-          <label for="status">Status:</label>
-          <select id="status" name="status" required>
+          <label for="status_aplicador">Status:</label>
+          <select id="status_aplicador" name="status_aplicador" required>
             <?php
-              $statusList = ["Proposta em Elaboração", "Em Peritagem", "Perdido"];
-              foreach ($statusList as $st) {
-                $selected = valor('Status', $dados) == $st ? 'selected' : '';
-                echo "<option value='$st' $selected>$st</option>";
+              $statusAplicadorList = [
+                'Distribuir',
+                'Nova solicitação',
+                'Em peritagem',
+                'Concluído',
+                'Informação pendente',
+                'Perdido',
+                'Em consulta'
+              ];
+              foreach ($statusAplicadorList as $status) {
+                $selected = valor('status_aplicador', $dados) == $status ? 'selected' : '';
+                echo "<option value='$status' $selected>$status</option>";
               }
             ?>
           </select>
         </div>
+
+
         <div class="form-group"><label for="aplicador">Aplicador:</label><input type="text" id="aplicador" name="aplicador" value="<?= valor('aplicador', $dados) ?>"></div>
         <input type="hidden" id="status_aplicador" name="status_aplicador" value="<?= valor('status_aplicador', $dados) ?>">
         <div class="form-group"><label for="valor">Valor:</label><input type="text" id="valor" name="valor" value="<?= valor('valor', $dados) ?>"></div>
@@ -220,11 +230,22 @@ $conn->close();
   <script src="js/wave.js"></script>
   <script src="js/frete.js"></script>
   <script>
-    document.getElementById('status').addEventListener('change', function() {
-      var statusAplicador = document.getElementById('status_aplicador');
-      if (this.value === 'Proposta em Elaboração') statusAplicador.value = 'Distribuir';
-      else if (this.value === 'Em Peritagem') statusAplicador.value = 'Em Peritagem';
-      else if (this.value === 'Perdido') statusAplicador.value = 'Perdido';
+    document.getElementById('status_aplicador')?.addEventListener('change', function () {
+      const status = document.getElementById('status');
+      if (!status) return;
+
+      const aplicadorValue = this.value;
+
+      // Define as regras de correspondência
+      if (aplicadorValue === 'Concluído') {
+        status.value = 'Concluído';
+      } else if (aplicadorValue === 'Informação Pendente') {
+        status.value = 'Informação Pendente';
+      } else if (aplicadorValue === 'Perdido') {
+        status.value = 'Perdido';
+      } else {
+        status.value = ''; // ou mantenha o valor atual se quiser evitar alteração
+      }
     });
 
     document.getElementById('tipoProposta').addEventListener('change', function() {

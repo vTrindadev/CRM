@@ -217,12 +217,19 @@ $conn->close();
   <script src="js/wave.js"></script>
   <script src="js/frete.js"></script>
   <script>
-    document.getElementById('status').addEventListener('change', function() {
-      var statusAplicador = document.getElementById('status_aplicador');
-      if (this.value === 'Proposta em Elaboração') statusAplicador.value = 'Distribuir';
-      else if (this.value === 'Em Peritagem') statusAplicador.value = 'Em Peritagem';
-      else if (this.value === 'Perdido') statusAplicador.value = 'Perdido';
+    document.getElementById('status')?.addEventListener('change', function () {
+      const statusAplicador = document.getElementById('status_aplicador');
+      if (!statusAplicador) return;
+
+      if (this.value === 'Proposta em Elaboração') {
+        statusAplicador.value = 'Distribuir'; // Atualiza a opção do select para 'Distribuir'
+      } else if (this.value === 'Em Peritagem') {
+        statusAplicador.value = 'Em peritagem'; // Atualiza para 'Em peritagem'
+      } else if (this.value === 'Perdido') {
+        statusAplicador.value = 'Perdido'; // Atualiza para 'Perdido'
+      }
     });
+
 
     document.getElementById('tipoProposta').addEventListener('change', function() {
       var aplicador = document.getElementById('aplicador');
