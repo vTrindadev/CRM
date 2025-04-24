@@ -70,8 +70,11 @@ while ($row = mysqli_fetch_assoc($result3)) {
       <img id="Logo" src="img/weg branco.png" alt="Logo WEG">
     </a>
     <div class="opt-menu">  
-      <a href="home.php" class="btn-menu activo">
+      <a href="home.php" class="btn-menu">
         <h3>Home</h3>
+      </a>
+      <a href="relatorio.php" class="btn-menu activo">
+        <h3>Relatório</h3>
       </a>
     </div>
     <div class="opt-menu">
