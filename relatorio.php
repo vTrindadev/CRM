@@ -156,18 +156,30 @@ while ($row = mysqli_fetch_assoc($result5)) {
     <form method="GET" action="relatorio.php">
       <label for="crv">CRV:</label>
       <select name="crv" id="crv">
-        <option value="">Selecione CRV</option>
-        <option value="CRV1" <?php if ($crv_filter == 'anan@weg.net') echo 'selected'; ?>>Ana Paula Nolasco</option>
-        <option value="CRV2" <?php if ($crv_filter == 'CRV2') echo 'selected'; ?>>CRV2</option>
-        <option value="CRV3" <?php if ($crv_filter == 'CRV3') echo 'selected'; ?>>CRV3</option>
+        <option value="">Todos</option>
+        <option value="anan@weg.net" <?php if ($crv_filter == 'anan@weg.net') echo 'selected'; ?>>Ana Paula Nolasco</option>
+        <option value="abaptista@weg.net" <?php if ($crv_filter == 'abaptista@weg.net') echo 'selected'; ?>>Andre Luis Rosa Baptista</option>
+        <option value="diegolc@weg.net" <?php if ($crv_filter == 'diegolc@weg.net') echo 'selected'; ?>>Diego Lopes Caobianco</option>
+        <option value="guilhermehk@weg.net" <?php if ($crv_filter == 'guilhermehk@weg.net') echo 'selected'; ?>>Guilherme Henrique Khun</option>
+        <option value="freiriag@weg.net" <?php if ($crv_filter == 'freiriag@weg.net') echo 'selected'; ?>>Joao Pedro Freiria Schlichting</option>
+        <option value="mvitor@weg.net" <?php if ($crv_filter == 'mvitor@weg.net') echo 'selected'; ?>>Joao Vitor Machado Mariquito</option>
+        <option value="rsilva@weg.net" <?php if ($crv_filter == 'rsilva@weg.net') echo 'selected'; ?>>Ricardo Goncalves da Silva</option>
+        <option value="guarechi@weg.net" <?php if ($crv_filter == 'guarechi@weg.net') echo 'selected'; ?>>Rodrigo Guareschi</option>
       </select>
 
       <label for="aplicador">Aplicador:</label>
       <select name="aplicador" id="aplicador">
-        <option value="">Selecione Aplicador</option>
-        <option value="Aplicador1" <?php if ($aplicador_filter == 'jonas3@weg.net') echo 'selected'; ?>>Jonas</option>
-        <option value="Aplicador2" <?php if ($aplicador_filter == 'Aplicador2') echo 'selected'; ?>>Aplicador2</option>
-        <option value="Aplicador3" <?php if ($aplicador_filter == 'Aplicador3') echo 'selected'; ?>>Aplicador3</option>
+        <option value="">Todos</option>
+        <option value="cristianeaf@weg.net" <?php if ($aplicador_filter == 'cristianeaf@weg.net') echo 'selected'; ?>>Cristiane Aline Fachini</option>
+        <option value="jonas3@weg.net" <?php if ($aplicador_filter == 'jonas3@weg.net') echo 'selected'; ?>>Jonas Cesar Figueiredo</option>
+        <option value="adrianad@weg.net" <?php if ($aplicador_filter == 'adrianad@weg.net') echo 'selected'; ?>>Adriana Dutra</option>
+        <option value="ullera@weg.net" <?php if ($aplicador_filter == 'ullera@weg.net') echo 'selected'; ?>>Andre Luis Uller Costa</option>
+        <option value="grahl@weg.net" <?php if ($aplicador_filter == 'grahl@weg.net') echo 'selected'; ?>>Diogo Mauri Grahl</option>
+        <option value="gabrielfl@weg.net" <?php if ($aplicador_filter == 'gabrielfl@weg.net') echo 'selected'; ?>>Gabriel Felipe Lopes</option>
+        <option value="lucaspaulo@weg.net" <?php if ($aplicador_filter == 'lucaspaulo@weg.net') echo 'selected'; ?>>Lucas Paulo Oliveira</option>
+        <option value="luisgm@weg.net" <?php if ($aplicador_filter == 'luisgm@weg.net') echo 'selected'; ?>>Luis Gustavo Machuno</option>
+        <option value="luisfranca@weg.net" <?php if ($aplicador_filter == 'luisfranca@weg.net') echo 'selected'; ?>>Luis Gustavo Franca</option>
+        <option value="pcampos@weg.net" <?php if ($aplicador_filter == 'pcampos@weg.net') echo 'selected'; ?>>Pedro Orlando Campos</option>
       </select>
 
       <button type="submit">Filtrar</button>
