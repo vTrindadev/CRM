@@ -61,17 +61,6 @@ Este guia explica como utilizar o sistema de forma eficiente, com destaque para 
 
 ---
 
-## 👤 Tipos de Acesso e Permissões
-
-| Tipo de Usuário    | Permissões Principais |
-|--------------------|------------------------|
-| **Aplicador**       | Visualiza e edita apenas suas propostas/demandas |
-| **Gerente**         | Visualiza todas as propostas do time, edita e altera status |
-| **Administrador**   | Acesso completo: clientes, equipamentos, propostas e usuários |
-| **Visitante/Leitura** | Apenas visualização de dados permitidos |
-
----
-
 ## ✅ Manual do Bom Uso
 
 ### 1. Acesso e Segurança
@@ -111,14 +100,6 @@ Este guia explica como utilizar o sistema de forma eficiente, com destaque para 
 - Esquecer de atualizar status
 - Usar campos incorretamente
 - Deixar o sistema aberto sem uso
-
----
-
-## 📞 Suporte
-
-**Email:** suporte@crmmeg.com.br  
-**Telefone/Ramal:** (XX) XXXX-XXXX  
-**Responsável Técnico:** Nome da Pessoa Responsável
 
 ---
 
