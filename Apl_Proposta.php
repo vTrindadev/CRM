@@ -122,7 +122,7 @@ $result = $stmt->get_result();
                   case 'máquina parada':
                       $prioridadeClass = 'prioridade-maquina';
                       break;
-                  case 'Normal':
+                  case 'normal':
                       $prioridadeClass = 'prioridade-normal';
                       break;
                   case 'estimativa':

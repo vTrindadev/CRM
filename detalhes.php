@@ -43,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             WHERE id=$id";
 
         if ($conn->query($updateSql) === TRUE) {
-            echo "<script>alert('Demanda atualizada com sucesso!'); window.location.href = 'CRV.php';</script>";
+            echo "<script>alert('Demanda atualizada com sucesso!'); window.location.href = 'Apl_Proposta.php';</script>";
         } else {
             echo "Erro ao atualizar a demanda: " . $conn->error;
         }
