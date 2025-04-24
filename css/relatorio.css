@@ -1,19 +1,3 @@
-.chart-container {
-    display: flex;
-    justify-content: center; /* Centraliza cada gráfico dentro de seu container */
-    align-items: center;
-    position: relative;
-    height: 50vh;
-    width: 30vw; /* Ajuste para garantir que os gráficos caibam na tela */
-    z-index: 100;
-}
-
-@media screen and (max-width: 768px) {
-    .chart-container {
-        width: 90vw; /* Ajusta a largura para telas menores */
-    }
-}
-
 .container {
     width: 100vw;
     height: 100vh;
@@ -21,13 +5,45 @@
     justify-content: center;
     align-items: center;
     background-color: black;
-  }
-  
-  #holder {
+    flex-wrap: wrap; /* permite quebra de linha caso não caiba */
+    gap: 2rem; /* espaço entre os gráficos */
+    padding: 2rem;
+}
+
+.chart-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    height: 50vh;
+    width: 30vw;
+    z-index: 100;
+    background: rgba(255, 255, 255, 0.2); /* leve fundo branco com transparência */
+    border-radius: 1vw;
+    border: none;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    padding: 1rem;
+}
+
+@media screen and (max-width: 768px) {
+    .chart-container {
+        width: 90vw;
+        height: auto;
+    }
+
+    .container {
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1rem;
+    }
+}
+
+#holder {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     overflow: hidden;
-  }
+}
+

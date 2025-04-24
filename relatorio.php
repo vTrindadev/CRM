@@ -115,9 +115,30 @@ while ($row = mysqli_fetch_assoc($result3)) {
         }]
       },
       options: {
+        plugins: {
+          legend: {
+            labels: {
+              color: 'white' // ou qualquer outra cor em hex, rgba, etc.
+            }
+          }
+        },
         scales: {
           y: {
-            beginAtZero: true
+            beginAtZero: true,
+            ticks: {
+              color: 'white'  // Cor dos valores no eixo Y
+            },
+            grid: {
+              color: 'rgba(255, 255, 255, 0.6)'  // Cor das linhas horizontais
+            }
+          },
+          x: {
+            ticks: {
+              color: 'white'   // Cor dos valores no eixo X
+            },
+            grid: {
+              color: 'rgba(255, 255, 255, 0.6)'  // Cor das linhas verticais
+            }
           }
         }
       }
@@ -138,9 +159,30 @@ while ($row = mysqli_fetch_assoc($result3)) {
         }]
       },
       options: {
+        plugins: {
+          legend: {
+            labels: {
+              color: 'white' // ou qualquer outra cor em hex, rgba, etc.
+            }
+          }
+        },
         scales: {
           y: {
-            beginAtZero: true
+            beginAtZero: true,
+            ticks: {
+              color: 'white'  // Cor dos valores no eixo Y
+            },
+            grid: {
+              color: 'rgba(255, 255, 255, 0.6)'  // Cor das linhas horizontais
+            }
+          },
+          x: {
+            ticks: {
+              color: 'white'  // Cor dos valores no eixo X
+            },
+            grid: {
+              color: 'rgba(255, 255, 255, 0.6)'  // Cor das linhas verticais
+            }
           }
         }
       }
@@ -165,6 +207,9 @@ while ($row = mysqli_fetch_assoc($result3)) {
         plugins: {
           legend: {
             position: 'top',
+            labels: {
+              color: 'white'
+            }
           },
           tooltip: {
             callbacks: {
