@@ -1,3 +1,9 @@
+© 2025 CRM MEG — Uso exclusivo.  
+Sistema protegido por leis de direitos autorais e confidencialidade.  
+Acesso indevido ou divulgação não autorizada sujeita o infrator a sanções legais e disciplinares.
+**CRM MEG - Gestão Comercial com Inteligência e Controle.**
+---
+
 # CRM MEG - Guia de Uso para Usuários
 
 Bem-vindo ao **CRM MEG**, um sistema para gerenciamento de propostas comerciais, demandas e equipamentos, projetado para facilitar o acompanhamento de processos e a colaboração entre equipes.
@@ -103,9 +109,7 @@ Este guia explica como utilizar o sistema de forma eficiente, com destaque para 
 
 ---
 
-© 2025 CRM MEG — Sistema protegido por direitos autorais e normas de confidencialidade.  
-Todos os dados, fluxos e funcionalidades estão resguardados por políticas internas de segurança da informação.  
-O uso indevido, reprodução não autorizada ou divulgação de qualquer conteúdo aqui presente pode configurar violação contratual e implicar sanções administrativas, civis e/ou criminais conforme a legislação vigente.  
-Apenas usuários autorizados têm permissão para operar este sistema.
-
+© 2025 CRM MEG — Uso exclusivo.  
+Sistema protegido por leis de direitos autorais e confidencialidade.  
+Acesso indevido ou divulgação não autorizada sujeita o infrator a sanções legais e disciplinares.
 **CRM MEG - Gestão Comercial com Inteligência e Controle.**
