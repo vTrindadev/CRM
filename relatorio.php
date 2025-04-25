@@ -78,41 +78,45 @@ while ($row = mysqli_fetch_assoc($result3)) {
     $totalStatus[] = $row['total'];
 }
 
-// Consultar dados para o gráfico de Demandas por Cliente
-$query4 = "SELECT NomeCliente, COUNT(*) as total FROM demandas WHERE 1";
+// Consultar dados para o gráfico de ranking de CRVs com mais demandas
+$query6 = "SELECT crv, COUNT(*) as total FROM demandas WHERE 1";
 if ($crv_filter) {
-    $query4 .= " AND crv = '$crv_filter'";
+    $query6 .= " AND crv = '$crv_filter'";
 }
 if ($aplicador_filter) {
-    $query4 .= " AND aplicador = '$aplicador_filter'";
+    $query6 .= " AND aplicador = '$aplicador_filter'";
 }
-$query4 .= " GROUP BY NomeCliente";
-$result4 = mysqli_query($conn, $query4);
+$query6 .= " GROUP BY crv ORDER BY total DESC";
+$result6 = mysqli_query($conn, $query6);
 
-$clientes = [];
-$totalClientes = [];
-while ($row = mysqli_fetch_assoc($result4)) {
-    $clientes[] = $row['NomeCliente'];
-    $totalClientes[] = $row['total'];
+$crvs = [];
+$totalCrvs = [];
+while ($row = mysqli_fetch_assoc($result6)) {
+    $crvs[] = $row['crv'];
+    $totalCrvs[] = $row['total'];
 }
 
-// Consultar dados para o gráfico de Demandas por Localização (Cidade)
-$query5 = "SELECT Cidade, COUNT(*) as total FROM demandas WHERE 1";
+
+// Demandas por UF (caso tenha coluna 'Estado' ou 'UF')
+$query7 = "SELECT Estado, COUNT(*) as total FROM demandas WHERE 1";
+
 if ($crv_filter) {
-    $query5 .= " AND crv = '$crv_filter'";
+    $query7 .= " AND crv = '$crv_filter'";
 }
 if ($aplicador_filter) {
-    $query5 .= " AND aplicador = '$aplicador_filter'";
+    $query7 .= " AND aplicador = '$aplicador_filter'";
 }
-$query5 .= " GROUP BY Cidade";
-$result5 = mysqli_query($conn, $query5);
+$query7 .= " GROUP BY Estado";
+$result7 = mysqli_query($conn, $query7);
 
-$cidades = [];
-$totalCidades = [];
-while ($row = mysqli_fetch_assoc($result5)) {
-    $cidades[] = $row['Cidade'];
-    $totalCidades[] = $row['total'];
+$estados = [];
+$totalEstados = [];
+while ($row = mysqli_fetch_assoc($result7)) {
+    $estados[] = $row['Estado'];
+    $totalEstados[] = $row['total'];
 }
+
+
 ?>
 
 <!DOCTYPE html>
@@ -200,15 +204,15 @@ while ($row = mysqli_fetch_assoc($result5)) {
     <div class="chart-container">
       <canvas id="myChart3"></canvas>
     </div>
-
-    <!-- Gráfico de Demandas por Cliente -->
+    
+    <!-- Gráfico de Ranking de CRVs com mais demandas -->
     <div class="chart-container">
-      <canvas id="myChart4"></canvas>
+      <canvas id="myChart6"></canvas>
     </div>
 
-    <!-- Gráfico de Demandas por Localização (Cidade) -->
+    <!-- Gráfico de Demandas por Estado -->
     <div class="chart-container">
-      <canvas id="myChart5"></canvas>
+      <canvas id="myChart7"></canvas>
     </div>
 
   </div>
@@ -307,17 +311,18 @@ while ($row = mysqli_fetch_assoc($result5)) {
       }
     });
 
-    // Gráfico de Demandas por Cliente
-    const ctx4 = document.getElementById('myChart4').getContext('2d');
-    const myChart4 = new Chart(ctx4, {
+
+    // Gráfico de Ranking de CRVs com mais demandas
+    const ctx6 = document.getElementById('myChart6').getContext('2d');
+    const myChart6 = new Chart(ctx6, {
       type: 'bar',
       data: {
-        labels: <?php echo json_encode($clientes); ?>,
+        labels: <?php echo json_encode($crvs); ?>,
         datasets: [{
-          label: 'Total de Demandas por Cliente',
-          data: <?php echo json_encode($totalClientes); ?>,
-          backgroundColor: 'rgba(75, 192, 192, 0.6)',
-          borderColor: 'rgba(75, 192, 192, 1)',
+          label: 'Demandas por CRV (Ranking)',
+          data: <?php echo json_encode($totalCrvs); ?>,
+          backgroundColor: 'rgba(255, 206, 86, 0.6)',
+          borderColor: 'rgba(255, 206, 86, 1)',
           borderWidth: 1
         }]
       },
@@ -339,17 +344,17 @@ while ($row = mysqli_fetch_assoc($result5)) {
       }
     });
 
-    // Gráfico de Demandas por Localização (Cidade)
-    const ctx5 = document.getElementById('myChart5').getContext('2d');
-    const myChart5 = new Chart(ctx5, {
+    // Gráfico de Demandas por Estado
+    const ctx7 = document.getElementById('myChart7').getContext('2d');
+    const myChart7 = new Chart(ctx7, {
       type: 'bar',
       data: {
-        labels: <?php echo json_encode($cidades); ?>,
+        labels: <?php echo json_encode($estados); ?>,
         datasets: [{
-          label: 'Total de Demandas por Cidade',
-          data: <?php echo json_encode($totalCidades); ?>,
-          backgroundColor: 'rgba(153, 102, 255, 0.6)',
-          borderColor: 'rgba(153, 102, 255, 1)',
+          label: 'Total de Demandas por Estado',
+          data: <?php echo json_encode($totalEstados); ?>,
+          backgroundColor: 'rgba(255, 159, 64, 0.6)',
+          borderColor: 'rgba(255, 159, 64, 1)',
           borderWidth: 1
         }]
       },
@@ -370,6 +375,8 @@ while ($row = mysqli_fetch_assoc($result5)) {
         }
       }
     });
+
+
 
   </script>
 
