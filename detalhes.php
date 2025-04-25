@@ -14,6 +14,7 @@ if ($conn->connect_error) {
 $edicao = false;
 $dados = [];
 
+// Verifica se o parâmetro 'id' foi passado
 if (isset($_GET['id'])) {
     $edicao = true;
     $id = $_GET['id'];
@@ -24,42 +25,14 @@ if (isset($_GET['id'])) {
         echo "<script>alert('Demanda não encontrada.'); window.location.href = 'Apl_Proposta.php';</script>";
         exit;
     }
-}
-
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $campos = ['nota','crv','cliente','codigoCliente','nomeCliente','cnpj','cidade','estado','pais','escopo','Status','cotacao','prazoProposta','prioridade','tipoProposta','refCliente','especificacaoCliente','emFabrica','quantidadeEquip','equipamentos','observacao','valor','frete','status_aplicador','aplicador'];
-    foreach ($campos as $campo) {
-        $$campo = isset($_POST[$campo]) ? $conn->real_escape_string($_POST[$campo]) : null;
-    }
-
-    if ($edicao) {
-        $updateSql = "UPDATE demandas SET 
-            Nota='$nota', crv='$crv', Cliente='$cliente', CodigoCliente='$codigoCliente', NomeCliente='$nomeCliente', 
-            Cnpj='$cnpj', Cidade='$cidade', Estado='$estado', Pais='$pais', Escopo='$escopo', Status='$Status', 
-            Cotacao='$cotacao', PrazoProposta='$prazoProposta', Prioridade='$prioridade', TipoProposta='$tipoProposta', 
-            refCliente='$refCliente', EspecificacaoCliente='$especificacaoCliente', Emfabrica='$emFabrica', 
-            QuantidadeEquip='$quantidadeEquip', Equipamentos='$equipamentos', Observacao='$observacao', 
-            valor='$valor', frete='$frete', status_aplicador='$status_aplicador', aplicador='$aplicador'
-            WHERE id=$id";
-
-        if ($conn->query($updateSql) === TRUE) {
-            echo "<script>alert('Demanda atualizada com sucesso!'); window.location.href = 'Apl_Proposta.php';</script>";
-        } else {
-            echo "Erro ao atualizar a demanda: " . $conn->error;
-        }
-    } else {
-        $insertSql = "INSERT INTO demandas (Nota, crv, Cliente, CodigoCliente, NomeCliente, Cnpj, Cidade, Estado, Pais, Escopo, Status, Cotacao, PrazoProposta, Prioridade, TipoProposta, refCliente, EspecificacaoCliente, Emfabrica, QuantidadeEquip, Equipamentos, Observacao, valor, frete, status_aplicador, aplicador)
-                      VALUES ('$nota', '$crv', '$cliente', '$codigoCliente', '$nomeCliente', '$cnpj', '$cidade', '$estado', '$pais', '$escopo', '$Status', '$cotacao', '$prazoProposta', '$prioridade', '$tipoProposta', '$refCliente', '$especificacaoCliente', '$emFabrica', '$quantidadeEquip', '$equipamentos', '$observacao', '$valor', '$frete', '$status_aplicador', '$aplicador')";
-
-        if ($conn->query($insertSql) === TRUE) {
-            echo "<script>alert('Demanda criada com sucesso!'); window.location.href = 'Apl_Proposta.php';</script>";
-        } else {
-            echo "Erro ao criar a demanda: " . $conn->error;
-        }
-    }
+} else {
+    // Se não tiver 'id', redireciona para outra página, já que é somente edição
+    echo "<script>window.location.href = 'Apl_Proposta.php';</script>";
+    exit;
 }
 
 $conn->close();
+
 ?>
 
 <!DOCTYPE html>
@@ -73,24 +46,24 @@ $conn->close();
 <body>
   <div id="loader"><div class="spinner"></div></div>
   <div id="menu">
-    <a href="home.php">
-        <img id="Logo" src="img/weg branco.png" alt="Logo WEG">
-    </a>
-    <div class="opt-menu">
-        <a href="javascript:history.back()" class="btn-menu">
-            <h3>Voltar</h3>
-        </a>
-      <a href="detalhes.php" class="btn-menu activo"><h3><?= $edicao ? 'Editar' : 'Adicionar' ?></h3></a>
+  <a href="home.php">
+      <img id="Logo" src="img/weg branco.png" alt="Logo WEG">
+  </a>
+  <div class="opt-menu">
+      <a href="javascript:history.back()" class="btn-menu">
+          <h3>Voltar</h3>
+      </a>
+      <a href="detalhes.php" class="btn-menu activo"><h3>Editar</h3></a> <!-- Aqui a opção será sempre 'Editar' -->
       <input type="text" id="inputBusca" placeholder="Buscar..." class="input-menu">
       <a href="BD_Cliente.php" class="btn-menu"><h3>Clientes</h3></a>
       <a href="BD_Equipamentos.php" class="btn-menu"><h3>Equipamentos</h3></a>
-    </div>
-    <div class="opt-menu">
-      <form action="logout.php" method="post">
-          <button type="submit" class="btn-menu-sair">Sair</button>
-      </form>
-    </div>
   </div>
+  <div class="opt-menu">
+    <form action="logout.php" method="post">
+        <button type="submit" class="btn-menu-sair">Sair</button>
+    </form>
+  </div>
+</div>
   <div class="container">
     <div id="holder"></div>
     <form id="detalhesForm" method="POST">
@@ -223,7 +196,7 @@ $conn->close();
       </div>
 
       <div class="form-group">
-        <button type="submit"><?= $edicao ? 'Salvar Alterações' : 'Criar Demanda' ?></button>
+      <button type="submit">Salvar Alterações</button>
       </div>
     </form>
   </div>
