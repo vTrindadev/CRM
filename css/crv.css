@@ -126,6 +126,10 @@
 }
 
 .Status-perdido {
+  background-color: black; /* vermelho */
+}
+
+.Status-solicitacao {
   background-color: #e53935; /* vermelho */
 }
 

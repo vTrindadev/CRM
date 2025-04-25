@@ -78,6 +78,7 @@ $result = $stmt->get_result();
                   $row["Cliente"] . ' ' . 
                   $row["Escopo"] . ' ' . 
                   $row["TipoProposta"] . ' ' . 
+                  $row["PrazoProposta"] . ' ' . 
                   $row["id"] . ' ' . 
                   $row["Status"]
               );
@@ -117,8 +118,7 @@ $result = $stmt->get_result();
               echo '<div class="info-row">';
               echo '<p><strong>Cliente:</strong> ' . htmlspecialchars($row["Cliente"]) . '</p>';
               echo '<p><strong>Escopo:</strong> ' . htmlspecialchars($row["Escopo"]) . '</p>';
-              echo '<p><strong>Tipo Proposta:</strong> ' . htmlspecialchars($row["TipoProposta"]) . '</p>';
-              echo '<p><strong>Aplicador:</strong> ' . htmlspecialchars($row["aplicador"]) . '</p>';
+
               $prioridade = strtolower($row["Prioridade"]);
               $prioridadeClass = '';
 
@@ -138,6 +138,11 @@ $result = $stmt->get_result();
                   default:
                       $prioridadeClass = 'prioridade-default';
               }
+              echo '</div>';
+              echo '<div class="info-row">';
+              echo '<p><strong>Tipo Proposta:</strong> ' . htmlspecialchars($row["TipoProposta"]) . '</p>';
+              echo '<p><strong>Aplicador:</strong> ' . htmlspecialchars($row["aplicador"]) . '</p>';
+              echo '<p><strong>Prazo Proposta:</strong> ' . htmlspecialchars($row["PrazoProposta"]) . '</p>';
               echo '</div>';
               echo '</div>';
               echo '<div class="card-end">';

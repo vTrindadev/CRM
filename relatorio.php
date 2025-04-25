@@ -168,7 +168,7 @@ while ($row = mysqli_fetch_assoc($result7)) {
         <option value="freiriag@weg.net" <?php if ($crv_filter == 'freiriag@weg.net') echo 'selected'; ?>>Joao Pedro Freiria Schlichting</option>
         <option value="mvitor@weg.net" <?php if ($crv_filter == 'mvitor@weg.net') echo 'selected'; ?>>Joao Vitor Machado Mariquito</option>
         <option value="rsilva@weg.net" <?php if ($crv_filter == 'rsilva@weg.net') echo 'selected'; ?>>Ricardo Goncalves da Silva</option>
-        <option value="guarechi@weg.net" <?php if ($crv_filter == 'guarechi@weg.net') echo 'selected'; ?>>Rodrigo Guareschi</option>
+        <option value="guareschi@weg.net" <?php if ($crv_filter == 'guareschi@weg.net') echo 'selected'; ?>>Rodrigo Guareschi</option>
       </select>
 
       <label for="aplicador">Aplicador:</label>

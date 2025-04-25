@@ -31,8 +31,56 @@ if (isset($_GET['id'])) {
     exit;
 }
 
-$conn->close();
+// Se o formulário for enviado via POST, realiza o UPDATE
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $id = $_POST['id'];
+    $nota = $_POST['nota'];
+    $cotacao = $_POST['cotacao'];
+    $crv = $_POST['crv'];
+    $status_aplicador = $_POST['status_aplicador'];
+    $aplicador = $_POST['aplicador'];
+    $valor = $_POST['valor'];
+    $prazoProposta = $_POST['prazoProposta'];
+    $prioridade = $_POST['prioridade'];
+    $tipoProposta = $_POST['tipoProposta'];
+    $escopo = $_POST['escopo'];
+    $frete = $_POST['frete'];
+    $refCliente = $_POST['refCliente'];
+    $especificacaoCliente = $_POST['especificacaoCliente'];
+    $emFabrica = $_POST['emFabrica'];
+    $quantidadeEquip = $_POST['quantidadeEquip'];
+    $equipamentos = $_POST['equipamentos'];
+    $observacao = $_POST['observacao'];
 
+    // Atualiza os dados no banco
+    $sql = "UPDATE demandas SET 
+                Nota = '$nota', 
+                Cotacao = '$cotacao', 
+                crv = '$crv', 
+                status_aplicador = '$status_aplicador', 
+                Aplicador = '$aplicador', 
+                Valor = '$valor', 
+                PrazoProposta = '$prazoProposta', 
+                Prioridade = '$prioridade', 
+                TipoProposta = '$tipoProposta', 
+                Escopo = '$escopo', 
+                Frete = '$frete', 
+                RefCliente = '$refCliente', 
+                EspecificacaoCliente = '$especificacaoCliente', 
+                Emfabrica = '$emFabrica', 
+                QuantidadeEquip = '$quantidadeEquip', 
+                Equipamentos = '$equipamentos', 
+                Observacao = '$observacao' 
+            WHERE id = $id";
+
+    if ($conn->query($sql) === TRUE) {
+        echo "<script>alert('Demanda atualizada com sucesso!'); window.location.href = 'detalhes.php?id=$id';</script>";
+    } else {
+        echo "Erro ao atualizar: " . $conn->error;
+    }
+}
+
+$conn->close();
 ?>
 
 <!DOCTYPE html>

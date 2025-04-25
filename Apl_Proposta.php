@@ -96,6 +96,9 @@ $result = $stmt->get_result();
                 case 'concluído':
                     $StatusClass = 'Status-concluído';
                 break;
+                case 'nova solicitação':
+                    $StatusClass = 'Status-solicitacao';
+                break;
                 default:
                     $StatusClass = 'Status-default';
               }
@@ -106,12 +109,11 @@ $result = $stmt->get_result();
               echo '<p><strong>ID:</strong> ' . htmlspecialchars($row["id"]) . '</p>';
               echo '<p><strong>Nota:</strong> ' . htmlspecialchars($row["Nota"]) . '</p>';
               echo '<p><strong>Cotação:</strong> ' . htmlspecialchars($row["Cotacao"]) . '</p>';
+              echo '<p><strong>Prazo Proposta:</strong> ' . htmlspecialchars($row["PrazoProposta"]) . '</p>';
               echo '</div>';
               echo '<div class="info-row">';
               echo '<p><strong>Cliente:</strong> ' . htmlspecialchars($row["Cliente"]) . '</p>';
               echo '<p><strong>Escopo:</strong> ' . htmlspecialchars($row["Escopo"]) . '</p>';
-              echo '<p><strong>Tipo Proposta:</strong> ' . htmlspecialchars($row["TipoProposta"]) . '</p>';
-              echo '<p><strong>Aplicador:</strong> ' . htmlspecialchars($row["aplicador"]) . '</p>';
               $prioridade = strtolower($row["Prioridade"]);
               $prioridadeClass = '';
               
