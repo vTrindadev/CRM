@@ -67,8 +67,8 @@
 
 .filters select, .filters button {
     width: 15vw;
-    height: 6vh;
-    background-color: #00579d;
+    height: 4vh;
+    background-color: rgba(255, 255, 255, 0.2);
     border-radius: 1vw 0vw 1vw 0;
     border: none;
     font-size: 1vw;
@@ -76,6 +76,11 @@
     color: white;
     box-shadow: 2px 2px 10px 5px #0000001f;
     transition: all 0.3s ease;
+}
+
+.filters select option {
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
 }
 
 .filters button {
