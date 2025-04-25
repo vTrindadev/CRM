@@ -259,14 +259,15 @@ $conn->close();
     });
 
     document.getElementById('tipoProposta').addEventListener('change', function() {
-      var aplicador = document.getElementById('aplicador');
-      var freteContainer = document.getElementById('freteContainer');
-      if (['Fábrica', 'Partes e Peças'].includes(this.value)) {
-        freteContainer.style.display = '';
-        aplicador.value = 'victorcp@weg.net';
-      } else {
-        freteContainer.style.display = 'none';
-        aplicador.value = 'victorcp@weg.net';
+      var Status = this.value;
+      var StatusAplicador = document.getElementById('aplicador');
+
+      if (Status === 'Campo') {
+        aplicador.value = 'lucaspaulo@weg.net, luisfranca@weg.net';
+      } else if (Status === 'Fábrica') {
+        aplicador.value = 'grahl@weg.net, jonas3, luisgm, pcampos';
+      } else if (Status === 'Partes e Peças') {
+        aplicador.value = 'adrianad@weg.net, ullera@weg.net, gabrielfl@weg.net, cristianeaf@weg.net';
       }
     });
   </script>

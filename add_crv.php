@@ -222,11 +222,11 @@ $conn->close();
       var StatusAplicador = document.getElementById('aplicador');
 
       if (Status === 'Campo') {
-        aplicador.value = 'victorcp@weg.net';
+        aplicador.value = 'lucaspaulo@weg.net, luisfranca@weg.net';
       } else if (Status === 'Fábrica') {
-        aplicador.value = 'victorcp@weg.net';
+        aplicador.value = 'grahl@weg.net, jonas3, luisgm, pcampos';
       } else if (Status === 'Partes e Peças') {
-        aplicador.value = 'victorcp@weg.net';
+        aplicador.value = 'adrianad@weg.net, ullera@weg.net, gabrielfl@weg.net, cristianeaf@weg.net';
       }
     });
   </script>
