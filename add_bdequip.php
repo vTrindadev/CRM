@@ -77,7 +77,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   </div>
 
   <div class="container">
-    <div id="holder"></div>
+    
     <div class="info-container">
       <form method="POST" action="">
         <label>Fabricante:</label>

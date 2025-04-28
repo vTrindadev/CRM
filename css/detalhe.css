@@ -4,7 +4,9 @@
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    background-color: black;
+    background-image: url("../img/bckg.png");
+    background-repeat: no-repeat;
+    background-size: cover;
     padding-top: 14vh;
 }
 

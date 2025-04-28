@@ -57,7 +57,6 @@ $result = $conn->query($sql);
   </div>
 
   <div class="container">
-    <div id="holder"></div>
     <div class="info-container">
       <?php
       if ($result->num_rows > 0) {

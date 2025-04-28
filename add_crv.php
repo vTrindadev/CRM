@@ -84,7 +84,7 @@ $conn->close();
   </div>
 
   <div class="container">
-    <div id="holder"></div>
+    
     <form id="detalhesForm" method="POST">
 
       <!-- Identificação -->

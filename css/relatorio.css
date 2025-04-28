@@ -4,7 +4,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: black;
+    background-image: url("../img/bckg.png");
+    background-repeat: no-repeat;
+    background-size: cover;
     flex-wrap: wrap; /* permite quebra de linha caso não caiba */
     gap: 2rem; /* espaço entre os gráficos */
     padding: 2rem;

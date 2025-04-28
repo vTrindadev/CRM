@@ -70,6 +70,7 @@ if (isset($_POST['email']) && isset($_POST['senha'])) {
 </head>
 <body>
     <section id="conteiner">
+        <div id="holder"></div>
         <div id="box-form">
             <img id="Logo" src="img/weg branco.png" alt="Logo WEG">
             <h2 id="titulo-form">Sign In</h2>
@@ -94,5 +95,6 @@ if (isset($_POST['email']) && isset($_POST['senha'])) {
     </footer>
     
     <script src="js/loader.js"></script>
+    <script src="js/wave.js"></script>
 </body>
 </html>

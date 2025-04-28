@@ -92,7 +92,7 @@ $conn->close();
     </div>
   </div>
   <div class="container">
-    <div id="holder"></div>
+    
     <form id="detalhesForm" method="POST">
       <?php function valor($chave, $dados) { return isset($dados[$chave]) ? htmlspecialchars($dados[$chave]) : ''; } ?>
 

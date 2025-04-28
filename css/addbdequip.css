@@ -8,7 +8,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: black;
+  background-image: url("../img/bckg.png");
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 #holder {

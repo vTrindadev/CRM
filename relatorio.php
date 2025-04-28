@@ -154,8 +154,6 @@ while ($row = mysqli_fetch_assoc($result7)) {
 
 
   <div class="container">    
-    <div id="holder"></div>
-
     <div class="filters">
     <form method="GET" action="relatorio.php">
       <label for="crv">CRV:</label>

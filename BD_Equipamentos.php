@@ -56,7 +56,7 @@ $result = $conn->query($sql);
   </div>
 
   <div class="container">
-    <div id="holder"></div>
+    
     <div class="info-container">
       <?php
       // Verifica se há resultados na consulta
