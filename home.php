@@ -27,6 +27,18 @@ if (!isset($_SESSION['acesso'])) {
         <a href="home.php" class="btn-menu activo">
             <h3>Home</h3>
         </a>
+        <?php if ($_SESSION['acesso'] === 'Filial') : ?>
+            <a href="filial.php" class="btn-menu">
+                <h3>Filial</h3>
+            </a>
+        <?php endif; ?>
+
+        <?php if ($_SESSION['acesso'] === 'Filial') : ?>
+            <a href="supervisao_filial.php" class="btn-menu">
+                <h3>Supervisionar</h3>
+            </a>
+        <?php endif; ?>
+
         <?php if ($_SESSION['acesso'] === 'Admin') : ?>
             <a href="relatorio.php" class="btn-menu">
                 <h3>Relatório</h3>
@@ -57,15 +69,23 @@ if (!isset($_SESSION['acesso'])) {
             </a>
         <?php endif; ?>
 
-        <a href="CRV.php" class="btn-menu">
-            <h3>CRV</h3>
-        </a>
-        <a href="Apl_Proposta.php" class="btn-menu">
-            <h3>Aplicador de Propostas</h3>
-        </a>
-        <a href="Apl_Implementação.php" class="btn-menu">
-            <h3>Aplicador de Implementação</h3>
-        </a>
+        <?php if ($_SESSION['acesso'] === 'CRV' || $_SESSION['acesso'] === 'Admin' || $_SESSION['acesso'] === 'Partes e Peças' || $_SESSION['acesso'] === 'Campo' || $_SESSION['acesso'] === 'Fábrica') : ?>
+            <a href="crv.php" class="btn-menu">
+                <h3>CRV</h3>
+            </a>
+        <?php endif; ?>
+
+        <?php if ($_SESSION['acesso'] === 'CRV' || $_SESSION['acesso'] === 'Admin' || $_SESSION['acesso'] === 'Partes e Peças' || $_SESSION['acesso'] === 'Campo' || $_SESSION['acesso'] === 'Fábrica') : ?>
+            <a href="Apl_Proposta.php" class="btn-menu">
+                <h3>Aplicador de Proposta</h3>
+            </a>
+        <?php endif; ?>
+
+        <?php if ($_SESSION['acesso'] === 'CRV' || $_SESSION['acesso'] === 'Admin' || $_SESSION['acesso'] === 'Partes e Peças' || $_SESSION['acesso'] === 'Campo' || $_SESSION['acesso'] === 'Fábrica') : ?>
+            <a href="Apl_Implementação.php" class="btn-menu">
+                <h3>Aplicador de Implementação</h3>
+            </a>
+        <?php endif; ?>
     </div>
     <div class="opt-menu">
       <form action="logout.php" method="post">
@@ -76,7 +96,7 @@ if (!isset($_SESSION['acesso'])) {
   </div>
 
   <div class="container">
-    <h1>Welcome to <br> CRM MEG <br><span class="username"><?php echo $_SESSION['user']; ?></span></h1>
+    <h1>Welcome to <br> CRM MEG <br><span class="username"><?php echo $_SESSION['user']; ?></span><br><span class="filial"><?php echo $_SESSION['filial']; ?></span></h1>
 </div>
 
 

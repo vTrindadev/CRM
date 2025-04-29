@@ -45,6 +45,12 @@ canvas {
     height: 100%;
  }
 
- .username {
+.username {
     font-size: .5em; /* Altere esse valor conforme o tamanho desejado */
 }
+.filial {
+    margin-top: -0.5em; /* ajuste conforme necessário */
+    display: block;
+    font-size: .3em; /* Altere esse valor conforme o tamanho desejado */
+}
+

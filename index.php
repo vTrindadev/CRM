@@ -44,7 +44,9 @@ if (isset($_POST['email']) && isset($_POST['senha'])) {
 
             $_SESSION['email'] = $usuario['email'];
             $_SESSION['user'] = $usuario['user'];
-            $_SESSION['acesso'] = $usuario['acesso'];  // onde 'acesso' é o campo que define o nível de acesso do usuário
+            $_SESSION['acesso'] = $usuario['acesso'];  
+            $_SESSION['filial'] = $usuario['filial'];  
+            $_SESSION['codigo'] = $usuario['codigo']; 
 
 
             // Redireciona para a página inicial
