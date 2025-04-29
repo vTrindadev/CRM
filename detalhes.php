@@ -123,31 +123,7 @@ $conn->close();
         <div class="form-group"><label for="id">ID:</label><input type="text" id="id" name="id" value="<?= valor('id', $dados) ?>"readonly></div>
         <div class="form-group"><label for="nota">Nota:</label><input type="text" id="nota" name="nota" value="<?= valor('Nota', $dados) ?>"></div>
         <div class="form-group"><label for="cotacao">Cotação:</label><input type="text" id="cotacao" name="cotacao" value="<?= valor('Cotacao', $dados) ?>"></div>
-        <div class="form-group">
-        <label for="crv">CRV:</label>
-        <select id="crv" name="crv_disabled" disabled>
-          <option value="">Selecione</option>
-          <?php
-          $crvs = [
-            "anan@weg.net" => "Ana Paula Nolasco",
-            "abaptista@weg.net" => "Andre Luis Rosa Baptista",
-            "diegolc@weg.net" => "Diego Lopes Caobianco",
-            "guilhermehk@weg.net" => "Guilherme Henrique Khun",
-            "freiriag@weg.net" => "Joao Pedro Freiria Schlichting",
-            "mvitor@weg.net" => "Joao Vitor Machado Mariquito",
-            "rsilva@weg.net" => "Ricardo Goncalves da Silva",
-            "guareschi@weg.net" => "Rodrigo Guareschi"
-          ];
-          foreach ($crvs as $email => $nome) {
-            $selected = valor('crv', $dados) == $email ? 'selected' : '';
-            echo "<option value='$email' $selected>$nome</option>";
-          }
-          ?>
-        </select>
-        <!-- Campo oculto que garante envio do valor selecionado -->
-        <input type="hidden" name="crv" value="<?= valor('crv', $dados) ?>">
-      </div>
-
+        <div class="form-group"><label for="crv">CRV:</label><input type="text" id="crv" name="crv" value="<?= valor('crv', $dados) ?>"readonly></div>
       </div>
 
       <!-- Cliente -->
@@ -173,7 +149,7 @@ $conn->close();
                 'Distribuir',
                 'Nova Solicitação',
                 'Em Peritagem',
-                'Concluído',
+                'Proposta Concluída',
                 'Informação Pendente',
                 'Perdido',
                 'Em Consulta'
@@ -260,8 +236,8 @@ $conn->close();
       const aplicadorValue = this.value;
 
       // Define as regras de correspondência
-      if (aplicadorValue === 'Concluído') {
-        Status.value = 'Concluído';
+      if (aplicadorValue === 'Proposta Concluída') {
+        Status.value = 'Proposta Concluída';
       } else if (aplicadorValue === 'Informação Pendente') {
         Status.value = 'Informação Pendente';
       } else if (aplicadorValue === 'Perdido') {
@@ -276,19 +252,6 @@ $conn->close();
         Status.value = 'Proposta em Elaboração';
       } else {
         Status.value = ''; // ou mantenha o valor atual se quiser evitar alteração
-      }
-    });
-
-    document.getElementById('tipoProposta').addEventListener('change', function() {
-      var Status = this.value;
-      var StatusAplicador = document.getElementById('aplicador');
-
-      if (Status === 'Campo') {
-        aplicador.value = 'lucaspaulo@weg.net, luisfranca@weg.net';
-      } else if (Status === 'Fábrica') {
-        aplicador.value = 'grahl@weg.net, jonas3, luisgm, pcampos';
-      } else if (Status === 'Partes e Peças') {
-        aplicador.value = 'adrianad@weg.net, ullera@weg.net, gabrielfl@weg.net, cristianeaf@weg.net';
       }
     });
   </script>

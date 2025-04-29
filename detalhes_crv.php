@@ -27,7 +27,7 @@ if (isset($_GET['id'])) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $campos = ['nota','crv','cliente','codigoCliente','nomeCliente','cnpj','cidade','estado','pais','escopo','Status','cotacao','prazoProposta','prioridade','tipoProposta','refCliente','especificacaoCliente','emFabrica','quantidadeEquip','equipamentos','observacao','valor','frete','status_aplicador','aplicador', 'anexo'];
+    $campos = ['nota','crv','cliente','codigoCliente','nomeCliente','cnpj','cidade','estado','pais','escopo','Status','cotacao','prazoProposta','prioridade','tipoProposta','refCliente','especificacaoCliente','emFabrica','quantidadeEquip','equipamentos','observacao','valor','frete','status_aplicador','aplicador'];
     foreach ($campos as $campo) {
         $$campo = isset($_POST[$campo]) ? $conn->real_escape_string($_POST[$campo]) : null;
     }
@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             Cotacao='$cotacao', PrazoProposta='$prazoProposta', Prioridade='$prioridade', TipoProposta='$tipoProposta', 
             refCliente='$refCliente', EspecificacaoCliente='$especificacaoCliente', Emfabrica='$emFabrica', 
             QuantidadeEquip='$quantidadeEquip', Equipamentos='$equipamentos', Observacao='$observacao', 
-            valor='$valor', frete='$frete', status_aplicador='$status_aplicador', aplicador='$aplicador', anexo='$anexo'
+            valor='$valor', frete='$frete', status_aplicador='$status_aplicador', aplicador='$aplicador'
             WHERE id=$id";
 
         if ($conn->query($updateSql) === TRUE) {
@@ -48,8 +48,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             echo "Erro ao atualizar a demanda: " . $conn->error;
         }
     } else {
-        $insertSql = "INSERT INTO demandas (Nota, crv, Cliente, CodigoCliente, NomeCliente, Cnpj, Cidade, Estado, Pais, Escopo, Status, Cotacao, PrazoProposta, Prioridade, TipoProposta, refCliente, EspecificacaoCliente, Emfabrica, QuantidadeEquip, Equipamentos, Observacao, valor, frete, status_aplicador, aplicador, anexo)
-                      VALUES ('$nota', '$crv', '$cliente', '$codigoCliente', '$nomeCliente', '$cnpj', '$cidade', '$estado', '$pais', '$escopo', '$Status', '$cotacao', '$prazoProposta', '$prioridade', '$tipoProposta', '$refCliente', '$especificacaoCliente', '$emFabrica', '$quantidadeEquip', '$equipamentos', '$observacao', '$valor', '$frete', '$status_aplicador', '$aplicador', '$anexo')";
+        $insertSql = "INSERT INTO demandas (Nota, crv, Cliente, CodigoCliente, NomeCliente, Cnpj, Cidade, Estado, Pais, Escopo, Status, Cotacao, PrazoProposta, Prioridade, TipoProposta, refCliente, EspecificacaoCliente, Emfabrica, QuantidadeEquip, Equipamentos, Observacao, valor, frete, status_aplicador, aplicador)
+                      VALUES ('$nota', '$crv', '$cliente', '$codigoCliente', '$nomeCliente', '$cnpj', '$cidade', '$estado', '$pais', '$escopo', '$Status', '$cotacao', '$prazoProposta', '$prioridade', '$tipoProposta', '$refCliente', '$especificacaoCliente', '$emFabrica', '$quantidadeEquip', '$equipamentos', '$observacao', '$valor', '$frete', '$status_aplicador', '$aplicador')";
 
         if ($conn->query($insertSql) === TRUE) {
             echo "<script>alert('Demanda criada com sucesso!'); window.location.href = 'CRV.php';</script>";
@@ -145,7 +145,7 @@ $conn->close();
           <label for="Status">Status:</label>
           <select id="Status" name="Status" required>
             <?php
-              $StatusList = ["Proposta em Elaboração", "Em Peritagem", "Perdido", "Concluído"];
+              $StatusList = ["Proposta em Elaboração", "Em Negociação"/*, "Previsto para: "*/, "Proposta Concluída", "Perdido", "Budget", "Proposta em Revisão"];
               foreach ($StatusList as $st) {
                 $selected = valor('Status', $dados) == $st ? 'selected' : '';
                 echo "<option value='$st' $selected>$st</option>";
@@ -226,14 +226,18 @@ $conn->close();
       const aplicadorValue = this.value;
 
       // Define as regras de correspondência
-      if (aplicadorValue === 'Concluído') {
-        status_aplicador.value = 'Concluído';
+      if (aplicadorValue === 'Proposta Concluída') {
+        status_aplicador.value = 'Proposta Concluída';
       } else if (aplicadorValue === 'Proposta em Elaboração') {
-        status_aplicador.value = 'Distribuir';
+        status_aplicador.value = 'Nova Solicitação';
       } else if (aplicadorValue === 'Perdido') {
         status_aplicador.value = 'Perdido';
-      } else if (aplicadorValue === 'Em Peritagem') {
-        status_aplicador.value = 'Em Peritagem';
+      } else if (aplicadorValue === 'Em Negociação') {
+        status_aplicador.value = 'Em Implantação';
+      } else if (aplicadorValue === 'Budget') {
+        status_aplicador.value = 'Budget';
+      } else if (aplicadorValue === 'Proposta em Revisão') {
+        status_aplicador.value = 'Revisar Proposta';
       } else {
         Status.value = ''; // ou mantenha o valor atual se quiser evitar alteração
       }
