@@ -216,20 +216,19 @@ $conn->close();
     });
   </script>
 
-<script>
-    document.getElementById('tipoProposta').addEventListener('change', function() {
-      var Status = this.value;
-      var StatusAplicador = document.getElementById('aplicador');
+  <script>
+    document.getElementById('tipoProposta').addEventListener('change', function () {
+      const aplicadoresMap = {
+        'Campo': 'lucaspaulo@weg.net, luisfranca@weg.net',
+        'Fábrica': 'grahl@weg.net, jonas3, luisgm, pcampos',
+        'Partes e Peças': 'adrianad@weg.net, ullera@weg.net, gabrielfl@weg.net, cristianeaf@weg.net, diefanyg@weg.net'
+      };
 
-      if (Status === 'Campo') {
-        aplicador.value = 'lucaspaulo@weg.net, luisfranca@weg.net';
-      } else if (Status === 'Fábrica') {
-        aplicador.value = 'grahl@weg.net, jonas3, luisgm, pcampos';
-      } else if (Status === 'Partes e Peças') {
-        aplicador.value = 'adrianad@weg.net, ullera@weg.net, gabrielfl@weg.net, cristianeaf@weg.net';
-      }
+      const aplicador = document.getElementById('aplicador');
+      aplicador.value = aplicadoresMap[this.value] || '';
     });
   </script>
+
 
 </body>
 </html>

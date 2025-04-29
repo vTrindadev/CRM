@@ -68,6 +68,7 @@ $result = $stmt->get_result();
               $busca = strtolower(
                   $row["Nota"] . ' ' .
                   $row["Cotacao"] . ' ' .
+                  $row["crv"] . ' ' .
                   $row["Cliente"] . ' ' .
                   $row["Escopo"] . ' ' .
                   $row["TipoProposta"] . ' ' .
@@ -110,6 +111,7 @@ $result = $stmt->get_result();
               echo '<p><strong>Nota:</strong> ' . htmlspecialchars($row["Nota"]) . '</p>';
               echo '<p><strong>Cotação:</strong> ' . htmlspecialchars($row["Cotacao"]) . '</p>';
               echo '<p><strong>Prazo Proposta:</strong> ' . htmlspecialchars($row["PrazoProposta"]) . '</p>';
+              echo '<p><strong>CRV:</strong> ' . htmlspecialchars($row["crv"]) . '</p>';
               echo '</div>';
               echo '<div class="info-row">';
               echo '<p><strong>Cliente:</strong> ' . htmlspecialchars($row["Cliente"]) . '</p>';

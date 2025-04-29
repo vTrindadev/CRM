@@ -1,0 +1,178 @@
+/* Geral */
+
+.container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url("../img/bckg.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  
+  #holder {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+  
+  .info-container {
+    width: 90%;
+    max-height: 80vh;
+    margin-top: 12vh;
+    overflow-y: auto;
+    background-color: transparent;
+    border-radius: 1vw;
+    padding: 2vh 2vw;
+    display: flex;
+    flex-direction: column;
+    gap: 2vh;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  }
+  
+  .info-card {
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 1.5vh 1vw;
+    border-radius: 1vw;
+    color: #ffffff;
+    font-weight: 500;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    gap: 1vw;
+    min-height: 180px;
+    z-index: 100;
+  }
+  
+  .info-card:hover {
+    transform: scale(1.02); /* aumenta suavemente */
+  }
+  
+  .info-sections {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1vh 2vw;
+    flex: 1;
+  }
+  
+  .info-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3vh;
+  }
+  
+  
+  .info-row p {
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .Status-badge {
+    padding: 0.4em 1em;
+    border-radius: 20px;
+    font-weight: bold;
+    white-space: nowrap;
+    font-size: 0.9em;
+    align-self: flex-start;
+  }
+  
+  .arrow-icon a {
+    font-size: 2.2vw;
+    color: #ffffff;
+    opacity: 1;
+    transition: transform 0.2s ease;
+    text-decoration: none;
+  }
+  
+  .arrow-icon:hover{
+    transform: scale(1.2); /* aumenta suavemente */
+  }
+  
+  .info-card:hover .arrow-icon a {
+    transform: translateX(5px) scale(1.1);
+  }
+  
+  .card-end {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1vh;
+    min-width: 120px;
+  }
+  
+  /* Estilos para os Status */
+  .Status-badge {
+    padding: 0.4em 1em;
+    border-radius: 20px;
+    font-weight: bold;
+    white-space: nowrap;
+    font-size: 0.9em;
+    align-self: flex-start;
+  }
+  
+  
+  .Status-elaboracao {
+    background-color: #0090C5; /* verde */
+  }
+  
+  .Status-peritagem {
+    background-color: #EF8300; /* amarelo */
+  }
+  
+  .Status-perdido {
+    background-color: black; /* vermelho */
+  }
+  
+  .Status-solicitacao {
+    background-color: #e53935; /* vermelho */
+  }
+  
+  .Status-distribuir {
+    background-color: #8862A2; /* vermelho */
+  }
+  
+  .Status-concluído {
+    background-color: #00693C; /* vermelho */
+  }
+  
+  .Status-default {
+    background-color: #95a5a6; /* cinza padrão */
+  }
+  
+  .prioridade-badge {
+    padding: 0.4em 1em;
+    border-radius: 20px;
+    font-weight: bold;
+    white-space: nowrap;
+    font-size: 0.9em;
+    align-self: flex-start;
+  }
+  
+  .prioridade-urgente {
+    background-color: #e53935; /* Vermelho forte */
+  }
+  
+  .prioridade-maquina {
+    background-color: #EF8300; /* Laranja */
+  }
+  
+  .prioridade-normal {
+    background-color: #00693C; /* Amarelo */
+  }
+  
+  .prioridade-estimativa {
+    background-color: #0D273E; /* Verde */
+  }
+  
+  .prioridade-default {
+    background-color: #757575; /* Cinza */
+  }
+  

@@ -33,7 +33,7 @@ $result = $conn->query($sql);
   <meta charset="UTF-8">
   <title>CRM CRV</title>
   <link rel="stylesheet" href="css/padrao.css">
-  <link rel="stylesheet" href="css/crv.css">
+  <link rel="stylesheet" href="css/all.css">
 </head>
 <body>
   <div id="loader">
@@ -70,6 +70,7 @@ $result = $conn->query($sql);
                   $row["id"] . ' ' .  
                   $row["status_aplicador"] . ' ' .  
                   $row["aplicador"] . ' ' . 
+                  $row["crv"] . ' ' . 
                   $row["Status"]
               );
 
@@ -121,12 +122,13 @@ $result = $conn->query($sql);
               echo '<p><strong>ID:</strong> ' . htmlspecialchars($row["id"]) . '</p>';
               echo '<p><strong>Nota:</strong> ' . htmlspecialchars($row["Nota"]) . '</p>';
               echo '<p><strong>Cotação:</strong> ' . htmlspecialchars($row["Cotacao"]) . '</p>';
+              echo '<p><strong>CRV:</strong> ' . htmlspecialchars($row["crv"]) . '</p>';
+              echo '<p><strong>Aplicador:</strong> ' . htmlspecialchars($row["aplicador"]) . '</p>';
               echo '</div>';
               echo '<div class="info-row">';
               echo '<p><strong>Cliente:</strong> ' . htmlspecialchars($row["Cliente"]) . '</p>';
               echo '<p><strong>Escopo:</strong> ' . htmlspecialchars($row["Escopo"]) . '</p>';
               echo '<p><strong>Tipo Proposta:</strong> ' . htmlspecialchars($row["TipoProposta"]) . '</p>';
-              echo '<p><strong>Aplicador:</strong> ' . htmlspecialchars($row["aplicador"]) . '</p>';
               $prioridade = strtolower($row["Prioridade"]);
               $prioridadeClass = '';
               
