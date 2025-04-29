@@ -11,12 +11,31 @@ if ($conn->connect_error) {
     die("Erro de conexão: " . $conn->connect_error);
 }
 
+if(isset($_GET['codigoCliente'])){
+  $codigoCliente = $_GET['codigoCliente'];
+  
+  // Query para pegar os dados do cliente
+  $sql = "SELECT Cliente, Cnpj, Cidade, Estado, País FROM clientes WHERE Código = ?";
+  $stmt = $conn->prepare($sql);
+  $stmt->bind_param("s", $codigoCliente);
+  $stmt->execute();
+  $result = $stmt->get_result();
+
+  if($result->num_rows > 0){
+      $cliente = $result->fetch_assoc();
+      echo json_encode($cliente);  // Retorna os dados em formato JSON
+  } else {
+      echo json_encode(['error' => 'Cliente não encontrado.']);
+  }
+  exit;
+}
+
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $nota = $_POST['nota'];
     $crv = $_POST['crv'];
     $cliente = $_POST['cliente'];
     $codigoCliente = $_POST['codigoCliente'];
-    $nomeCliente = $_POST['nomeCliente'];
     $cnpj = $_POST['cnpj'];
     $cidade = $_POST['cidade'];
     $estado = $_POST['estado'];
@@ -38,8 +57,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $StatusAplicador = $_POST['status_aplicador']; 
     $aplicador = $_POST['aplicador']; 
 
-    $insertSql = "INSERT INTO demandas (Nota, crv, Cliente, CodigoCliente, NomeCliente, Cnpj, Cidade, Estado, Pais, Escopo, Status, Cotacao, PrazoProposta, Prioridade, TipoProposta, refCliente, EspecificacaoCliente, Emfabrica, QuantidadeEquip, Equipamentos, Observacao, valor, frete, status_aplicador, aplicador)
-                  VALUES ('$nota', '$crv', '$cliente', '$codigoCliente', '$nomeCliente', '$cnpj', '$cidade', '$estado', '$pais', '$escopo', '$Status', '$cotacao', '$prazoProposta', '$prioridade', '$tipoProposta', '$refCliente', '$especificacaoCliente', '$emFabrica', '$quantidadeEquip', '$equipamentos', '$observacao', '$valor', '$frete', '$StatusAplicador', '$aplicador')";
+    $insertSql = "INSERT INTO demandas (Nota, crv, Cliente, CodigoCliente, Cnpj, Cidade, Estado, Pais, Escopo, Status, Cotacao, PrazoProposta, Prioridade, TipoProposta, refCliente, EspecificacaoCliente, Emfabrica, QuantidadeEquip, Equipamentos, Observacao, valor, frete, status_aplicador, aplicador)
+                  VALUES ('$nota', '$crv', '$cliente', '$codigoCliente', '$cnpj', '$cidade', '$estado', '$pais', '$escopo', '$Status', '$cotacao', '$prazoProposta', '$prioridade', '$tipoProposta', '$refCliente', '$especificacaoCliente', '$emFabrica', '$quantidadeEquip', '$equipamentos', '$observacao', '$valor', '$frete', '$StatusAplicador', '$aplicador')";
 
     if ($conn->query($insertSql) === TRUE) {
         echo "<script>
@@ -113,7 +132,6 @@ $conn->close();
         <div class="form-section-title">Cliente</div>
         <div class="form-group"><label for="cliente">Cliente:</label><input type="text" id="cliente" name="cliente" required></div>
         <div class="form-group"><label for="codigoCliente">Código Cliente:</label><input type="text" id="codigoCliente" name="codigoCliente" required onblur="buscarCliente()"></div>
-        <div class="form-group"><label for="nomeCliente">Nome Cliente:</label><input type="text" id="nomeCliente" name="nomeCliente" required></div>
         <div class="form-group"><label for="cnpj">CNPJ:</label><input type="text" id="cnpj" name="cnpj" required></div>
         <div class="form-group"><label for="cidade">Cidade:</label><input type="text" id="cidade" name="cidade" required></div>
         <div class="form-group"><label for="estado">Estado:</label><input type="text" id="estado" name="estado" required></div>
@@ -199,6 +217,34 @@ $conn->close();
   <script src="js/wave.js"></script>
   <script src="js/frete.js"></script>
   <script src="js/aplicadores.js"></script>
+
+  <script>
+    function buscarCliente() {
+      var codigoCliente = document.getElementById('codigoCliente').value;
+
+      if (codigoCliente.length > 0) {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', 'add_crv.php?codigoCliente=' + codigoCliente, true);
+        xhr.onreadystatechange = function() {
+          if (xhr.readyState == 4 && xhr.status == 200) {
+            var response = JSON.parse(xhr.responseText);
+
+            if (response.error) {
+              alert(response.error);
+            } else {
+              document.getElementById('cliente').value = response.Cliente;
+              document.getElementById('cnpj').value = response.Cnpj;
+              document.getElementById('cidade').value = response.Cidade;
+              document.getElementById('estado').value = response.Estado;
+              document.getElementById('pais').value = response.País;
+            }
+          }
+        };
+        xhr.send();
+      }
+    }
+  </script>
+
 
 </body>
 </html>
