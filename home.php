@@ -27,6 +27,11 @@ if (!isset($_SESSION['acesso'])) {
         <a href="home.php" class="btn-menu activo">
             <h3>Home</h3>
         </a>
+        <?php if ($_SESSION['acesso'] === 'CRV') : ?>
+            <a href="relatorio_crv.php" class="btn-menu">
+                <h3>Tendência</h3>
+            </a>
+        <?php endif; ?>
         <?php if ($_SESSION['acesso'] === 'Filial') : ?>
             <a href="filial.php" class="btn-menu">
                 <h3>Filial</h3>
