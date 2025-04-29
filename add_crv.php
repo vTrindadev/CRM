@@ -127,8 +127,6 @@ $conn->close();
           <label for="Status">Status:</label>
           <select id="Status" name="Status" required>
             <option value="Proposta em Elaboração">Proposta em Elaboração</option>
-            <option value="Em Peritagem">Em Peritagem</option>
-            <option value="Perdido">Perdido</option>
           </select>
         </div>
         <div class="form-group"><label for="aplicador">Aplicador:</label><input type="text" id="aplicador" name="aplicador"></div>
@@ -200,35 +198,7 @@ $conn->close();
   <script src="js/loader.js"></script>
   <script src="js/wave.js"></script>
   <script src="js/frete.js"></script>
-
-  <script>
-    document.getElementById('Status').addEventListener('change', function() {
-      var Status = this.value;
-      var StatusAplicador = document.getElementById('status_aplicador');
-
-      if (Status === 'Proposta em Elaboração') {
-        StatusAplicador.value = 'Distribuir';
-      } else if (Status === 'Em Peritagem') {
-        StatusAplicador.value = 'Em Peritagem';
-      } else if (Status === 'Perdido') {
-        StatusAplicador.value = 'Perdido';
-      }
-    });
-  </script>
-
-  <script>
-    document.getElementById('tipoProposta').addEventListener('change', function () {
-      const aplicadoresMap = {
-        'Campo': 'lucaspaulo@weg.net, luisfranca@weg.net',
-        'Fábrica': 'grahl@weg.net, jonas3, luisgm, pcampos',
-        'Partes e Peças': 'adrianad@weg.net, ullera@weg.net, gabrielfl@weg.net, cristianeaf@weg.net, diefanyg@weg.net'
-      };
-
-      const aplicador = document.getElementById('aplicador');
-      aplicador.value = aplicadoresMap[this.value] || '';
-    });
-  </script>
-
+  <script src="js/aplicadores.js"></script>
 
 </body>
 </html>
