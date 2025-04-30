@@ -29,7 +29,7 @@ if (!isset($_SESSION['acesso'])) {
         </a>
         <?php if ($_SESSION['acesso'] === 'CRV') : ?>
             <a href="relatorio_crv.php" class="btn-menu">
-                <h3>Tendência</h3>
+                <h3>Dashboard</h3>
             </a>
         <?php endif; ?>
         <?php if ($_SESSION['acesso'] === 'Filial') : ?>
@@ -40,13 +40,13 @@ if (!isset($_SESSION['acesso'])) {
 
         <?php if ($_SESSION['acesso'] === 'Filial') : ?>
             <a href="supervisao_filial.php" class="btn-menu">
-                <h3>Supervisionar</h3>
+                <h3>Follow UP</h3>
             </a>
         <?php endif; ?>
 
         <?php if ($_SESSION['acesso'] === 'Admin') : ?>
             <a href="relatorio.php" class="btn-menu">
-                <h3>Relatório</h3>
+                <h3>Dashboard</h3>
             </a>
         <?php endif; ?>
 
@@ -74,19 +74,19 @@ if (!isset($_SESSION['acesso'])) {
             </a>
         <?php endif; ?>
 
-        <?php if ($_SESSION['acesso'] === 'CRV' || $_SESSION['acesso'] === 'Admin' || $_SESSION['acesso'] === 'Partes e Peças' || $_SESSION['acesso'] === 'Campo' || $_SESSION['acesso'] === 'Fábrica') : ?>
+        <?php if ($_SESSION['acesso'] === 'CRV') : ?>
             <a href="crv.php" class="btn-menu">
                 <h3>CRV</h3>
             </a>
         <?php endif; ?>
 
-        <?php if ($_SESSION['acesso'] === 'CRV' || $_SESSION['acesso'] === 'Admin' || $_SESSION['acesso'] === 'Partes e Peças' || $_SESSION['acesso'] === 'Campo' || $_SESSION['acesso'] === 'Fábrica') : ?>
+        <?php if ($_SESSION['acesso'] === 'Partes e Peças' || $_SESSION['acesso'] === 'Campo' || $_SESSION['acesso'] === 'Fábrica') : ?>
             <a href="Apl_Proposta.php" class="btn-menu">
                 <h3>Aplicador de Proposta</h3>
             </a>
         <?php endif; ?>
 
-        <?php if ($_SESSION['acesso'] === 'CRV' || $_SESSION['acesso'] === 'Admin' || $_SESSION['acesso'] === 'Partes e Peças' || $_SESSION['acesso'] === 'Campo' || $_SESSION['acesso'] === 'Fábrica') : ?>
+        <?php if ($_SESSION['acesso'] === 'Partes e Peças' || $_SESSION['acesso'] === 'Campo' || $_SESSION['acesso'] === 'Fábrica') : ?>
             <a href="Apl_Implementação.php" class="btn-menu">
                 <h3>Aplicador de Implementação</h3>
             </a>

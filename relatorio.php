@@ -11,112 +11,98 @@ $user = "root";
 $pass = "";
 $dbname = "crm meg";
 
-// Conexão com o banco
 $conn = new mysqli($host, $user, $pass, $dbname);
 if ($conn->connect_error) {
     die("Erro de conexão: " . $conn->connect_error);
 }
 
-// Obter os filtros da URL (se existirem)
-$crv_filter = isset($_GET['crv']) ? $_GET['crv'] : '';
-$aplicador_filter = isset($_GET['aplicador']) ? $_GET['aplicador'] : '';
+// Filtros
+$crv_filter = $_GET['crv'] ?? '';
+$aplicador_filter = $_GET['aplicador'] ?? '';
 
-// Consultar dados para o gráfico de Tipo de Proposta
+// === Tipo de Proposta ===
 $query1 = "SELECT TipoProposta, COUNT(*) as total FROM demandas WHERE 1";
-
-// Adicionar filtros à consulta
-if ($crv_filter) {
-    $query1 .= " AND crv = '$crv_filter'";
-}
-if ($aplicador_filter) {
-    $query1 .= " AND aplicador = '$aplicador_filter'";
-}
-
+if ($crv_filter) $query1 .= " AND crv = '$crv_filter'";
+if ($aplicador_filter) $query1 .= " AND aplicador = '$aplicador_filter'";
 $query1 .= " GROUP BY TipoProposta";
 $result1 = mysqli_query($conn, $query1);
 
-$tipoProposta = [];
-$totalTipoProposta = [];
+$tipoProposta = $totalTipoProposta = [];
 while ($row = mysqli_fetch_assoc($result1)) {
     $tipoProposta[] = $row['TipoProposta'];
     $totalTipoProposta[] = $row['total'];
 }
 
-// Consultar dados para o gráfico de Prioridade
+// === Prioridade ===
 $query2 = "SELECT Prioridade, COUNT(*) as total FROM demandas WHERE 1";
-if ($crv_filter) {
-    $query2 .= " AND crv = '$crv_filter'";
-}
-if ($aplicador_filter) {
-    $query2 .= " AND aplicador = '$aplicador_filter'";
-}
+if ($crv_filter) $query2 .= " AND crv = '$crv_filter'";
+if ($aplicador_filter) $query2 .= " AND aplicador = '$aplicador_filter'";
 $query2 .= " GROUP BY Prioridade";
 $result2 = mysqli_query($conn, $query2);
 
-$prioridade = [];
-$totalPrioridade = [];
+$prioridade = $totalPrioridade = [];
 while ($row = mysqli_fetch_assoc($result2)) {
     $prioridade[] = $row['Prioridade'];
     $totalPrioridade[] = $row['total'];
 }
 
-// Consultar dados para o gráfico de Status
+// === Status ===
 $query3 = "SELECT Status, COUNT(*) as total FROM demandas WHERE 1";
-if ($crv_filter) {
-    $query3 .= " AND crv = '$crv_filter'";
-}
-if ($aplicador_filter) {
-    $query3 .= " AND aplicador = '$aplicador_filter'";
-}
+if ($crv_filter) $query3 .= " AND crv = '$crv_filter'";
+if ($aplicador_filter) $query3 .= " AND aplicador = '$aplicador_filter'";
 $query3 .= " GROUP BY Status";
 $result3 = mysqli_query($conn, $query3);
 
-$status = [];
-$totalStatus = [];
+$status = $totalStatus = [];
 while ($row = mysqli_fetch_assoc($result3)) {
     $status[] = $row['Status'];
     $totalStatus[] = $row['total'];
 }
 
-// Consultar dados para o gráfico de ranking de CRVs com mais demandas
+// === Ranking de CRVs ===
 $query6 = "SELECT crv, COUNT(*) as total FROM demandas WHERE 1";
-if ($crv_filter) {
-    $query6 .= " AND crv = '$crv_filter'";
-}
-if ($aplicador_filter) {
-    $query6 .= " AND aplicador = '$aplicador_filter'";
-}
+if ($crv_filter) $query6 .= " AND crv = '$crv_filter'";
+if ($aplicador_filter) $query6 .= " AND aplicador = '$aplicador_filter'";
 $query6 .= " GROUP BY crv ORDER BY total DESC";
 $result6 = mysqli_query($conn, $query6);
 
-$crvs = [];
-$totalCrvs = [];
+$crvs = $totalCrvs = [];
 while ($row = mysqli_fetch_assoc($result6)) {
     $crvs[] = $row['crv'];
     $totalCrvs[] = $row['total'];
 }
 
-
-// Demandas por UF (caso tenha coluna 'Estado' ou 'UF')
+// === Demandas por Estado ===
 $query7 = "SELECT Estado, COUNT(*) as total FROM demandas WHERE 1";
-
-if ($crv_filter) {
-    $query7 .= " AND crv = '$crv_filter'";
-}
-if ($aplicador_filter) {
-    $query7 .= " AND aplicador = '$aplicador_filter'";
-}
+if ($crv_filter) $query7 .= " AND crv = '$crv_filter'";
+if ($aplicador_filter) $query7 .= " AND aplicador = '$aplicador_filter'";
 $query7 .= " GROUP BY Estado";
 $result7 = mysqli_query($conn, $query7);
 
-$estados = [];
-$totalEstados = [];
+$estados = $totalEstados = [];
 while ($row = mysqli_fetch_assoc($result7)) {
     $estados[] = $row['Estado'];
     $totalEstados[] = $row['total'];
 }
 
+// === Tendência de Valor das Propostas ===
+$query8 = "
+    SELECT DATE_FORMAT(criacao, '%Y-%m') as mes, 
+           SUM(CASE WHEN Status = 'Proposta Concluída' THEN valor ELSE 0 END) as valor_concluido,
+           SUM(CASE WHEN Status != 'Proposta Concluída' THEN valor ELSE 0 END) as valor_criado
+    FROM demandas 
+    WHERE 1
+    GROUP BY mes
+    ORDER BY mes
+";
+$result8 = mysqli_query($conn, $query8);
 
+$data_tendencia = $valor_concluido = $valor_criado = [];
+while ($row = mysqli_fetch_assoc($result8)) {
+    $data_tendencia[] = $row['mes'];
+    $valor_concluido[] = (float)$row['valor_concluido'];
+    $valor_criado[] = (float)$row['valor_criado'];
+}
 ?>
 
 <!DOCTYPE html>
@@ -213,6 +199,10 @@ while ($row = mysqli_fetch_assoc($result7)) {
       <canvas id="myChart7"></canvas>
     </div>
 
+    <!-- Gráfico de Tendência -->
+    <div class="chart-container">
+      <canvas id="myChart8"></canvas>
+    </div>
   </div>
 
   <script>
@@ -374,7 +364,49 @@ while ($row = mysqli_fetch_assoc($result7)) {
       }
     });
 
-
+    
+    // Gráfico Tendência
+    const ctx8 = document.getElementById('myChart8').getContext('2d');
+    const myChart8 = new Chart(ctx8, {
+      type: 'bar', // Altera o tipo de gráfico de 'line' para 'bar'
+      data: {
+        labels: <?php echo json_encode($data_tendencia); ?>, // Exibe as datas agrupadas por mês
+        datasets: [
+          {
+            label: 'Valor das Propostas Criadas',
+            data: <?php echo json_encode($valor_criado); ?>,
+            backgroundColor: 'rgba(54, 162, 235, 0.6)',
+            borderColor: 'rgba(54, 162, 235, 1)',
+            borderWidth: 1,
+            fill: false
+          },
+          {
+            label: 'Valor das Propostas Concluídas',
+            data: <?php echo json_encode($valor_concluido); ?>,
+            backgroundColor: 'rgba(255, 99, 132, 0.6)',
+            borderColor: 'rgba(255, 99, 132, 1)',
+            borderWidth: 1,
+            fill: false
+          }
+        ]
+      },
+      options: {
+        plugins: {
+          legend: { labels: { color: 'white' } }
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: { color: 'white' },
+            grid: { color: 'rgba(255, 255, 255, 0.6)' }
+          },
+          x: {
+            ticks: { color: 'white' },
+            grid: { color: 'rgba(255, 255, 255, 0.6)' }
+          }
+        }
+      }
+});
 
   </script>
 

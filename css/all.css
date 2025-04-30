@@ -64,6 +64,7 @@
     display: flex;
     flex-direction: column;
     gap: 0.3vh;
+    width: 25vw;
   }
   
   
@@ -72,6 +73,9 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    word-wrap: break-word; /* Permite que palavras longas que não cabem sejam quebradas para a próxima linha */
+    word-break: break-word; /* Garante que palavras longas ou URLs quebrarão para a linha seguinte */
+    white-space: normal; /* Permite quebra de linha quando necessário */
   }
   
   .Status-badge {
@@ -106,6 +110,8 @@
     justify-content: space-between;
     gap: 1vh;
     min-width: 120px;
+    /*direction: rtl; /* Organiza da direita para a esquerda */
+    /*text-align: right; /* Alinha o texto à direita também */
   }
   
   /* Estilos para os Status */

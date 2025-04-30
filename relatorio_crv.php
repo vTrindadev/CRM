@@ -41,6 +41,20 @@ while ($row = mysqli_fetch_assoc($result8)) {
     $valor_concluido[] = $row['valor_concluido'];
     $valor_criado[] = $row['valor_criado'];
 }
+
+$query_tabela = "
+  SELECT id, cliente, valor, Status 
+  FROM demandas 
+  WHERE crv = '$email_usuario'
+";
+
+$result_tabela = mysqli_query($conn, $query_tabela);
+
+$tabela_dados = [];
+
+while ($row = mysqli_fetch_assoc($result_tabela)) {
+    $tabela_dados[] = $row;
+  }
 ?>
 
 <!DOCTYPE html>
@@ -80,6 +94,29 @@ while ($row = mysqli_fetch_assoc($result8)) {
     <!-- Gráfico de Tendência de Valor -->
     <div class="chart-container">
       <canvas id="myChart8"></canvas>
+    </div>
+
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Cliente</th>
+                    <th>Valor</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($tabela_dados as $linha): ?>
+                    <tr>
+                        <td><?php echo $linha['id']; ?></td>
+                        <td><?php echo $linha['cliente']; ?></td>
+                        <td>R$ <?php echo number_format($linha['valor'], 2, ',', '.'); ?></td>
+                        <td><?php echo $linha['Status']; ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
     </div>
   </div>
 

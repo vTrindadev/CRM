@@ -10,7 +10,7 @@
     flex-wrap: wrap; /* permite quebra de linha caso não caiba */
     gap: 2rem; /* espaço entre os gráficos */
     padding: 2rem;
-    padding-top: 23vh; /* Ajuste o valor conforme a altura do menu */
+    padding-top: 18vh; /* Ajuste o valor conforme a altura do menu */
     box-sizing: border-box; /* Garante que o padding seja considerado no cálculo do tamanho total */
     overflow-y: auto;
 }
@@ -100,4 +100,44 @@
 
 .filters button:hover {
     background-color: #1c86ee;
+}
+
+.table-container {
+    width: 80vw;
+    margin-top: 2rem;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 1vw;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+
+table th, table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    color: white;
+}
+
+table th {
+    background-color: #00579d;
+}
+
+table tr:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+@media screen and (max-width: 768px) {
+    .table-container {
+        margin-top: 1rem;
+    }
+
+    table th, table td {
+        font-size: 14px;
+    }
 }
