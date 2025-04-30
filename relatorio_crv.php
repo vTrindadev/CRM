@@ -22,13 +22,14 @@ $email_usuario = $_SESSION['email'];  // Pegando o email do usuário da sessão
 
 $query8 = "
   SELECT DATE(criacao) as data, 
-         SUM(CASE WHEN Status = 'Concluído' THEN valor ELSE 0 END) as valor_concluido,
-         SUM(CASE WHEN Status != 'Concluído' THEN valor ELSE 0 END) as valor_criado
+         SUM(CASE WHEN Status = 'Proposta Concluída' THEN valor ELSE 0 END) as valor_concluido,
+         SUM(CASE WHEN Status != 'Proposta Concluída' THEN valor ELSE 0 END) as valor_criado
   FROM demandas 
-  WHERE aplicador = '$email_usuario'
+  WHERE crv = '$email_usuario'
   GROUP BY DATE(criacao)
   ORDER BY data
 ";
+
 $result8 = mysqli_query($conn, $query8);
 
 $data_tendencia = [];
@@ -36,11 +37,10 @@ $valor_concluido = [];
 $valor_criado = [];
 
 while ($row = mysqli_fetch_assoc($result8)) {
-    $data_tendencia[] = $row['criacao'];
-    $valor_concluido[] = $row['valor'];
+    $data_tendencia[] = $row['data'];
+    $valor_concluido[] = $row['valor_concluido'];
     $valor_criado[] = $row['valor_criado'];
 }
-
 
 ?>
 
@@ -66,8 +66,8 @@ while ($row = mysqli_fetch_assoc($result8)) {
       <a href="home.php" class="btn-menu">
         <h3>Home</h3>
       </a>
-      <a href="relatorio.php" class="btn-menu activo">
-        <h3>Relatório</h3>
+      <a href="relatorio_crv.php" class="btn-menu activo">
+        <h3>Tendência</h3>
       </a>
     </div>
     <div class="opt-menu">
@@ -77,20 +77,18 @@ while ($row = mysqli_fetch_assoc($result8)) {
     </div>
   </div>
 
-
   <div class="container">    
     <!-- Gráfico de Tendência de Valor -->
     <div class="chart-container">
       <canvas id="myChart8"></canvas>
     </div>
-
   </div>
 
   <script>
    // Gráfico de Tendência de Valor
 const ctx8 = document.getElementById('myChart8').getContext('2d');
 const myChart8 = new Chart(ctx8, {
-  type: 'line',
+  type: 'bar', // Altera o tipo de gráfico de 'line' para 'bar'
   data: {
     labels: <?php echo json_encode($data_tendencia); ?>,
     datasets: [
@@ -129,7 +127,6 @@ const myChart8 = new Chart(ctx8, {
     }
   }
 });
-
   </script>
 
   <script src="js/loader.js"></script>
