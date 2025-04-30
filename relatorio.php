@@ -103,6 +103,28 @@ while ($row = mysqli_fetch_assoc($result8)) {
     $valor_concluido[] = (float)$row['valor_concluido'];
     $valor_criado[] = (float)$row['valor_criado'];
 }
+
+// === Demandas Fora do Prazo ===
+$query9 = "
+    SELECT 
+        TipoProposta, 
+        COUNT(*) AS total_fora_do_prazo 
+    FROM demandas 
+    WHERE TIMESTAMPDIFF(HOUR, PrazoProposta, NOW()) > 24  -- Alterando para 24 horas ou o tempo que deseja
+";
+
+if ($crv_filter) $query9 .= " AND crv = '$crv_filter'";
+if ($aplicador_filter) $query9 .= " AND aplicador = '$aplicador_filter'";
+
+$query9 .= " GROUP BY TipoProposta";
+$result9 = mysqli_query($conn, $query9);
+
+$tipoForaPrazo = $totalForaPrazo = [];
+while ($row = mysqli_fetch_assoc($result9)) {
+    $tipoForaPrazo[] = $row['TipoProposta'];
+    $totalForaPrazo[] = $row['total_fora_do_prazo'];
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -203,6 +225,10 @@ while ($row = mysqli_fetch_assoc($result8)) {
     <div class="chart-container">
       <canvas id="myChart8"></canvas>
     </div>
+    <!-- Gráfico de Demandas Fora do Prazo -->
+    <div class="chart-container">
+      <canvas id="myChart9"></canvas>
+    </div>
   </div>
 
   <script>
@@ -222,8 +248,16 @@ while ($row = mysqli_fetch_assoc($result8)) {
       },
       options: {
         plugins: {
-          legend: { labels: { color: 'white' } }
-        },
+          legend: { labels: { color: 'white' } },
+            title: {
+              display: true,
+              text: 'Demandas por tipo de proposta', // Título do gráfico
+              color: 'white',
+              font: {
+                size: 18
+              }
+            }
+    },
         scales: {
           y: {
             beginAtZero: true,
@@ -254,8 +288,16 @@ while ($row = mysqli_fetch_assoc($result8)) {
       },
       options: {
         plugins: {
-          legend: { labels: { color: 'white' } }
-        },
+          legend: { labels: { color: 'white' } },
+            title: {
+              display: true,
+              text: 'Demandas por Prioridade', // Título do gráfico
+              color: 'white',
+              font: {
+                size: 18
+              }
+            }
+    },
         scales: {
           y: {
             beginAtZero: true,
@@ -316,8 +358,16 @@ while ($row = mysqli_fetch_assoc($result8)) {
       },
       options: {
         plugins: {
-          legend: { labels: { color: 'white' } }
-        },
+          legend: { labels: { color: 'white' } },
+            title: {
+              display: true,
+              text: 'Quantidade de Demandas por CRV', // Título do gráfico
+              color: 'white',
+              font: {
+                size: 18
+              }
+            }
+    },
         scales: {
           y: {
             beginAtZero: true,
@@ -348,8 +398,16 @@ while ($row = mysqli_fetch_assoc($result8)) {
       },
       options: {
         plugins: {
-          legend: { labels: { color: 'white' } }
-        },
+          legend: { labels: { color: 'white' } },
+            title: {
+              display: true,
+              text: 'Demandas por Estado', // Título do gráfico
+              color: 'white',
+              font: {
+                size: 18
+              }
+            }
+    },
         scales: {
           y: {
             beginAtZero: true,
@@ -392,8 +450,16 @@ while ($row = mysqli_fetch_assoc($result8)) {
       },
       options: {
         plugins: {
-          legend: { labels: { color: 'white' } }
-        },
+          legend: { labels: { color: 'white' } },
+            title: {
+              display: true,
+              text: 'Demandas Faturadas', // Título do gráfico
+              color: 'white',
+              font: {
+                size: 18
+              }
+            }
+    },
         scales: {
           y: {
             beginAtZero: true,
@@ -407,6 +473,46 @@ while ($row = mysqli_fetch_assoc($result8)) {
         }
       }
 });
+
+  // Gráfico de Demandas Fora do Prazo
+  const ctx9 = document.getElementById('myChart9').getContext('2d');
+  const myChart9 = new Chart(ctx9, {
+    type: 'bar',
+    data: {
+      labels: <?php echo json_encode($tipoForaPrazo); ?>, // Tipos de Proposta
+      datasets: [{
+        label: 'Demandas Fora do Prazo',
+        data: <?php echo json_encode($totalForaPrazo); ?>, // Número de demandas fora do prazo
+        backgroundColor: 'rgba(255, 99, 132, 0.6)', // Cor de fundo
+        borderColor: 'rgba(255, 99, 132, 1)', // Cor da borda
+        borderWidth: 1
+      }]
+    },
+    options: {
+      plugins: {
+          legend: { labels: { color: 'white' } },
+            title: {
+              display: true,
+              text: 'Demandas Fora do Prazo', // Título do gráfico
+              color: 'white',
+              font: {
+                size: 18
+              }
+            }
+    },
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: { color: 'white' },
+          grid: { color: 'rgba(255, 255, 255, 0.6)' }
+        },
+        x: {
+          ticks: { color: 'white' },
+          grid: { color: 'rgba(255, 255, 255, 0.6)' }
+        }
+      }
+    }
+  });
 
   </script>
 

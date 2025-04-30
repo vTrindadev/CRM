@@ -34,7 +34,7 @@
     justify-content: center;
     align-items: center;
     position: relative;
-    height: 50vh;
+    height: 55vh;
     width: 30vw;
     z-index: 100;
     background: rgba(255, 255, 255, 0.2); /* leve fundo branco com transparência */
