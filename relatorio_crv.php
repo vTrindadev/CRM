@@ -21,13 +21,13 @@ if ($conn->connect_error) {
 $email_usuario = $_SESSION['email'];  // Pegando o email do usuário da sessão
 
 $query8 = "
-  SELECT DATE(criacao) as data, 
+  SELECT DATE_FORMAT(criacao, '%Y-%m') as mes, 
          SUM(CASE WHEN Status = 'Proposta Concluída' THEN valor ELSE 0 END) as valor_concluido,
          SUM(CASE WHEN Status != 'Proposta Concluída' THEN valor ELSE 0 END) as valor_criado
   FROM demandas 
   WHERE crv = '$email_usuario'
-  GROUP BY DATE(criacao)
-  ORDER BY data
+  GROUP BY mes
+  ORDER BY mes
 ";
 
 $result8 = mysqli_query($conn, $query8);
@@ -37,11 +37,10 @@ $valor_concluido = [];
 $valor_criado = [];
 
 while ($row = mysqli_fetch_assoc($result8)) {
-    $data_tendencia[] = $row['data'];
+    $data_tendencia[] = $row['mes'];  // Agora estamos agrupando por mês
     $valor_concluido[] = $row['valor_concluido'];
     $valor_criado[] = $row['valor_criado'];
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -50,7 +49,7 @@ while ($row = mysqli_fetch_assoc($result8)) {
   <meta charset="UTF-8">
   <title>Relatórios CRM MEG</title>
   <link rel="stylesheet" href="css/padrao.css">
-  <link rel="stylesheet" href="css/relatorio.css">
+  <link rel="stylesheet" href="css/relatorio_crv.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
@@ -86,11 +85,11 @@ while ($row = mysqli_fetch_assoc($result8)) {
 
   <script>
    // Gráfico de Tendência de Valor
-const ctx8 = document.getElementById('myChart8').getContext('2d');
+   const ctx8 = document.getElementById('myChart8').getContext('2d');
 const myChart8 = new Chart(ctx8, {
   type: 'bar', // Altera o tipo de gráfico de 'line' para 'bar'
   data: {
-    labels: <?php echo json_encode($data_tendencia); ?>,
+    labels: <?php echo json_encode($data_tendencia); ?>, // Exibe as datas agrupadas por mês
     datasets: [
       {
         label: 'Valor das Propostas Criadas',
