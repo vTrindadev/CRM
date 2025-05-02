@@ -94,11 +94,17 @@ $result = $stmt->get_result();
                 case 'distribuir':
                     $StatusClass = 'Status-distribuir';
                     break;
-                case 'concluído':
+                case 'proposta concluída':
                     $StatusClass = 'Status-concluído';
                 break;
                 case 'nova solicitação':
                     $StatusClass = 'Status-solicitacao';
+                break;
+                case 'revisar proposta':
+                    $StatusClass = 'Status-revisão';
+                break;
+                case 'em implantação':
+                    $StatusClass = 'Status-negociacao';
                 break;
                 default:
                     $StatusClass = 'Status-default';

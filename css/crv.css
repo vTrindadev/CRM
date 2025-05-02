@@ -146,6 +146,14 @@
   background-color: #00693C; /* vermelho */
 }
 
+.Status-revisão {
+  background-color: #F4A44F; /* vermelho */
+}
+
+.Status-negociacao {
+  background-color: #0D273E; /* vermelho */
+}
+
 .Status-default {
   background-color: #95a5a6; /* cinza padrão */
 }
