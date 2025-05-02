@@ -252,9 +252,4 @@
   color: #fff;
 }
 
-/* IMPORTANTE: Removido o hover que abria o dropdown automaticamente */
-/*
-.notification-icon:hover .notification-dropdown {
-  display: block;
-}
-*/
+
