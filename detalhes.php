@@ -133,7 +133,6 @@ $conn->close();
         <div class="form-section-title">Cliente</div>
         <div class="form-group"><label for="cliente">Cliente:</label><input type="text" id="cliente" name="cliente" value="<?= valor('Cliente', $dados) ?>"readonly required></div>
         <div class="form-group"><label for="codigoCliente">Código Cliente:</label><input type="text" id="codigoCliente" name="codigoCliente" value="<?= valor('CodigoCliente', $dados) ?>"readonly required></div>
-        <div class="form-group"><label for="nomeCliente">Nome Cliente:</label><input type="text" id="nomeCliente" name="nomeCliente" value="<?= valor('NomeCliente', $dados) ?>"readonly required></div>
         <div class="form-group"><label for="cnpj">CNPJ:</label><input type="text" id="cnpj" name="cnpj" value="<?= valor('Cnpj', $dados) ?>"readonly required></div>
         <div class="form-group"><label for="cidade">Cidade:</label><input type="text" id="cidade" name="cidade" value="<?= valor('Cidade', $dados) ?>"readonly required></div>
         <div class="form-group"><label for="estado">Estado:</label><input type="text" id="estado" name="estado" value="<?= valor('Estado', $dados) ?>"readonly required></div>
