@@ -10,25 +10,51 @@ $user = "root";
 $pass = "";
 $dbname = "crm meg";
 
-// Conexão com o banco
 $conn = new mysqli($host, $user, $pass, $dbname);
 if ($conn->connect_error) {
     die("Erro de conexão: " . $conn->connect_error);
 }
 
-// Email do usuário logado
 $emailUsuario = $_SESSION['email'] ?? '';
 
-// Buscar apenas demandas vinculadas ao aplicador (email)
+// Demandas do usuário
 $sql = "SELECT * FROM demandas WHERE aplicador LIKE ?";
 $stmt = $conn->prepare($sql);
-
 $likeEmail = "%$emailUsuario%";
 $stmt->bind_param("s", $likeEmail);
-
 $stmt->execute();
 $result = $stmt->get_result();
 
+// Notificações por "em implantação" ou "urgente"
+$notificacoes = [];
+
+$sqlNotif = "SELECT id, Nota, status_aplicador, Prioridade FROM demandas 
+             WHERE aplicador LIKE ? AND 
+             (status_aplicador = 'em implantação' OR Prioridade = 'urgente')";
+$stmtNotif = $conn->prepare($sqlNotif);
+$stmtNotif->bind_param("s", $likeEmail);
+$stmtNotif->execute();
+$resultNotif = $stmtNotif->get_result();
+
+while ($rowNotif = $resultNotif->fetch_assoc()) {
+    $exibir = [];
+
+    if (strtolower($rowNotif['status_aplicador']) === 'em implantação') {
+        $exibir['tipo'] = 'status';
+        $exibir['id'] = $rowNotif['id'];
+        $exibir['info'] = $rowNotif['status_aplicador'];
+    } elseif (strtolower($rowNotif['Prioridade']) === 'urgente') {
+        $exibir['tipo'] = 'prioridade';
+        $exibir['id'] = $rowNotif['id'];
+        $exibir['info'] = $rowNotif['Prioridade'];
+    }
+
+    if (!empty($exibir)) {
+        $notificacoes[] = $exibir;
+    }
+}
+
+$stmtNotif->close();
 ?>
 
 <!DOCTYPE html>
@@ -38,6 +64,7 @@ $result = $stmt->get_result();
   <title>CRM CRV</title>
   <link rel="stylesheet" href="css/padrao.css">
   <link rel="stylesheet" href="css/crv.css">
+
 </head>
 <body>
   <div id="loader">
@@ -53,14 +80,37 @@ $result = $stmt->get_result();
       <a href="BD_Equipamentos.php" class="btn-menu"><h3>Equipamentos</h3></a>
     </div>
     <div class="opt-menu">
-      <form action="logout.php" method="post">
-          <button type="submit" class="btn-menu-sair">Sair</button>
-      </form>
+        <div class="notification-icon">
+            <img src="img/bell.svg" class="bell-icon" alt="Sino" id="notificationBell">
+            <?php if (count($notificacoes) > 0): ?>
+            <span class="notification-dot"></span>
+            <div class="notification-dropdown" id="notificationDropdown">
+                <ul>
+                <?php foreach ($notificacoes as $n): ?>
+                    <li>
+                        <a href="detalhes.php?id=<?= urlencode($n['id']) ?>">
+                            <strong>ID:</strong> <?= htmlspecialchars($n['id']) ?><br>
+                            <?php if ($n['tipo'] === 'status'): ?>
+                                <strong>Status:</strong> <?= htmlspecialchars($n['info']) ?>
+                            <?php elseif ($n['tipo'] === 'prioridade'): ?>
+                                <strong>Prioridade:</strong> <?= htmlspecialchars($n['info']) ?>
+                            <?php endif; ?>
+                        </a>
+                    </li>
+                <?php endforeach; ?>
+                </ul>
+            </div>
+            <?php endif; ?>
+        </div>
+
+        <form action="logout.php" method="post">
+            <button type="submit" class="btn-menu-sair">Sair</button>
+        </form>
     </div>
+
   </div>
 
   <div class="container">
-    
     <div class="info-container">
       <?php
       if ($result->num_rows > 0) {
@@ -79,36 +129,17 @@ $result = $stmt->get_result();
               $url = "detalhes.php?id=" . $row["id"] . "&nota=" . urlencode($row["Nota"]) . "&cotacao=" . urlencode($row["Cotacao"]) . "&cliente=" . urlencode($row["Cliente"]) . "&escopo=" . urlencode($row["Escopo"]) . "&Status=" . urlencode($row["status_aplicador"]);
 
               $Status = strtolower($row["status_aplicador"]);
-              $StatusClass = '';
-
-              switch ($Status) {
-                case 'proposta em elaboração':
-                    $StatusClass = 'Status-elaboracao';
-                    break;
-                case 'em peritagem':
-                    $StatusClass = 'Status-peritagem';
-                    break;
-                case 'perdido':
-                    $StatusClass = 'Status-perdido';
-                    break;
-                case 'distribuir':
-                    $StatusClass = 'Status-distribuir';
-                    break;
-                case 'proposta concluída':
-                    $StatusClass = 'Status-concluído';
-                break;
-                case 'nova solicitação':
-                    $StatusClass = 'Status-solicitacao';
-                break;
-                case 'revisar proposta':
-                    $StatusClass = 'Status-revisão';
-                break;
-                case 'em implantação':
-                    $StatusClass = 'Status-negociacao';
-                break;
-                default:
-                    $StatusClass = 'Status-default';
-              }
+              $StatusClass = match ($Status) {
+                  'proposta em elaboração' => 'Status-elaboracao',
+                  'em peritagem' => 'Status-peritagem',
+                  'perdido' => 'Status-perdido',
+                  'distribuir' => 'Status-distribuir',
+                  'proposta concluída' => 'Status-concluído',
+                  'nova solicitação' => 'Status-solicitacao',
+                  'revisar proposta' => 'Status-revisão',
+                  'em implantação' => 'Status-negociacao',
+                  default => 'Status-default',
+              };
 
               echo '<div class="info-card" data-busca="' . htmlspecialchars($busca, ENT_QUOTES, 'UTF-8') . '">';
               echo '<div class="info-sections">';
@@ -123,24 +154,13 @@ $result = $stmt->get_result();
               echo '<p><strong>Cliente:</strong> ' . htmlspecialchars($row["Cliente"]) . '</p>';
               echo '<p><strong>Escopo:</strong> ' . htmlspecialchars($row["Escopo"]) . '</p>';
               $prioridade = strtolower($row["Prioridade"]);
-              $prioridadeClass = '';
-              
-              switch ($prioridade) {
-                  case 'urgente':
-                      $prioridadeClass = 'prioridade-urgente';
-                      break;
-                  case 'máquina parada':
-                      $prioridadeClass = 'prioridade-maquina';
-                      break;
-                  case 'normal':
-                      $prioridadeClass = 'prioridade-normal';
-                      break;
-                  case 'estimativa':
-                      $prioridadeClass = 'prioridade-estimativa';
-                      break;
-                  default:
-                      $prioridadeClass = 'prioridade-default';
-              }      
+              $prioridadeClass = match ($prioridade) {
+                  'urgente' => 'prioridade-urgente',
+                  'máquina parada' => 'prioridade-maquina',
+                  'normal' => 'prioridade-normal',
+                  'estimativa' => 'prioridade-estimativa',
+                  default => 'prioridade-default',
+              };
               echo '</div>';
               echo '</div>';
               echo '<div class="card-end">';
@@ -163,5 +183,27 @@ $result = $stmt->get_result();
   <script src="js/loader.js"></script>
   <script src="js/wave.js"></script>
   <script src="js/filtro.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+    const bell = document.getElementById("notificationBell");
+    const dropdown = document.getElementById("notificationDropdown");
+
+    if (bell && dropdown) {
+        bell.addEventListener("click", function (e) {
+            e.stopPropagation();
+            dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+        });
+
+        // Fecha se clicar fora
+        document.addEventListener("click", function () {
+            dropdown.style.display = "none";
+        });
+
+        // Impede que o clique dentro da dropdown feche ela
+        dropdown.addEventListener("click", function (e) {
+            e.stopPropagation();
+        });
+    }
+});</script>
 </body>
 </html>
