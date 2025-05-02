@@ -38,6 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $cotacao = $_POST['cotacao'];
     $crv = $_POST['crv'];
     $status_aplicador = $_POST['status_aplicador'];
+    $Status = $_POST['Status'];
     $aplicador = $_POST['aplicador'];
     $valor = $_POST['valor'];
     $prazoProposta = $_POST['prazoProposta'];
@@ -58,6 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 Cotacao = '$cotacao', 
                 crv = '$crv', 
                 status_aplicador = '$status_aplicador', 
+                Status = '$Status', 
                 Aplicador = '$aplicador', 
                 Valor = '$valor', 
                 PrazoProposta = '$prazoProposta', 
@@ -145,6 +147,8 @@ $conn->close();
           <label for="status_aplicador">Status Aplicador:</label>
           <select id="status_aplicador" name="status_aplicador" required>
             <?php
+              $status = valor('Status', $dados); // ajuste conforme necessário
+
               $StatusAplicadorList = [
                 'Distribuir',
                 'Nova Solicitação',
@@ -154,6 +158,15 @@ $conn->close();
                 'Perdido',
                 'Em Consulta'
               ];
+
+              if ($status === "Proposta em Revisão") {
+                $StatusAplicadorList = ["Revisar Proposta", "Proposta Concluída", "Informação Pendente", "Perdido", "Em Consulta"];
+              }
+
+              if ($status === "Em Negociação") {
+                $StatusAplicadorList = ["Em Implantação", "Implantado", "Implantado - Em peritagem/Revisão", "Implantado - Proposta Revisada", "Implantado - Em Negociação de aditivo", "Implantado - Em Ajuste de Pedências", "Implantado e Liberado", "Implantado e Liberado c/ Pendências", "Devolvido para Revisão do Pedido"];
+              }
+
               foreach ($StatusAplicadorList as $Status) {
                 $selected = valor('status_aplicador', $dados) == $Status ? 'selected' : '';
                 echo "<option value='$Status' $selected>$Status</option>";
@@ -250,6 +263,24 @@ $conn->close();
         Status.value = 'Proposta em Elaboração';
       } else if (aplicadorValue === 'Em Consulta') {
         Status.value = 'Proposta em Elaboração';
+      } else if (aplicadorValue === 'Revisar Proposta') {
+        Status.value = 'Proposta em Revisão';
+      } else if (aplicadorValue === 'Implantado') {
+        Status.value = 'Implantado';
+      } else if (aplicadorValue === 'Implantado - Em peritagem/Revisão') {
+        Status.value = 'Implantado';
+      } else if (aplicadorValue === 'Implantado - Proposta Revisada') {
+        Status.value = 'Implantado - Em peritagem/Revisão';
+      } else if (aplicadorValue === 'Implantado - Em Negociação de aditivo') {
+        Status.value = 'Implantado - Em Negociação de aditivo';
+      } else if (aplicadorValue === 'Implantado - Em Ajuste de Pedências') {
+        Status.value = 'Implantado - Em Ajuste de Pedências';
+      } else if (aplicadorValue === 'Implantado e Liberado') {
+        Status.value = 'Implantado e Liberado';
+      } else if (aplicadorValue === 'Implantado e Liberado c/ Pendências') {
+        Status.value = 'Implantado e Liberado c/ Pendências';
+      } else if (aplicadorValue === 'Devolvido para Revisão do Pedido') {
+        Status.value = 'Devolvido para Revisão do Pedido';
       } else {
         Status.value = ''; // ou mantenha o valor atual se quiser evitar alteração
       }

@@ -143,15 +143,25 @@ $conn->close();
         <div class="form-section-title">Proposta</div>
         <div class="form-group">
           <label for="Status">Status:</label>
-          <select id="Status" name="Status" required>
-            <?php
-              $StatusList = ["Proposta em Elaboração", "Em Negociação"/*, "Previsto para: "*/, "Proposta Concluída", "Perdido", "Budget", "Proposta em Revisão"];
-              foreach ($StatusList as $st) {
-                $selected = valor('Status', $dados) == $st ? 'selected' : '';
-                echo "<option value='$st' $selected>$st</option>";
-              }
-            ?>
-          </select>
+            <select id="Status" name="Status" required>
+              <?php
+                $status_aplicador = valor('status_aplicador', $dados); // ajuste conforme necessário
+
+                // Lista padrão
+                $StatusList = ["Proposta em Elaboração", "Em Negociação", "Proposta Concluída", "Perdido", "Budget", "Proposta em Revisão"];
+
+                // Lista alternativa se for "Proposta Concluída"
+                if ($status_aplicador === "Proposta Concluída") {
+                  $StatusList = ["Proposta Concluída", "Em Negociação", "Previsto para Mês Espec.", "Perdido", "Budget", "Proposta em Revisão"];
+                }
+
+                foreach ($StatusList as $st) {
+                  $selected = valor('Status', $dados) == $st ? 'selected' : '';
+                  echo "<option value='$st' $selected>$st</option>";
+                }
+              ?>
+            </select>
+
         </div>
         <div class="form-group"><label for="status_aplicador">status_aplicador:</label><input type="text" id="status_aplicador" name="status_aplicador" value="<?= valor('status_aplicador', $dados) ?>" readonly></div>
         <div class="form-group"><label for="aplicador">Aplicador:</label><input type="text" id="aplicador" name="aplicador" value="<?= valor('aplicador', $dados) ?>"></div>
