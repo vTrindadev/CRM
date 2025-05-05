@@ -13,8 +13,7 @@ if ($conn->connect_error) {
 
 if(isset($_GET['codigoCliente'])){
   $codigoCliente = $_GET['codigoCliente'];
-  
-  // Query para pegar os dados do cliente
+
   $sql = "SELECT Cliente, Cnpj, Cidade, Estado, País FROM clientes WHERE Código = ?";
   $stmt = $conn->prepare($sql);
   $stmt->bind_param("s", $codigoCliente);
@@ -23,15 +22,15 @@ if(isset($_GET['codigoCliente'])){
 
   if($result->num_rows > 0){
       $cliente = $result->fetch_assoc();
-      echo json_encode($cliente);  // Retorna os dados em formato JSON
+      echo json_encode($cliente);
   } else {
       echo json_encode(['error' => 'Cliente não encontrado.']);
   }
   exit;
 }
 
-
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Captura os dados do formulário
     $nota = $_POST['nota'];
     $crv = $_POST['crv'];
     $cliente = $_POST['cliente'];
@@ -54,13 +53,49 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $observacao = $_POST['observacao'];
     $valor = $_POST['valor'];
     $frete = isset($_POST['frete']) ? $_POST['frete'] : null;
-    $StatusAplicador = $_POST['status_aplicador']; 
-    $aplicador = $_POST['aplicador']; 
+    $StatusAplicador = $_POST['status_aplicador'];
+    $aplicador = $_POST['aplicador'];
 
+    // Insere no banco
     $insertSql = "INSERT INTO demandas (Nota, crv, Cliente, CodigoCliente, Cnpj, Cidade, Estado, Pais, Escopo, Status, Cotacao, PrazoProposta, Prioridade, TipoProposta, refCliente, EspecificacaoCliente, Emfabrica, QuantidadeEquip, Equipamentos, Observacao, valor, frete, status_aplicador, aplicador)
                   VALUES ('$nota', '$crv', '$cliente', '$codigoCliente', '$cnpj', '$cidade', '$estado', '$pais', '$escopo', '$Status', '$cotacao', '$prazoProposta', '$prioridade', '$tipoProposta', '$refCliente', '$especificacaoCliente', '$emFabrica', '$quantidadeEquip', '$equipamentos', '$observacao', '$valor', '$frete', '$StatusAplicador', '$aplicador')";
 
     if ($conn->query($insertSql) === TRUE) {
+        // Envio de email para CRV
+        $to = $crv; // Já vem com o e-mail do CRV no <select>
+        if (!empty($aplicador) && filter_var($aplicador, FILTER_VALIDATE_EMAIL) && $aplicador != $crv) {
+            $to .= "," . $aplicador; // Envia também para o aplicador se estiver presente
+        }
+
+        $subject = "Nova demanda criada no CRM";
+        $message = "
+        Uma nova demanda foi registrada no CRM:
+
+        Cliente: $cliente
+        Código Cliente: $codigoCliente
+        CNPJ: $cnpj
+        CRV Responsável: $crv
+        Cotação: $cotacao
+        Status: $Status
+        Tipo Proposta: $tipoProposta
+        Prioridade: $prioridade
+        Valor: $valor
+        Aplicador: $aplicador
+
+        Escopo:
+        $escopo
+
+        Observações:
+        $observacao
+
+        Acesse o CRM para visualizar a demanda completa.
+        ";
+
+        $headers = "From: crm@meg.com";
+
+        // Envia o e-mail
+        mail($to, $subject, $message, $headers);
+
         echo "<script>
                 alert('Demanda criada com sucesso!');
                 window.location.href = 'CRV.php';
@@ -72,6 +107,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 $conn->close();
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="pt-br">
