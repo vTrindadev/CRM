@@ -11,22 +11,22 @@ if ($conn->connect_error) {
     die("Erro de conexão: " . $conn->connect_error);
 }
 
-if(isset($_GET['codigoCliente'])){
-  $codigoCliente = $_GET['codigoCliente'];
+if (isset($_GET['codigoCliente'])) {
+    $codigoCliente = $_GET['codigoCliente'];
 
-  $sql = "SELECT Cliente, Cnpj, Cidade, Estado, País FROM clientes WHERE Código = ?";
-  $stmt = $conn->prepare($sql);
-  $stmt->bind_param("s", $codigoCliente);
-  $stmt->execute();
-  $result = $stmt->get_result();
+    $sql = "SELECT Cliente, Cnpj, Cidade, Estado, País FROM clientes WHERE Código = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("s", $codigoCliente);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
-  if($result->num_rows > 0){
-      $cliente = $result->fetch_assoc();
-      echo json_encode($cliente);
-  } else {
-      echo json_encode(['error' => 'Cliente não encontrado.']);
-  }
-  exit;
+    if ($result->num_rows > 0) {
+        $cliente = $result->fetch_assoc();
+        echo json_encode($cliente);
+    } else {
+        echo json_encode(['error' => 'Cliente não encontrado.']);
+    }
+    exit;
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -70,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $subject = "Nova demanda criada no CRM";
         $message = "
         Uma nova demanda foi registrada no CRM:
-
+        
         Cliente: $cliente
         Código Cliente: $codigoCliente
         CNPJ: $cnpj
@@ -108,8 +108,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 $conn->close();
 ?>
 
-
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -140,9 +138,7 @@ $conn->close();
   </div>
 
   <div class="container">
-    
     <form id="detalhesForm" method="POST">
-
       <!-- Identificação -->
       <div class="form-section">
         <div class="form-section-title">Identificação</div>
@@ -253,35 +249,6 @@ $conn->close();
   <script src="js/loader.js"></script>
   <script src="js/wave.js"></script>
   <script src="js/frete.js"></script>
-  <script src="js/aplicadores.js"></script>
-
-  <script>
-    function buscarCliente() {
-      var codigoCliente = document.getElementById('codigoCliente').value;
-
-      if (codigoCliente.length > 0) {
-        var xhr = new XMLHttpRequest();
-        xhr.open('GET', 'add_crv.php?codigoCliente=' + codigoCliente, true);
-        xhr.onreadystatechange = function() {
-          if (xhr.readyState == 4 && xhr.status == 200) {
-            var response = JSON.parse(xhr.responseText);
-
-            if (response.error) {
-              alert(response.error);
-            } else {
-              document.getElementById('cliente').value = response.Cliente;
-              document.getElementById('cnpj').value = response.Cnpj;
-              document.getElementById('cidade').value = response.Cidade;
-              document.getElementById('estado').value = response.Estado;
-              document.getElementById('pais').value = response.País;
-            }
-          }
-        };
-        xhr.send();
-      }
-    }
-  </script>
-
-
+  <script src="js/clientes.js"></script>
 </body>
 </html>

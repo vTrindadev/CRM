@@ -1,6 +1,6 @@
 <?php
+// Inicia a sessão caso não esteja ativa
 include('protection.php');
-
 if (!isset($_SESSION)) {
     session_start();
 }
@@ -10,16 +10,16 @@ $user = "root";
 $pass = "";
 $dbname = "crm meg";
 
-// Conexão com o banco
+// Conexão com o banco de dados
 $conn = new mysqli($host, $user, $pass, $dbname);
 if ($conn->connect_error) {
     die("Erro de conexão: " . $conn->connect_error);
 }
 
-// Email do usuário logado
+// Recupera o email do usuário logado (assumindo que está armazenado na sessão)
 $emailUsuario = $_SESSION['email'] ?? '';
 
-// Buscar apenas demandas vinculadas ao CRV (email)
+// Prepara a consulta para buscar apenas demandas vinculadas ao CRV (usando o email do usuário)
 $sql = "SELECT * FROM demandas WHERE crv = ?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("s", $emailUsuario);
@@ -36,10 +36,12 @@ $result = $stmt->get_result();
   <link rel="stylesheet" href="css/crv.css">
 </head>
 <body>
+  <!-- Loader para exibir enquanto os dados estão sendo carregados -->
   <div id="loader">
     <div class="spinner"></div>
   </div>
 
+  <!-- Menu de navegação -->
   <div id="menu">
     <a href="home.php"><img id="Logo" src="img/weg branco.png" alt="Logo WEG"></a>
     <div class="opt-menu">
@@ -50,18 +52,22 @@ $result = $stmt->get_result();
       <a href="BD_Equipamentos.php" class="btn-menu"><h3>Equipamentos</h3></a>
     </div>
     <div class="opt-menu">
+      <!-- Formulário de logout -->
       <form action="logout.php" method="post">
           <button type="submit" class="btn-menu-sair">Sair</button>
       </form>
     </div>
   </div>
 
+  <!-- Área principal do conteúdo -->
   <div class="container">
-    
     <div class="info-container">
       <?php
+      // Verifica se a consulta retornou resultados
       if ($result->num_rows > 0) {
+          // Loop através das demandas encontradas
           while ($row = $result->fetch_assoc()) {
+              // Concatena todos os dados da demanda para a busca
               $busca = strtolower(
                   $row["Nota"] . ' ' .
                   $row["Cotacao"] . ' ' .
@@ -72,11 +78,12 @@ $result = $stmt->get_result();
                   $row["Status"]
               );
 
+              // Gera a URL para detalhamento da demanda
               $url = "detalhes.php?id=" . $row["id"] . "&nota=" . urlencode($row["Nota"]) . "&cotacao=" . urlencode($row["Cotacao"]) . "&cliente=" . urlencode($row["Cliente"]) . "&escopo=" . urlencode($row["Escopo"]) . "&Status=" . urlencode($row["Status"]);
 
+              // Definir a classe do status com base no valor do status
               $Status = strtolower($row["Status"]);
               $StatusClass = '';
-
               switch ($Status) {
                   case 'concluído':
                       $StatusClass = 'Status-concluído';
@@ -91,6 +98,7 @@ $result = $stmt->get_result();
                       $StatusClass = 'Status-default';
               }
 
+              // Exibição das informações da demanda
               echo '<div class="info-card" data-busca="' . htmlspecialchars($busca, ENT_QUOTES, 'UTF-8') . '">';
               echo '<div class="info-sections">';
               echo '<div class="info-row">';
@@ -111,15 +119,18 @@ $result = $stmt->get_result();
               echo '</div>';
           }
       } else {
+          // Mensagem caso não haja demandas para o usuário logado
           echo "<p style='color: white;'>Nenhuma demanda encontrada para este usuário.</p>";
       }
 
+      // Fecha a consulta e a conexão com o banco
       $stmt->close();
       $conn->close();
       ?>
     </div>
   </div>
 
+  <!-- Scripts -->
   <script src="js/loader.js"></script>
   <script src="js/wave.js"></script>
   <script src="js/filtro.js"></script>

@@ -1,4 +1,5 @@
 <?php
+// --- Conexão com o Banco de Dados ---
 include('protection.php');
 
 $host = "localhost";
@@ -12,7 +13,7 @@ if ($conn->connect_error) {
     die("Erro de conexão: " . $conn->connect_error);
 }
 
-// Verifica se o formulário foi enviado
+// --- Verificação de Formulário e Inserção de Dados ---
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $Código = $_POST["Código"];
     $CNPJ = $_POST["CNPJ"];
@@ -37,6 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
+  <!-- --- Cabeçalho --- -->
   <meta charset="UTF-8">
   <title>CRM CRV</title>
   <link rel="stylesheet" href="css/padrao.css">
@@ -44,27 +46,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 <body>
 
+  <!-- --- Loader --- -->
   <div id="loader">
     <div class="spinner"></div>
   </div>
 
+  <!-- --- Menu --- -->
   <div id="menu">
     <a href="home.php">
         <img id="Logo" src="img/weg branco.png" alt="Logo WEG">
     </a>
     <div class="opt-menu">
-      <a href="home.php" class="btn-menu">
-          <h3>Home</h3>
+      <a href="javascript:history.back()" class="btn-menu">
+          <h3>Voltar</h3>
       </a>
-      <a href="CRV.php" class="btn-menu">
-          <h3>CRV</h3>
-      </a>
-      <input type="text" id="inputBusca" placeholder="Buscar..." class="input-menu">
       <a href="BD_Cliente.php" class="btn-menu">
           <h3>Clientes</h3>
-      </a>
-      <a href="BD_Equipamentos.php" class="btn-menu">
-          <h3>Equipamentos</h3>
       </a>
     </div>
     <div class="opt-menu">
@@ -77,33 +74,57 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
   </div>
 
+  <!-- --- Container Principal --- -->
   <div class="container">
     
+    <!-- --- Formulário de Adição de Cliente --- -->
     <div class="info-container">
       <form method="POST" action="">
-        <label>Código:</label>
-        <input type="text" name="Código" required placeholder="Digite...">
+        <div class="form-section-title">Adicionar Cliente</div>
+        <div class="form-section">
+          <div class="form-group">
+            <label for="Código">Código:</label>
+            <input type="text" name="Código" id="Código" required placeholder="Digite...">
+          </div>
 
-        <label>CNPJ:</label>
-        <input type="text" name="CNPJ" required placeholder="Digite...">
+          <div class="form-group">
+            <label for="CNPJ">CNPJ:</label>
+            <input type="text" name="CNPJ" id="CNPJ" required placeholder="Digite...">
+          </div>
+        </div>
 
-        <label>Cliente:</label>
-        <input type="text" name="Cliente" required placeholder="Digite...">
+        <div class="form-section">
+          <div class="form-group">
+            <label for="Cliente">Cliente:</label>
+            <input type="text" name="Cliente" id="Cliente" required placeholder="Digite...">
+          </div>
 
-        <label>Cidade:</label>
-        <input type="text" name="Cidade" required placeholder="Digite...">
+          <div class="form-group">
+            <label for="Cidade">Cidade:</label>
+            <input type="text" name="Cidade" id="Cidade" required placeholder="Digite...">
+          </div>
+        </div>
 
-        <label>Estado:</label>
-        <input type="text" name="Estado" required placeholder="Digite...">
+        <div class="form-section">
+          <div class="form-group">
+            <label for="Estado">Estado:</label>
+            <input type="text" name="Estado" id="Estado" required placeholder="Digite...">
+          </div>
 
-        <label>País:</label>
-        <input type="text" name="País" required placeholder="Digite...">
+          <div class="form-group">
+            <label for="País">País:</label>
+            <input type="text" name="País" id="País" required placeholder="Digite...">
+          </div>
+        </div>
 
-        <button type="submit">Salvar</button>
+        <div class="form-group">
+          <button type="submit">Salvar</button>
+        </div>
       </form>
     </div>
   </div>
 
+  <!-- --- Scripts --- -->
   <script src="js/filtro.js"></script>
   <script src="js/loader.js"></script>
   <script src="js/wave.js"></script>

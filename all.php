@@ -11,7 +11,6 @@ if ($_SESSION['acesso'] !== 'Admin') {
   exit();
 }
 
-
 $host = "localhost";
 $user = "root";
 $pass = "";
@@ -49,7 +48,7 @@ $result = $conn->query($sql);
       <a href="BD_Equipamentos.php" class="btn-menu"><h3>Equipamentos</h3></a>
     </div>
     <div class="opt-menu">
-        <a href="add_crv.php" class="btn-menu"><h3>Adicionar +</h3></a>
+      <a href="add_crv.php" class="btn-menu"><h3>Adicionar +</h3></a>
       <form action="logout.php" method="post">
           <button type="submit" class="btn-menu-sair">Sair</button>
       </form>
@@ -165,7 +164,6 @@ $result = $conn->query($sql);
       ?>
     </div>
   </div>
-
 
   <script src="js/loader.js"></script>
   <script src="js/wave.js"></script>

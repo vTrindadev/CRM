@@ -13,25 +13,24 @@ if ($conn->connect_error) {
 
 $codigoClienteSession = isset($_SESSION['codigo']) ? $_SESSION['codigo'] : '';
 
-if(isset($_GET['codigoCliente'])){
-  $codigoCliente = $_GET['codigoCliente'];
+if (isset($_GET['codigoCliente'])) {
+    $codigoCliente = $_GET['codigoCliente'];
   
-  // Query para pegar os dados do cliente
-  $sql = "SELECT Cliente, Cnpj, Cidade, Estado, País FROM clientes WHERE Código = ?";
-  $stmt = $conn->prepare($sql);
-  $stmt->bind_param("s", $codigoCliente);
-  $stmt->execute();
-  $result = $stmt->get_result();
+    // Query para pegar os dados do cliente
+    $sql = "SELECT Cliente, Cnpj, Cidade, Estado, País FROM clientes WHERE Código = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("s", $codigoCliente);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
-  if($result->num_rows > 0){
-      $cliente = $result->fetch_assoc();
-      echo json_encode($cliente);  // Retorna os dados em formato JSON
-  } else {
-      echo json_encode(['error' => 'Cliente não encontrado.']);
-  }
-  exit;
+    if ($result->num_rows > 0) {
+        $cliente = $result->fetch_assoc();
+        echo json_encode($cliente);  // Retorna os dados em formato JSON
+    } else {
+        echo json_encode(['error' => 'Cliente não encontrado.']);
+    }
+    exit;
 }
-
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $nota = $_POST['nota'];
@@ -56,8 +55,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $observacao = $_POST['observacao'];
     $valor = $_POST['valor'];
     $frete = isset($_POST['frete']) ? $_POST['frete'] : null;
-    $StatusAplicador = $_POST['status_aplicador']; 
-    $aplicador = $_POST['aplicador']; 
+    $StatusAplicador = $_POST['status_aplicador'];
+    $aplicador = $_POST['aplicador'];
 
     $insertSql = "INSERT INTO demandas (Nota, crv, Cliente, CodigoCliente, Cnpj, Cidade, Estado, Pais, Escopo, Status, Cotacao, PrazoProposta, Prioridade, TipoProposta, refCliente, EspecificacaoCliente, Emfabrica, QuantidadeEquip, Equipamentos, Observacao, valor, frete, status_aplicador, aplicador)
                   VALUES ('$nota', '$crv', '$cliente', '$codigoCliente', '$cnpj', '$cidade', '$estado', '$pais', '$escopo', '$Status', '$cotacao', '$prazoProposta', '$prioridade', '$tipoProposta', '$refCliente', '$especificacaoCliente', '$emFabrica', '$quantidadeEquip', '$equipamentos', '$observacao', '$valor', '$frete', '$StatusAplicador', '$aplicador')";
@@ -103,7 +102,6 @@ $conn->close();
   </div>
 
   <div class="container">
-    
     <form id="detalhesForm" method="POST">
 
       <!-- Identificação -->
@@ -125,7 +123,7 @@ $conn->close();
       <div class="form-section">
         <div class="form-section-title">Cliente</div>
         <div class="form-group"><label for="cliente">Cliente:</label><input type="text" id="cliente" name="cliente" required readonly></div>
-        <div class="form-group"><label for="codigoCliente">Código Cliente:</label><input type="text" id="codigoCliente" name="codigoCliente" required onblur="buscarCliente()"readonly></div>
+        <div class="form-group"><label for="codigoCliente">Código Cliente:</label><input type="text" id="codigoCliente" name="codigoCliente" required onblur="buscarCliente()" readonly></div>
         <div class="form-group"><label for="cnpj">CNPJ:</label><input type="text" id="cnpj" name="cnpj" required readonly></div>
         <div class="form-group"><label for="cidade">Cidade:</label><input type="text" id="cidade" name="cidade" required readonly></div>
         <div class="form-group"><label for="estado">Estado:</label><input type="text" id="estado" name="estado" required readonly></div>
@@ -221,6 +219,7 @@ $conn->close();
         document.getElementById('codigoCliente').value = codigoClienteSession;
         buscarCliente(); // Chama a função de busca automaticamente ao carregar a página
     }
+
     function buscarCliente() {
       var codigoCliente = document.getElementById('codigoCliente').value;
 
@@ -246,7 +245,5 @@ $conn->close();
       }
     }
   </script>
-
-
 </body>
 </html>

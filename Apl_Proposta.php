@@ -1,6 +1,8 @@
 <?php
+// Proteção da página (verificação de sessão)
 include('protection.php');
 
+// Inicia a sessão caso não esteja ativa
 if (!isset($_SESSION)) {
     session_start();
 }
@@ -10,24 +12,27 @@ $user = "root";
 $pass = "";
 $dbname = "crm meg";
 
+// Estabelecendo conexão com o banco de dados
 $conn = new mysqli($host, $user, $pass, $dbname);
 if ($conn->connect_error) {
     die("Erro de conexão: " . $conn->connect_error);
 }
 
+// Recuperando o e-mail do usuário logado (se existir)
 $emailUsuario = $_SESSION['email'] ?? '';
 
-// Demandas do usuário
+// Consulta para buscar as demandas associadas ao aplicador (usuário logado)
 $sql = "SELECT * FROM demandas WHERE aplicador LIKE ?";
-$stmt = $conn->prepare($sql);
 $likeEmail = "%$emailUsuario%";
+$stmt = $conn->prepare($sql);
 $stmt->bind_param("s", $likeEmail);
 $stmt->execute();
 $result = $stmt->get_result();
 
-// Notificações por "em implantação" ou "urgente"
+// Inicializando um array para as notificações de demandas "em implantação" ou "urgente"
 $notificacoes = [];
 
+// Consulta para buscar notificações de demandas "em implantação" ou "urgente"
 $sqlNotif = "SELECT id, Nota, status_aplicador, Prioridade FROM demandas 
              WHERE aplicador LIKE ? AND 
              (status_aplicador = 'em implantação' OR Prioridade = 'urgente')";
@@ -36,6 +41,7 @@ $stmtNotif->bind_param("s", $likeEmail);
 $stmtNotif->execute();
 $resultNotif = $stmtNotif->get_result();
 
+// Processamento das notificações
 while ($rowNotif = $resultNotif->fetch_assoc()) {
     $exibir = [];
 
@@ -54,6 +60,7 @@ while ($rowNotif = $resultNotif->fetch_assoc()) {
     }
 }
 
+// Fechando a consulta de notificações
 $stmtNotif->close();
 ?>
 
@@ -64,13 +71,14 @@ $stmtNotif->close();
   <title>CRM CRV</title>
   <link rel="stylesheet" href="css/padrao.css">
   <link rel="stylesheet" href="css/crv.css">
-
 </head>
 <body>
+  <!-- Loader de carregamento -->
   <div id="loader">
     <div class="spinner"></div>
   </div>
 
+  <!-- Menu de navegação -->
   <div id="menu">
     <a href="home.php"><img id="Logo" src="img/weg branco.png" alt="Logo WEG"></a>
     <div class="opt-menu">
@@ -80,6 +88,7 @@ $stmtNotif->close();
       <a href="BD_Equipamentos.php" class="btn-menu"><h3>Equipamentos</h3></a>
     </div>
     <div class="opt-menu">
+        <!-- Ícone de notificações -->
         <div class="notification-icon">
             <img src="img/bell.svg" class="bell-icon" alt="Sino" id="notificationBell">
             <?php if (count($notificacoes) > 0): ?>
@@ -103,18 +112,21 @@ $stmtNotif->close();
             <?php endif; ?>
         </div>
 
+        <!-- Formulário de logout -->
         <form action="logout.php" method="post">
             <button type="submit" class="btn-menu-sair">Sair</button>
         </form>
     </div>
-
   </div>
 
+  <!-- Container principal de conteúdo -->
   <div class="container">
     <div class="info-container">
       <?php
+      // Verifica se existem demandas para exibir
       if ($result->num_rows > 0) {
           while ($row = $result->fetch_assoc()) {
+              // Preparação dos dados para busca (lowercase para pesquisa)
               $busca = strtolower(
                   $row["Nota"] . ' ' .
                   $row["Cotacao"] . ' ' .
@@ -126,8 +138,10 @@ $stmtNotif->close();
                   $row["status_aplicador"]
               );
 
+              // URL para os detalhes da demanda
               $url = "detalhes.php?id=" . $row["id"] . "&nota=" . urlencode($row["Nota"]) . "&cotacao=" . urlencode($row["Cotacao"]) . "&cliente=" . urlencode($row["Cliente"]) . "&escopo=" . urlencode($row["Escopo"]) . "&Status=" . urlencode($row["status_aplicador"]);
 
+              // Definição de classe de status com base no valor de status_aplicador
               $Status = strtolower($row["status_aplicador"]);
               $StatusClass = match ($Status) {
                   'proposta em elaboração' => 'Status-elaboracao',
@@ -141,6 +155,7 @@ $stmtNotif->close();
                   default => 'Status-default',
               };
 
+              // Exibe os detalhes da demanda em um cartão
               echo '<div class="info-card" data-busca="' . htmlspecialchars($busca, ENT_QUOTES, 'UTF-8') . '">';
               echo '<div class="info-sections">';
               echo '<div class="info-row">';
@@ -153,6 +168,8 @@ $stmtNotif->close();
               echo '<div class="info-row">';
               echo '<p><strong>Cliente:</strong> ' . htmlspecialchars($row["Cliente"]) . '</p>';
               echo '<p><strong>Escopo:</strong> ' . htmlspecialchars($row["Escopo"]) . '</p>';
+
+              // Definindo classe de prioridade com base no valor de Prioridade
               $prioridade = strtolower($row["Prioridade"]);
               $prioridadeClass = match ($prioridade) {
                   'urgente' => 'prioridade-urgente',
@@ -171,39 +188,45 @@ $stmtNotif->close();
               echo '</div>';
           }
       } else {
+          // Caso não haja demandas
           echo "<p style='color: white;'>Nenhuma demanda encontrada para este usuário.</p>";
       }
 
+      // Fechar a consulta e a conexão com o banco
       $stmt->close();
       $conn->close();
       ?>
     </div>
   </div>
 
+  <!-- Scripts -->
   <script src="js/loader.js"></script>
   <script src="js/wave.js"></script>
   <script src="js/filtro.js"></script>
+
   <script>
     document.addEventListener("DOMContentLoaded", function () {
-    const bell = document.getElementById("notificationBell");
-    const dropdown = document.getElementById("notificationDropdown");
+        // Controle do menu dropdown de notificações
+        const bell = document.getElementById("notificationBell");
+        const dropdown = document.getElementById("notificationDropdown");
 
-    if (bell && dropdown) {
-        bell.addEventListener("click", function (e) {
-            e.stopPropagation();
-            dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
-        });
+        if (bell && dropdown) {
+            bell.addEventListener("click", function (e) {
+                e.stopPropagation();
+                dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+            });
 
-        // Fecha se clicar fora
-        document.addEventListener("click", function () {
-            dropdown.style.display = "none";
-        });
+            // Fecha o dropdown se clicar fora
+            document.addEventListener("click", function () {
+                dropdown.style.display = "none";
+            });
 
-        // Impede que o clique dentro da dropdown feche ela
-        dropdown.addEventListener("click", function (e) {
-            e.stopPropagation();
-        });
-    }
-});</script>
+            // Impede que o clique dentro do dropdown feche ele
+            dropdown.addEventListener("click", function (e) {
+                e.stopPropagation();
+            });
+        }
+    });
+  </script>
 </body>
 </html>

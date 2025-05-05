@@ -79,8 +79,11 @@
 }
 
 .card-section strong {
-  border-radius: 1vw;
-  color: white; /* Cor para os títulos das seções */
+  border-radius: .2vw;
+  color: #28B9DA;
   font-style: italic;
-  background-color: rgba(40, 185, 218, 0.5);
+  font-size: 1.2vw; /* Aumente o tamanho da fonte */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Adicione sombra ao texto */
+  padding: 0.5vw; /* Adicione espaçamento interno ao redor do texto */
 }
+
