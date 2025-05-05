@@ -38,12 +38,6 @@ if (!isset($_SESSION['acesso'])) {
             </a>
         <?php endif; ?>
 
-        <?php if ($_SESSION['acesso'] === 'Filial') : ?>
-            <a href="supervisao_filial.php" class="btn-menu">
-                <h3>Follow UP</h3>
-            </a>
-        <?php endif; ?>
-
         <?php if ($_SESSION['acesso'] === 'Admin') : ?>
             <a href="relatorio.php" class="btn-menu">
                 <h3>Dashboard</h3>

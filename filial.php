@@ -25,16 +25,17 @@ $conn = new mysqli($host, $user, $pass, $dbname);
 if ($conn->connect_error) {
     die("Erro de conexão: " . $conn->connect_error);
 }
+// Nome da filial do usuário logado
+$filialUsuario = $_SESSION['user'] ?? '';
 
-// Email do usuário logado
-$emailUsuario = $_SESSION['email'] ?? '';
+// Buscar apenas demandas vinculadas à filial (com base no campo Cliente)
+$sql = "SELECT * FROM demandas WHERE Cliente = ?";
 
-// Buscar apenas demandas vinculadas ao CRV (email)
-$sql = "SELECT * FROM demandas WHERE crv = ?";
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("s", $emailUsuario);
+$stmt->bind_param("s", $filialUsuario);
 $stmt->execute();
 $result = $stmt->get_result();
+
 ?>
 
 <!DOCTYPE html>
@@ -86,19 +87,17 @@ $result = $stmt->get_result();
               $Status = strtolower($row["Status"]);
               $StatusClass = '';
 
-              switch ($Status) {
-                  case 'concluído':
-                      $StatusClass = 'Status-concluído';
-                      break;
-                  case 'em andamento':
-                      $StatusClass = 'Status-andamento';
-                      break;
-                  case 'pendente':
-                      $StatusClass = 'Status-pendente';
-                      break;
-                  default:
-                      $StatusClass = 'Status-default';
-              }
+              $StatusClass = match ($Status) {
+                'proposta em elaboração' => 'Status-elaboracao',
+                'em peritagem' => 'Status-peritagem',
+                'perdido' => 'Status-perdido',
+                'distribuir' => 'Status-distribuir',
+                'proposta concluída' => 'Status-concluído',
+                'nova solicitação' => 'Status-solicitacao',
+                'revisar proposta' => 'Status-revisão',
+                'em implantação' => 'Status-negociacao',
+                default => 'Status-default',
+            };
 
               echo '<div class="info-card" data-busca="' . htmlspecialchars($busca, ENT_QUOTES, 'UTF-8') . '">';
               echo '<div class="info-sections">';
@@ -106,16 +105,16 @@ $result = $stmt->get_result();
               echo '<p><strong>ID:</strong> ' . htmlspecialchars($row["id"]) . '</p>';
               echo '<p><strong>Nota:</strong> ' . htmlspecialchars($row["Nota"]) . '</p>';
               echo '<p><strong>Cotação:</strong> ' . htmlspecialchars($row["Cotacao"]) . '</p>';
+              echo '<p><strong>CRV:</strong> ' . htmlspecialchars($row["crv"]) . '</p>';
+              echo '<p><strong>Tipo Proposta:</strong> ' . htmlspecialchars($row["TipoProposta"]) . '</p>';
               echo '</div>';
               echo '<div class="info-row">';
               echo '<p><strong>Cliente:</strong> ' . htmlspecialchars($row["Cliente"]) . '</p>';
               echo '<p><strong>Escopo:</strong> ' . htmlspecialchars($row["Escopo"]) . '</p>';
-              echo '<p><strong>Tipo Proposta:</strong> ' . htmlspecialchars($row["TipoProposta"]) . '</p>';
               echo '</div>';
               echo '</div>';
               echo '<div class="card-end">';
               echo '<div class="Status-badge ' . $StatusClass . '">' . htmlspecialchars($row["Status"]) . '</div>';
-              echo '<div class="arrow-icon"><a href="' . $url . '">➤</a></div>';
               echo '</div>';
               echo '</div>';
           }

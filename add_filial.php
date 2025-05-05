@@ -65,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($conn->query($insertSql) === TRUE) {
         echo "<script>
                 alert('Demanda criada com sucesso!');
-                window.location.href = 'CRV.php';
+                window.location.href = 'add_filial.php';
               </script>";
     } else {
         echo "Erro ao criar a demanda: " . $conn->error;
@@ -226,7 +226,7 @@ $conn->close();
 
       if (codigoCliente.length > 0) {
         var xhr = new XMLHttpRequest();
-        xhr.open('GET', 'add_crv.php?codigoCliente=' + codigoCliente, true);
+        xhr.open('GET', 'add_filial.php?codigoCliente=' + codigoCliente, true);
         xhr.onreadystatechange = function() {
           if (xhr.readyState == 4 && xhr.status == 200) {
             var response = JSON.parse(xhr.responseText);

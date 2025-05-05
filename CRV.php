@@ -110,7 +110,7 @@ $stmtNotif->close();
             </div>
             <?php endif; ?>
         </div>
-
+        <a href="add_crv.php" class="btn-menu"><h3>Adicionar +</h3></a>
         <form action="logout.php" method="post">
             <button type="submit" class="btn-menu-sair">Sair</button>
         </form>
