@@ -82,7 +82,7 @@ body {
   width: 5vw;
   height: 6vh;
   background-color: #00579d;
-  border-radius: 1vw 0vw 1vw 0;
+  border-radius: 0vw 1vw 0vw 1vw;
   border: none;
   font-size: 1vw;
   font-weight: 600;
@@ -92,8 +92,8 @@ body {
 }
 
 #menu .btn-menu-sair:hover {
-    background-color: #0090c5;
-    font-size: 1.2vw;
+    background-color: #0075B1;
+    transform: scale(1.05);
 }
 
 
