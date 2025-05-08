@@ -27,7 +27,7 @@ if (isset($_GET['id'])) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $campos = ['nota','crv','cliente','codigoCliente','cnpj','cidade','estado','pais','escopo','Status','cotacao','prazoProposta','prioridade','tipoProposta','refCliente','especificacaoCliente','emFabrica','quantidadeEquip','equipamentos','observacao','valor','frete','status_aplicador','aplicador'];
+    $campos = ['nota','crv','cliente','codigoCliente','cnpj','cidade','estado','pais','escopo','Status','cotacao','prazoProposta','prioridade','tipoProposta','refCliente','especificacaoCliente','emFabrica','quantidadeEquip','equipamentos','observacao','valor','frete','status_aplicador','aplicador', 'filial', 'feedback_crv', 'feedback_aplicador'];
     foreach ($campos as $campo) {
         $$campo = isset($_POST[$campo]) ? $conn->real_escape_string($_POST[$campo]) : null;
     }
@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             Cotacao='$cotacao', PrazoProposta='$prazoProposta', Prioridade='$prioridade', TipoProposta='$tipoProposta', 
             refCliente='$refCliente', EspecificacaoCliente='$especificacaoCliente', Emfabrica='$emFabrica', 
             QuantidadeEquip='$quantidadeEquip', Equipamentos='$equipamentos', Observacao='$observacao', 
-            valor='$valor', frete='$frete', status_aplicador='$status_aplicador', aplicador='$aplicador'
+            valor='$valor', frete='$frete', status_aplicador='$status_aplicador', aplicador='$aplicador', filial='$filial', feedback_crv='$feedback_crv', feedback_aplicador='$feedback_aplicador'
             WHERE id=$id";
 
         if ($conn->query($updateSql) === TRUE) {
@@ -48,8 +48,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             echo "Erro ao atualizar a demanda: " . $conn->error;
         }
     } else {
-        $insertSql = "INSERT INTO demandas (Nota, crv, Cliente, CodigoCliente, Cnpj, Cidade, Estado, Pais, Escopo, Status, Cotacao, PrazoProposta, Prioridade, TipoProposta, refCliente, EspecificacaoCliente, Emfabrica, QuantidadeEquip, Equipamentos, Observacao, valor, frete, status_aplicador, aplicador)
-                      VALUES ('$nota', '$crv', '$cliente', '$codigoCliente', '$nomeCliente', '$cnpj', '$cidade', '$estado', '$pais', '$escopo', '$Status', '$cotacao', '$prazoProposta', '$prioridade', '$tipoProposta', '$refCliente', '$especificacaoCliente', '$emFabrica', '$quantidadeEquip', '$equipamentos', '$observacao', '$valor', '$frete', '$status_aplicador', '$aplicador')";
+        $insertSql = "INSERT INTO demandas (Nota, crv, Cliente, CodigoCliente, Cnpj, Cidade, Estado, Pais, Escopo, Status, Cotacao, PrazoProposta, Prioridade, TipoProposta, refCliente, EspecificacaoCliente, Emfabrica, QuantidadeEquip, Equipamentos, Observacao, valor, frete, status_aplicador, aplicador, filial, feedback_crv, feedback_aplicador)
+                      VALUES ('$nota', '$crv', '$cliente', '$codigoCliente', '$nomeCliente', '$cnpj', '$cidade', '$estado', '$pais', '$escopo', '$Status', '$cotacao', '$prazoProposta', '$prioridade', '$tipoProposta', '$refCliente', '$especificacaoCliente', '$emFabrica', '$quantidadeEquip', '$equipamentos', '$observacao', '$valor', '$frete', '$status_aplicador', '$aplicador', '$filial', '$feedback_crv', '$feedback_aplicador')";
 
         if ($conn->query($insertSql) === TRUE) {
             echo "<script>alert('Demanda criada com sucesso!'); window.location.href = 'CRV.php';</script>";
@@ -216,6 +216,14 @@ $conn->close();
         <div class="form-group"><label for="quantidadeEquip">Quantidade Equip:</label><input type="text" id="quantidadeEquip" name="quantidadeEquip" value="<?= valor('QuantidadeEquip', $dados) ?>" required></div>
         <div class="form-group"><label for="equipamentos">Equipamentos:</label><input type="text" id="equipamentos" name="equipamentos" value="<?= valor('Equipamentos', $dados) ?>" required></div>
         <div class="form-group"><label for="observacao">Observação:</label><textarea id="observacao" name="observacao" required><?= valor('Observacao', $dados) ?></textarea></div>
+      </div>
+
+      
+      <!-- Comentários -->
+      <div class="form-section">
+        <div class="form-section-title">FeedBack CRV - Aplicador</div>
+        <div class="form-group"><label for="feedback_crv">CRV:</label><textarea id="observacao" name="feedback_crv" ><?= valor('feedback_crv', $dados) ?></textarea></div>
+        <div class="form-group"><label for="feedback_aplicador">Aplicador:</label><textarea id="observacao" name="feedback_aplicador" ><?= valor('feedback_aplicador', $dados) ?></textarea></div>
       </div>
 
       <div class="form-group">

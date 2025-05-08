@@ -52,7 +52,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $quantidadeEquip = $_POST['quantidadeEquip'];
     $equipamentos = $_POST['equipamentos'];
     $observacao = $_POST['observacao'];
-
+    $filial = $_POST['filial'];
+    $feedback_crv = $_POST['feedback_crv'];
+    $feedback_aplicador = $_POST['feedback_aplicador'];
     // Atualiza os dados no banco
     $sql = "UPDATE demandas SET 
                 Nota = '$nota', 
@@ -72,7 +74,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 Emfabrica = '$emFabrica', 
                 QuantidadeEquip = '$quantidadeEquip', 
                 Equipamentos = '$equipamentos', 
-                Observacao = '$observacao' 
+                Observacao = '$observacao',
+                filial = '$filial',
+                feedback_crv = '$feedback_crv', 
+                feedback_aplicador = '$feedback_aplicador'
             WHERE id = $id";
 
     if ($conn->query($sql) === TRUE) {
@@ -229,6 +234,13 @@ $conn->close();
         <div class="form-group"><label for="quantidadeEquip">Quantidade Equip:</label><input type="text" id="quantidadeEquip" name="quantidadeEquip" value="<?= valor('QuantidadeEquip', $dados) ?>" required></div>
         <div class="form-group"><label for="equipamentos">Equipamentos:</label><input type="text" id="equipamentos" name="equipamentos" value="<?= valor('Equipamentos', $dados) ?>" required></div>
         <div class="form-group"><label for="observacao">Observação:</label><textarea id="observacao" name="observacao" required><?= valor('Observacao', $dados) ?></textarea></div>
+      </div>
+
+      <!-- Comentários -->
+      <div class="form-section">
+        <div class="form-section-title">FeedBack CRV - Aplicador</div>
+        <div class="form-group"><label for="feedback_crv">CRV:</label><textarea id="observacao" name="feedback_crv" ><?= valor('feedback_crv', $dados) ?></textarea></div>
+        <div class="form-group"><label for="feedback_aplicador">Aplicador:</label><textarea id="observacao" name="feedback_aplicador" ><?= valor('feedback_aplicador', $dados) ?></textarea></div>
       </div>
 
       <div class="form-group">
