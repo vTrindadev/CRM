@@ -124,7 +124,6 @@ $conn->close();
         <img id="Logo" src="img/weg branco.png" alt="Logo WEG">
     </a>
     <div class="opt-menu">
-      <a href="CRV.php" class="btn-menu"><h3>CRV</h3></a>
       <a href="detalhes.php" class="btn-menu activo"><h3>Adicionar</h3></a>
       <input type="text" id="inputBusca" placeholder="Buscar..." class="input-menu">
       <a href="BD_Cliente.php" class="btn-menu"><h3>Clientes</h3></a>
@@ -249,6 +248,8 @@ $conn->close();
   <script src="js/loader.js"></script>
   <script src="js/wave.js"></script>
   <script src="js/frete.js"></script>
+  <script src="js/aplicadores.js"></script>
   <script src="js/cliente.js"></script>
+
 </body>
 </html>
