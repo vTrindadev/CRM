@@ -249,6 +249,6 @@ $conn->close();
   <script src="js/loader.js"></script>
   <script src="js/wave.js"></script>
   <script src="js/frete.js"></script>
-  <script src="js/clientes.js"></script>
+  <script src="js/cliente.js"></script>
 </body>
 </html>
