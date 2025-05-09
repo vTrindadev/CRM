@@ -175,9 +175,24 @@ $conn->close();
         <div class="form-section-title">Proposta</div>
         <div class="form-group">
           <label for="Status">Status:</label>
-          <select id="Status" name="Status" required>
-            <option value="Proposta em Elaboração">Proposta em Elaboração</option>
-          </select>
+         <select id="Status" name="Status" required>
+          <option value="Proposta em Elaboração">Proposta em Elaboração</option>
+          <option disabled>──────────</option>
+          <option disabled>Previsto Para:</option>
+          <option value="Previsto Para - Janeiro">Previsto Para - Janeiro</option>
+          <option value="Previsto Para - Fevereiro">Previsto Para - Fevereiro</option>
+          <option value="Previsto Para - Março">Previsto Para - Março</option>
+          <option value="Previsto Para - Abril">Previsto Para - Abril</option>
+          <option value="Previsto Para - Maio">Previsto Para - Maio</option>
+          <option value="Previsto Para - Junho">Previsto Para - Junho</option>
+          <option value="Previsto Para - Julho">Previsto Para - Julho</option>
+          <option value="Previsto Para - Agosto">Previsto Para - Agosto</option>
+          <option value="Previsto Para - Setembro">Previsto Para - Setembro</option>
+          <option value="Previsto Para - Outubro">Previsto Para - Outubro</option>
+          <option value="Previsto Para - Novembro">Previsto Para - Novembro</option>
+          <option value="Previsto Para - Dezembro">Previsto Para - Dezembro</option>
+        </select>
+
         </div>
         <div class="form-group"><label for="aplicador">Aplicador:</label><input type="text" id="aplicador" name="aplicador"></div>
         <div class="form-group">
