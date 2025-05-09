@@ -560,7 +560,6 @@ while ($row = mysqli_fetch_assoc($resultSemana)) {
   // Gráfico de Evolução
   const ctxEvolucao = document.getElementById('graficoEvolucao').getContext('2d');
 
-  // Dados do PHP
   const dadosMensal = {
     labels: <?php echo json_encode($labelsMes); ?>,
     data: <?php echo json_encode($dadosMes); ?>
