@@ -95,7 +95,7 @@ if (!isset($_SESSION['acesso'])) {
   </div>
 
   <div class="container">
-    <h1>Welcome to <br> MEG + <br><span class="username"><?php echo $_SESSION['user']; ?></span><br><span class="filial"><?php echo $_SESSION['filial']; ?></span></h1>
+    <h1>Welcome to <br> MEG+ <br><span class="username"><?php echo $_SESSION['user']; ?></span><br><span class="filial"><?php echo $_SESSION['filial']; ?></span></h1>
 </div>
 
 

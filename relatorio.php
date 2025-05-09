@@ -125,6 +125,40 @@ while ($row = mysqli_fetch_assoc($result9)) {
     $totalForaPrazo[] = $row['total_fora_do_prazo'];
 }
 
+// Por MÊS
+$queryMes = "
+    SELECT DATE_FORMAT(criacao, '%Y-%m') as periodo, COUNT(*) as total
+    FROM demandas
+    WHERE 1
+";
+if ($crv_filter) $queryMes .= " AND crv = '$crv_filter'";
+if ($aplicador_filter) $queryMes .= " AND aplicador = '$aplicador_filter'";
+$queryMes .= " GROUP BY periodo ORDER BY periodo";
+$resultMes = mysqli_query($conn, $queryMes);
+
+$labelsMes = $dadosMes = [];
+while ($row = mysqli_fetch_assoc($resultMes)) {
+    $labelsMes[] = $row['periodo'];
+    $dadosMes[] = (int)$row['total'];
+}
+
+// Por SEMANA
+$querySemana = "
+    SELECT DATE_FORMAT(criacao, '%Y-%u') as periodo, COUNT(*) as total
+    FROM demandas
+    WHERE 1
+";
+if ($crv_filter) $querySemana .= " AND crv = '$crv_filter'";
+if ($aplicador_filter) $querySemana .= " AND aplicador = '$aplicador_filter'";
+$querySemana .= " GROUP BY periodo ORDER BY periodo";
+$resultSemana = mysqli_query($conn, $querySemana);
+
+$labelsSemana = $dadosSemana = [];
+while ($row = mysqli_fetch_assoc($resultSemana)) {
+    $labelsSemana[] = $row['periodo'];
+    $dadosSemana[] = (int)$row['total'];
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -228,6 +262,16 @@ while ($row = mysqli_fetch_assoc($result9)) {
     <!-- Gráfico de Demandas Fora do Prazo -->
     <div class="chart-container">
       <canvas id="myChart9"></canvas>
+    </div>
+    <!-- Gráfico de Evolução -->
+    <div class="chart-container">
+      <div class="chart-header">
+        <select id="periodoSelect">
+          <option value="mensal">Mensal</option>
+          <option value="semanal">Semanal</option>
+        </select>
+      </div>
+      <canvas id="graficoEvolucao"></canvas>
     </div>
   </div>
 
@@ -512,6 +556,64 @@ while ($row = mysqli_fetch_assoc($result9)) {
         }
       }
     }
+  });
+  // Gráfico de Evolução
+  const ctxEvolucao = document.getElementById('graficoEvolucao').getContext('2d');
+
+  // Dados do PHP
+  const dadosMensal = {
+    labels: <?php echo json_encode($labelsMes); ?>,
+    data: <?php echo json_encode($dadosMes); ?>
+  };
+
+  const dadosSemanal = {
+    labels: <?php echo json_encode($labelsSemana); ?>,
+    data: <?php echo json_encode($dadosSemana); ?>
+  };
+
+  let chartEvolucao = new Chart(ctxEvolucao, {
+    type: 'line',
+    data: {
+      labels: dadosMensal.labels,
+      datasets: [{
+        label: 'Demandas por período',
+        data: dadosMensal.data,
+        backgroundColor: 'rgba(75, 192, 192, 0.4)',
+        borderColor: 'rgba(75, 192, 192, 1)',
+        borderWidth: 2,
+        fill: true
+      }]
+    },
+    options: {
+      plugins: {
+        legend: { labels: { color: 'white' } },
+        title: {
+          display: true,
+          text: 'Evolução de Demandas',
+          color: 'white',
+          font: { size: 18 }
+        }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: { color: 'white' },
+          grid: { color: 'rgba(255,255,255,0.3)' }
+        },
+        x: {
+          ticks: { color: 'white' },
+          grid: { color: 'rgba(255,255,255,0.3)' }
+        }
+      }
+    }
+  });
+
+  document.getElementById('periodoSelect').addEventListener('change', function () {
+    const tipo = this.value;
+    const novosDados = tipo === 'mensal' ? dadosMensal : dadosSemanal;
+    chartEvolucao.data.labels = novosDados.labels;
+    chartEvolucao.data.datasets[0].data = novosDados.data;
+    chartEvolucao.update();
   });
 
   </script>
