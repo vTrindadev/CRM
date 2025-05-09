@@ -66,7 +66,7 @@ $conn->close();
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
-  <title>CRM CRV - <?= $edicao ? 'Editar' : 'Criar' ?> Demanda</title>
+  <title>MEG+CRVDET<?= $edicao ? 'Editar' : 'Criar' ?> Demanda</title>
   <link rel="stylesheet" href="css/padrao.css">
   <link rel="stylesheet" href="css/detalhe.css">
 </head>
@@ -74,7 +74,7 @@ $conn->close();
   <div id="loader"><div class="spinner"></div></div>
   <div id="menu">
     <a href="home.php">
-        <img id="Logo" src="img/weg branco.png" alt="Logo WEG">
+        <img id="Logo" src="img/MEG+ (2).png" alt="Logo WEG">
     </a>
     <div class="opt-menu">
         <a href="javascript:history.back()" class="btn-menu">

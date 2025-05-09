@@ -31,7 +31,7 @@ $result = $stmt->get_result();
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
-  <title>CRM CRV</title>
+  <title>MEG+IMP</title>
   <link rel="stylesheet" href="css/padrao.css">
   <link rel="stylesheet" href="css/crv.css">
 </head>
@@ -43,7 +43,7 @@ $result = $stmt->get_result();
 
   <!-- Menu de navegação -->
   <div id="menu">
-    <a href="home.php"><img id="Logo" src="img/weg branco.png" alt="Logo WEG"></a>
+    <a href="home.php"><img id="Logo" src="img/MEG+ (2).png" alt="Logo WEG"></a>
     <div class="opt-menu">
       <a href="home.php" class="btn-menu"><h3>Home</h3></a>
       <a href="Apl_Implementação.php" class="btn-menu activo"><h3>Aplicador Implementação</h3></a>

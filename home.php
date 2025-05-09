@@ -11,7 +11,7 @@ if (!isset($_SESSION['acesso'])) {
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
-  <title>CRM MEG</title>
+  <title>MEG+HOME</title>
   <link rel="stylesheet" href="css/padrao.css">
   <link rel="stylesheet" href="css/home.css">
 </head>
@@ -21,7 +21,7 @@ if (!isset($_SESSION['acesso'])) {
   </div>
   <div id="menu">
     <a href="home.php">
-        <img id="Logo" src="img/weg branco.png" alt="Logo WEG">
+        <img id="Logo" src="img/MEG+ (2).png" alt="Logo WEG">
     </a>
     <div class="opt-menu">  
         <a href="home.php" class="btn-menu activo">
@@ -95,7 +95,7 @@ if (!isset($_SESSION['acesso'])) {
   </div>
 
   <div class="container">
-    <h1>Welcome to <br> CRM MEG <br><span class="username"><?php echo $_SESSION['user']; ?></span><br><span class="filial"><?php echo $_SESSION['filial']; ?></span></h1>
+    <h1>Welcome to <br> MEG + <br><span class="username"><?php echo $_SESSION['user']; ?></span><br><span class="filial"><?php echo $_SESSION['filial']; ?></span></h1>
 </div>
 
 

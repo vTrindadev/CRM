@@ -5,7 +5,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(135deg, #0D273E, #000);
+  background: black;
   background-repeat: no-repeat;
   background-size: cover;
 }

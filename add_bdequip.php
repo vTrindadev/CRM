@@ -39,7 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
   <!-- Cabeçalho -->
   <meta charset="UTF-8">
-  <title>CRM CRV - Adicionar Equipamento</title>
+  <title>MEG+ADDEQP</title>
   <link rel="stylesheet" href="css/padrao.css">
   <link rel="stylesheet" href="css/addbdequip.css">
 </head>
@@ -53,7 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <!-- Menu -->
   <div id="menu">
     <a href="home.php">
-        <img id="Logo" src="img/weg branco.png" alt="Logo WEG">
+        <img id="Logo" src="img/MEG+ (2).png" alt="Logo WEG">
     </a>
     <div class="opt-menu">
       <a href="javascript:history.back()" class="btn-menu">

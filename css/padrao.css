@@ -30,7 +30,7 @@ body {
 }
 
 #Logo {
-  width: 4vw;
+  width: 4.5vw;
   transition: all 0.3s ease;
   cursor: pointer;
 }

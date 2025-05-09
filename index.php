@@ -65,7 +65,7 @@ if (isset($_POST['email']) && isset($_POST['senha'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CRM MEG - Login</title>
+    <title>MEG+LOGIN</title>
 
     <link rel="stylesheet" href="css/padrao.css">
     <link rel="stylesheet" href="css/login.css">
@@ -74,7 +74,7 @@ if (isset($_POST['email']) && isset($_POST['senha'])) {
     <section id="conteiner">
         <div id="holder"></div>
         <div id="box-form">
-            <img id="Logo" src="img/weg branco.png" alt="Logo WEG">
+            <img id="Logo" src="img/MEG+ (2).png" alt="Logo WEG">
             <h2 id="titulo-form">Sign In</h2>
 
             <!-- Mensagem de erro (se houver) -->
@@ -82,7 +82,7 @@ if (isset($_POST['email']) && isset($_POST['senha'])) {
 
             <!-- Formulário de login -->
             <form action="" method="POST" id="loginForm">
-                <input type="text" id="username" name="email" required placeholder="Login:">
+                <input type="text" id="username" name="email" required placeholder="E-mail:">
                 <input type="password" id="password" name="senha" required placeholder="Senha:">
                 <button type="submit" class="button button--stroke" data-block="button">
                     <span class="button__flair"></span>
@@ -94,7 +94,7 @@ if (isset($_POST['email']) && isset($_POST['senha'])) {
 
     <footer id="footer">
         <div class="footer-content">
-            <img src="img/weg branco.png" alt="Logo WEG" class="footer-logo">
+            <img src="img/MEG+ (2).png" alt="Logo WEG" class="footer-logo">
             <p>&copy; 2025 MEG CRM. TODOS OS DIREITOS RESERVADOS. USO NÃO AUTORIZADO IMPLICARÁ EM SANÇÕES LEGAIS .</p>
         </div>
     </footer>

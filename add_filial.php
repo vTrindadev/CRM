@@ -78,7 +78,7 @@ $conn->close();
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
-  <title>CRM CRV - Filial Criar</title>
+  <title>MEG+ADDFILIAL</title>
   <link rel="stylesheet" href="css/padrao.css">
   <link rel="stylesheet" href="css/detalhe.css">
 </head>
@@ -87,7 +87,7 @@ $conn->close();
 
   <div id="menu">
     <a href="home.php">
-        <img id="Logo" src="img/weg branco.png" alt="Logo WEG">
+        <img id="Logo" src="img/MEG+ (2).png" alt="Logo WEG">
     </a>
     <div class="opt-menu">
       <a href="filial.php" class="btn-menu"><h3>Filial</h3></a>

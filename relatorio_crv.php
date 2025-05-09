@@ -132,7 +132,7 @@ while ($row = mysqli_fetch_assoc($result9)) {
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
-  <title>Relatórios CRM MEG</title>
+  <title>MEG+RELCRV</title>
   <link rel="stylesheet" href="css/padrao.css">
   <link rel="stylesheet" href="css/relatorio_crv.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -144,7 +144,7 @@ while ($row = mysqli_fetch_assoc($result9)) {
   
   <div id="menu">
     <a href="home.php">
-      <img id="Logo" src="img/weg branco.png" alt="Logo WEG">
+      <img id="Logo" src="img/MEG+ (2).png" alt="Logo WEG">
     </a>
     <div class="opt-menu">  
       <a href="relatorio.php" class="btn-menu activo">

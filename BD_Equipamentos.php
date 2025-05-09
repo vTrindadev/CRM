@@ -21,7 +21,7 @@ $result = $conn->query($sql);
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
-  <title>CRM CRV</title>
+  <title>MEG+EQUIP</title>
   <link rel="stylesheet" href="css/padrao.css">
   <link rel="stylesheet" href="css/BDCliente.css">
 </head>
@@ -31,7 +31,7 @@ $result = $conn->query($sql);
   </div>
   <div id="menu">
     <a href="home.php">
-        <img id="Logo" src="img/weg branco.png" alt="Logo WEG">
+        <img id="Logo" src="img/MEG+ (2).png" alt="Logo WEG">
     </a>
     <div class="opt-menu">
         <a href="javascript:history.back()" class="btn-menu">

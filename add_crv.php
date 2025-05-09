@@ -112,7 +112,7 @@ $conn->close();
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
-  <title>CRM CRV - Criar Demanda</title>
+  <title>MEG+ADD</title>
   <link rel="stylesheet" href="css/padrao.css">
   <link rel="stylesheet" href="css/detalhe.css">
 </head>
@@ -121,7 +121,7 @@ $conn->close();
 
   <div id="menu">
     <a href="home.php">
-        <img id="Logo" src="img/weg branco.png" alt="Logo WEG">
+        <img id="Logo" src="img/MEG+ (2).png" alt="Logo WEG">
     </a>
     <div class="opt-menu">
       <a href="detalhes.php" class="btn-menu activo"><h3>Adicionar</h3></a>
