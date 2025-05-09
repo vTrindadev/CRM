@@ -1,13 +1,13 @@
-/* Geral */
 .container {
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: black;
-  background-repeat: no-repeat;
-  background-size: cover;
+    width: 100vw;
+    height: 100vh; /* ocupa o restante da tela abaixo do menu */
+    background-image: url('../img/MEG+\ \(5\).png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #holder {

@@ -95,7 +95,7 @@ if (isset($_POST['email']) && isset($_POST['senha'])) {
     <footer id="footer">
         <div class="footer-content">
             <img src="img/MEG+ (2).png" alt="Logo WEG" class="footer-logo">
-            <p>&copy; 2025 MEG CRM. TODOS OS DIREITOS RESERVADOS. USO NÃO AUTORIZADO IMPLICARÁ EM SANÇÕES LEGAIS .</p>
+            <p>&copy; 2025 MEG+. TODOS OS DIREITOS RESERVADOS.</p>
         </div>
     </footer>
 
