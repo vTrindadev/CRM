@@ -68,7 +68,7 @@ body {
   background-color: rgba(0, 87, 157, 0.8);
   color: #ffffff;
   box-shadow: 2px 2px 10px 5px #0000001f;
-  font-size: 1.1vw;
+  font-size: 1.05vw;
 
 }
 
@@ -92,7 +92,7 @@ body {
 }
 
 #menu .btn-menu-sair:hover {
-    background-color: #0075B1;
+    background-color: #00569d9a;
     transform: scale(1.05);
 }
 

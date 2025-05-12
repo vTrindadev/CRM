@@ -132,7 +132,7 @@ $stmtNotif->close();
                            "&cotacao=" . urlencode($row["Cotacao"]) .
                            "&cliente=" . urlencode($row["Cliente"]) .
                            "&escopo=" . urlencode($row["Escopo"]) .
-                           "&Status=" . urlencode($row["status_aplicador"]);
+                           "&Status=" . urlencode($row["Status"]);
 
                     $Status = strtolower($row["Status"]);
                     $StatusClass = match ($Status) {
@@ -171,7 +171,7 @@ $stmtNotif->close();
                     echo '</div>';
                     echo '</div>';
                     echo '<div class="card-end">';
-                    echo '<div class="Status-badge ' . $StatusClass . '">' . htmlspecialchars($row["status_aplicador"]) . '</div>';
+                    echo '<div class="Status-badge ' . $StatusClass . '">' . htmlspecialchars($row["Status"]) . '</div>';
                     echo '<p class="prioridade-badge ' . $prioridadeClass . '"><strong>Prioridade:</strong> ' . htmlspecialchars($row["Prioridade"]) . '</p>';
                     echo '<div class="arrow-icon"><a href="' . $url . '">➤</a></div>';
                     echo '</div>';
