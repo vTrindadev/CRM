@@ -80,7 +80,7 @@ $conn->close();
         <a href="javascript:history.back()" class="btn-menu">
             <h3>Voltar</h3>
         </a>
-      <a href="detalhes.php" class="btn-menu activo"><h3><?= $edicao ? 'Editar' : 'Adicionar' ?></h3></a>
+      <a href="detalhes_crv.php" class="btn-menu activo"><h3>Editar</h3></a>
       <input type="text" id="inputBusca" placeholder="Buscar..." class="input-menu">
       <a href="BD_Cliente.php" class="btn-menu"><h3>Clientes</h3></a>
       <a href="BD_Equipamentos.php" class="btn-menu"><h3>Equipamentos</h3></a>
@@ -220,7 +220,7 @@ $conn->close();
         <?php if (!empty($dados['anexo'])): ?>
             <div class="form-group">
                 <label for="arquivo">Arquivo Anexado:</label>
-                <a href="<?= $dados['anexo']; ?>" target="_blank" style="color: #fff;" >Clique aqui para baixar o arquivo</a>
+                <a href="<?= $dados['anexo']; ?>" target="_blank" style="color: #0090C5;" >Clique aqui para baixar o arquivo</a>
             </div>
         <?php endif; ?>
       </div>

@@ -237,7 +237,7 @@ $conn->close();
         <?php if (!empty($dados['anexo'])): ?>
             <div class="form-group">
                 <label for="arquivo">Arquivo Anexado:</label>
-                <a href="<?= $dados['anexo']; ?>" target="_blank" style="color: #fff;" >Clique aqui para baixar o arquivo</a>
+                <a href="<?= $dados['anexo']; ?>" target="_blank" style="color: #0090C5;" >Clique aqui para baixar o arquivo</a>
             </div>
         <?php endif; ?>
       </div>
