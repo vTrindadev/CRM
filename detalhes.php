@@ -234,6 +234,12 @@ $conn->close();
         <div class="form-group"><label for="quantidadeEquip">Quantidade Equip:</label><input type="text" id="quantidadeEquip" name="quantidadeEquip" value="<?= valor('QuantidadeEquip', $dados) ?>" required></div>
         <div class="form-group"><label for="equipamentos">Equipamentos:</label><input type="text" id="equipamentos" name="equipamentos" value="<?= valor('Equipamentos', $dados) ?>" required></div>
         <div class="form-group"><label for="observacao">Observação:</label><textarea id="observacao" name="observacao" required><?= valor('Observacao', $dados) ?></textarea></div>
+        <?php if (!empty($dados['anexo'])): ?>
+            <div class="form-group">
+                <label for="arquivo">Arquivo Anexado:</label>
+                <a href="<?= $dados['anexo']; ?>" target="_blank" style="color: #fff;" >Clique aqui para baixar o arquivo</a>
+            </div>
+        <?php endif; ?>
       </div>
 
       <!-- Comentários -->
