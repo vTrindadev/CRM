@@ -112,7 +112,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         mail($to, $subject, $message, $headers);
 
         echo "<script>
-                alert('Demanda criada com sucesso!');
+                alert('Demanda criada com sucesso! ID da demanda:$id');
                 window.location.href = 'CRV.php';
               </script>";
     } else {

@@ -81,7 +81,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             WHERE id = $id";
 
     if ($conn->query($sql) === TRUE) {
-        echo "<script>alert('Demanda atualizada com sucesso!'); window.location.href = 'Apl_Proposta.php?id=$id';</script>";
+        echo "<script>alert('Demanda atualizada com sucesso! ID da demanda:$id'); window.location.href = 'Apl_Proposta.php?id=$id';</script>";
     } else {
         echo "Erro ao atualizar: " . $conn->error;
     }

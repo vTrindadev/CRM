@@ -43,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             WHERE id=$id";
 
         if ($conn->query($updateSql) === TRUE) {
-            echo "<script>alert('Demanda atualizada com sucesso!'); window.location.href = 'CRV.php';</script>";
+            echo "<script>alert('Demanda atualizada com sucesso! ID da demanda:$id'); window.location.href = 'CRV.php';</script>";
         } else {
             echo "Erro ao atualizar a demanda: " . $conn->error;
         }
@@ -52,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                       VALUES ('$nota', '$crv', '$cliente', '$codigoCliente', '$nomeCliente', '$cnpj', '$cidade', '$estado', '$pais', '$escopo', '$Status', '$cotacao', '$prazoProposta', '$prioridade', '$tipoProposta', '$refCliente', '$especificacaoCliente', '$emFabrica', '$quantidadeEquip', '$equipamentos', '$observacao', '$valor', '$frete', '$status_aplicador', '$aplicador', '$filial', '$feedback_crv', '$feedback_aplicador')";
 
         if ($conn->query($insertSql) === TRUE) {
-            echo "<script>alert('Demanda criada com sucesso!'); window.location.href = 'CRV.php';</script>";
+            echo "<script>alert('Demanda criada com sucesso! ID da demanda:$id'); window.location.href = 'CRV.php';</script>";
         } else {
             echo "Erro ao criar a demanda: " . $conn->error;
         }
@@ -66,7 +66,7 @@ $conn->close();
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
-  <title>MEG+CRVDET<?= $edicao ? 'Editar' : 'Criar' ?> Demanda</title>
+  <title>MEG+CRVDET</title>
   <link rel="stylesheet" href="css/padrao.css">
   <link rel="stylesheet" href="css/detalhe.css">
 </head>
