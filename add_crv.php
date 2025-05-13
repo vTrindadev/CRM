@@ -56,9 +56,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $StatusAplicador = $_POST['status_aplicador'];
     $aplicador = $_POST['aplicador'];
 
+    // Tratamento do arquivo de upload
+    $anexo = null; // Valor padrão para o anexo
+
+    if (isset($_FILES['arquivo']) && $_FILES['arquivo']['error'] == 0) {
+        $arquivo = $_FILES['arquivo'];
+        $caminhoDestino = 'uploads/' . basename($arquivo['name']);
+
+        // Mover o arquivo para o diretório de uploads
+        if (move_uploaded_file($arquivo['tmp_name'], $caminhoDestino)) {
+            $anexo = $caminhoDestino; // Salva o caminho do arquivo
+        } else {
+            $anexo = null; // Caso erro ao mover o arquivo
+        }
+    }
+
     // Insere no banco
-    $insertSql = "INSERT INTO demandas (Nota, crv, Cliente, CodigoCliente, Cnpj, Cidade, Estado, Pais, Escopo, Status, Cotacao, PrazoProposta, Prioridade, TipoProposta, refCliente, EspecificacaoCliente, Emfabrica, QuantidadeEquip, Equipamentos, Observacao, valor, frete, status_aplicador, aplicador)
-                  VALUES ('$nota', '$crv', '$cliente', '$codigoCliente', '$cnpj', '$cidade', '$estado', '$pais', '$escopo', '$Status', '$cotacao', '$prazoProposta', '$prioridade', '$tipoProposta', '$refCliente', '$especificacaoCliente', '$emFabrica', '$quantidadeEquip', '$equipamentos', '$observacao', '$valor', '$frete', '$StatusAplicador', '$aplicador')";
+    $insertSql = "INSERT INTO demandas (Nota, crv, Cliente, CodigoCliente, Cnpj, Cidade, Estado, Pais, Escopo, Status, Cotacao, PrazoProposta, Prioridade, TipoProposta, refCliente, EspecificacaoCliente, Emfabrica, QuantidadeEquip, Equipamentos, Observacao, valor, frete, status_aplicador, aplicador, anexo)
+                  VALUES ('$nota', '$crv', '$cliente', '$codigoCliente', '$cnpj', '$cidade', '$estado', '$pais', '$escopo', '$Status', '$cotacao', '$prazoProposta', '$prioridade', '$tipoProposta', '$refCliente', '$especificacaoCliente', '$emFabrica', '$quantidadeEquip', '$equipamentos', '$observacao', '$valor', '$frete', '$StatusAplicador', '$aplicador', '$anexo')";
 
     if ($conn->query($insertSql) === TRUE) {
         // Envio de email para CRV
@@ -137,7 +152,7 @@ $conn->close();
   </div>
 
   <div class="container">
-    <form id="detalhesForm" method="POST">
+    <form id="detalhesForm" method="POST" enctype="multipart/form-data">
       <!-- Identificação -->
       <div class="form-section">
         <div class="form-section-title">Identificação</div>
@@ -252,8 +267,14 @@ $conn->close();
           <label for="observacao">Observação:</label>
           <textarea id="observacao" name="observacao" required></textarea>
         </div>
+        <div class="form-group">
+          <label for="arquivo">Selecione o arquivo:</label>
+          <input type="file" name="arquivo" id="arquivo">
+        </div>
+
       </div>
 
+      
       <div class="form-group">
         <button type="submit">Criar Demanda</button>
       </div>
