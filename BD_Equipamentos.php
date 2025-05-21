@@ -65,6 +65,11 @@ $result = $conn->query($sql);
           while($row = $result->fetch_assoc()) {
               echo '<div class="info-card">';
               echo '<div class="card-content">';
+              echo '<div class="edit-icon">';
+              echo '<a href="edit_cliente.php?codigo=' . urlencode($row["Título"]) . '" title="Editar">';
+              echo '<img src="img/edit-icon.svg" alt="Editar" class="icon-edit">';
+              echo '</a>';
+              echo '</div>';
               echo '<div class="card-section">';
               echo '<p><strong>Fabricante:</strong> ' . htmlspecialchars($row["Fabricante"]) . '</p>';
               echo '<p><strong>Título:</strong> ' . htmlspecialchars($row["Título"]) . '</p>';

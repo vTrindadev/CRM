@@ -78,22 +78,32 @@ $result = $conn->query($sql);  // Executa a consulta e armazena o resultado
       if ($result->num_rows > 0) {
           // Se houver dados, exibe cada cliente em um card
           while($row = $result->fetch_assoc()) {
-              // Estrutura do card para cada cliente
-              echo '<div class="info-card">';
-              echo '<div class="card-content">';
-              echo '<div class="card-section">';
-              echo '<p><strong>Cliente:</strong> ' . htmlspecialchars($row["Cliente"]) . '</p>';
-              echo '</div>';
-              echo '<div class="card-section">';
-              echo '<p><strong>Código:</strong> ' . htmlspecialchars($row["Código"]) . '</p>';
-              echo '<p><strong>Cidade:</strong> ' . htmlspecialchars($row["Cidade"]) . '</p>';
-              echo '</div>';
-              echo '<div class="card-section">';
-              echo '<p><strong>CNPJ:</strong> ' . htmlspecialchars($row["CNPJ"]) . '</p>';
-              echo '<p><strong>Estado:</strong> ' . htmlspecialchars($row["Estado"]) . '</p>';
-              echo '</div>';
-              echo '</div>';
-              echo '</div>';
+            echo '<div class="info-card">';
+            echo '<div class="card-content">';
+
+            echo '<div class="edit-icon">';
+            echo '<a href="edit_cliente.php?codigo=' . urlencode($row["Código"]) . '" title="Editar">';
+            echo '<img src="img/edit-icon.svg" alt="Editar" class="icon-edit">';
+            echo '</a>';
+            echo '</div>';
+
+            echo '<div class="card-section">';
+            echo '<p><strong>Cliente:</strong> ' . htmlspecialchars($row["Cliente"]) . '</p>';
+            echo '</div>';
+
+            echo '<div class="card-section">';
+            echo '<p><strong>Código:</strong> ' . htmlspecialchars($row["Código"]) . '</p>';
+            echo '<p><strong>Cidade:</strong> ' . htmlspecialchars($row["Cidade"]) . '</p>';
+            echo '</div>';
+
+            echo '<div class="card-section">';
+            echo '<p><strong>CNPJ:</strong> ' . htmlspecialchars($row["CNPJ"]) . '</p>';
+            echo '<p><strong>Estado:</strong> ' . htmlspecialchars($row["Estado"]) . '</p>';
+            echo '</div>';
+
+            echo '</div>'; // fecha card-content
+            echo '</div>'; // fecha info-card
+
           }
       } else {
           // Caso não haja resultados na consulta, exibe uma mensagem

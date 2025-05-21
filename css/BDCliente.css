@@ -80,10 +80,26 @@
 
 .card-section strong {
   border-radius: .2vw;
-  color: #28B9DA;
+  color: #ffffff;
   font-style: italic;
   font-size: 1.2vw; /* Aumente o tamanho da fonte */
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Adicione sombra ao texto */
   padding: 0.5vw; /* Adicione espaçamento interno ao redor do texto */
 }
 
+.icon-edit {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.icon-edit:hover {
+    transform: scale(1.2);
+}
+
+.edit-icon {
+    position: absolute;
+    bottom: 5px;
+    right: 10px;
+}

@@ -159,6 +159,20 @@ while ($row = mysqli_fetch_assoc($resultSemana)) {
     $dadosSemana[] = (int)$row['total'];
 }
 
+// Contagem total de demandas criadas (com os mesmos filtros aplicados)
+$countQuery = "SELECT COUNT(*) AS total_demandas FROM demandas WHERE 1=1";
+
+if ($crv_filter) {
+    $countQuery .= " AND crv = '$crv_filter'";
+}
+
+if ($aplicador_filter) {
+    $countQuery .= " AND aplicador = '$aplicador_filter'";
+}
+
+$countResult = $conn->query($countQuery);
+$totalDemandas = $countResult->fetch_assoc()['total_demandas'];
+
 ?>
 
 <!DOCTYPE html>
@@ -229,7 +243,10 @@ while ($row = mysqli_fetch_assoc($resultSemana)) {
       <button type="submit">Filtrar</button>
     </form>
   </div>
-
+    <div class="count-card">
+      <h2><?php echo $totalDemandas; ?></h2>
+      <p>Total de Demandas Criadas</p>
+    </div>
     <!-- Gráfico de Tipo de Proposta -->
     <div class="chart-container">
       <canvas id="myChart1"></canvas>
