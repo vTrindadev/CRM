@@ -96,6 +96,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         Prioridade: $prioridade
         Valor: $valor
         Aplicador: $aplicador
+        Id: $id
 
         Escopo:
         $escopo
