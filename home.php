@@ -12,6 +12,9 @@ if (!isset($_SESSION['acesso'])) {
 <head>
   <meta charset="UTF-8">
   <title>MEG+HOME</title>
+
+  <link rel="icon" type="image/png" href="img/icon.png">
+  
   <link rel="stylesheet" href="css/padrao.css">
   <link rel="stylesheet" href="css/home.css">
 </head>
